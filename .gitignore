@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+data/raw/
+data/real/*.png
+data/fake/*.png
+data/splits/*.npy
+*.pth
+*.zip
+.DS_Store
+kaggle/*.zip
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
