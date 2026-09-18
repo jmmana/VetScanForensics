@@ -129,14 +129,31 @@ class DualStreamDetector(nn.Module):
         return self.head(combined).squeeze(1)
 
 
-def load_dataset_splits():
+def load_dataset_splits(max_fake_ratio: int = 3):
+    """Carga reales + falsas para entrenar el detector.
+
+    El dataset publicado en Kaggle puede tener miles de falsas (mientras
+    mas grande, mas reutilizable para otros), pero entrenar el detector
+    con un desbalance extremo (152 reales vs miles de falsas) sesga el
+    modelo. Aqui se limita el numero de falsas usadas en entrenamiento a
+    `max_fake_ratio` veces el numero de reales, elegidas al azar con
+    semilla fija para que sea reproducible.
+    """
     real_paths = sorted(REAL_DIR.glob("*.png")) + sorted(REAL_DIR.glob("*.jpg"))
-    fake_paths = sorted(FAKE_DIR.glob("*.png"))
-    if not real_paths or not fake_paths:
+    all_fake_paths = sorted(FAKE_DIR.glob("*.png"))
+    if not real_paths or not all_fake_paths:
         raise RuntimeError(
             "Faltan imagenes. Corre primero 01_prepare_real_data.py y "
             "02_train_generator_and_make_fakes.py"
         )
+
+    rng = np.random.default_rng(42)
+    max_fake = min(len(all_fake_paths), len(real_paths) * max_fake_ratio)
+    fake_paths = list(rng.choice(all_fake_paths, size=max_fake, replace=False))
+    print(
+        f"Usando {len(real_paths)} reales + {len(fake_paths)} falsas para entrenar "
+        f"(de un total de {len(all_fake_paths)} falsas disponibles en {FAKE_DIR})"
+    )
 
     paths = real_paths + fake_paths
     labels = [0] * len(real_paths) + [1] * len(fake_paths)  # 0=real, 1=fake

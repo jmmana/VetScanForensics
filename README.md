@@ -74,9 +74,18 @@ python training/03_train_and_evaluate_detector.py --epochs 25
 # 4. Figura de espectro de frecuencia (evidencia visual del paper)
 python training/04_frequency_analysis_figure.py
 
-# 5. Sube el dataset (reales + falsas) a Kaggle
+# 5. (opcional) Genera muchas mas falsas para que el dataset publicado
+#    en Kaggle sea grande, sin volver a entrenar el generador
+python training/05_generate_more_fakes.py --n-fake 2000
+
+# 6. Sube el dataset (reales + falsas) a Kaggle
 bash kaggle/upload.sh
 ```
+
+Nota: el detector (paso 3) siempre entrena con una muestra balanceada
+(maximo 3x mas falsas que reales) aunque `data/fake/` tenga miles de
+imagenes, para no sesgar el modelo. El dataset que se publica en Kaggle sí
+incluye todas las falsas generadas.
 
 ## 5. Estructura del proyecto
 
