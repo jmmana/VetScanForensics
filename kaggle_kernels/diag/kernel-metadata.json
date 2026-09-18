@@ -1,0 +1,15 @@
+{
+  "id": "maktub83/vetscan-diag",
+  "title": "vetscan-diag",
+  "code_file": "diag.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": ["maktub83/vet-radiographs-genpool-122"],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

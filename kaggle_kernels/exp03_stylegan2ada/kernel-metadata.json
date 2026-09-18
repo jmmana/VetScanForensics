@@ -1,0 +1,18 @@
+{
+  "id": "maktub83/vetscan-exp-03-stylegan2-ada",
+  "title": "vetscan-exp-03-stylegan2-ada",
+  "code_file": "train_stylegan2ada.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "machine_shape": "gpu_1x",
+  "dataset_sources": [
+    "maktub83/vet-radiographs-genpool-122"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
