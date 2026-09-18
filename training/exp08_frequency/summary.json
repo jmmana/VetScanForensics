@@ -1,0 +1,160 @@
+{
+  "note": "\u00daltima ejecuci\u00f3n exitosa por variante; comparar solo protocolos y generadores iguales.",
+  "rows": [
+    {
+      "variant": "all",
+      "generators": [
+        "dcgan"
+      ],
+      "protocol": {
+        "epochs": 2,
+        "batch_size": 16,
+        "lr": 0.0001,
+        "seed": 42,
+        "max_fake_ratio": 3,
+        "threshold": 0.5,
+        "positive_class": "fake",
+        "pr_auc_definition": "trapezoidal precision-recall AUC",
+        "split_file": "/Users/juancastillo/Documents/WarlockCode/VetScanForensics/data/splits/real_split.json",
+        "split_sha256": "23eecc4bb7dbbd982e55935893dccb5c76bd34618d72c16fc4f1ec89c7af3f97",
+        "preprocessing": "03: random resize 16..128 ->128, grayscale, train flip, normalization [-1,1]"
+      },
+      "backbone": {
+        "requested": "resnet18",
+        "actual": "resnet18",
+        "weights": "ResNet18_Weights.IMAGENET1K_V1",
+        "note": null
+      },
+      "accuracy": 0.9887640449438202,
+      "precision": 0.9833333333333333,
+      "recall": 1.0,
+      "specificity": 0.9666666666666667,
+      "f1": 0.9915966386554622,
+      "roc_auc": 1.0,
+      "pr_auc": 0.9999999999999999,
+      "mcc": 0.9749643868139777,
+      "balanced_accuracy": 0.9833333333333334
+    },
+    {
+      "variant": "dct",
+      "generators": [
+        "dcgan"
+      ],
+      "protocol": {
+        "epochs": 2,
+        "batch_size": 16,
+        "lr": 0.0001,
+        "seed": 42,
+        "max_fake_ratio": 3,
+        "threshold": 0.5,
+        "positive_class": "fake",
+        "pr_auc_definition": "trapezoidal precision-recall AUC",
+        "split_file": "/Users/juancastillo/Documents/WarlockCode/VetScanForensics/data/splits/real_split.json",
+        "split_sha256": "23eecc4bb7dbbd982e55935893dccb5c76bd34618d72c16fc4f1ec89c7af3f97",
+        "preprocessing": "03: random resize 16..128 ->128, grayscale, train flip, normalization [-1,1]"
+      },
+      "backbone": null,
+      "accuracy": 0.6629213483146067,
+      "precision": 0.6629213483146067,
+      "recall": 1.0,
+      "specificity": 0.0,
+      "f1": 0.7972972972972973,
+      "roc_auc": 0.7220338983050848,
+      "pr_auc": 0.792055309419357,
+      "mcc": 0.0,
+      "balanced_accuracy": 0.5
+    },
+    {
+      "variant": "fft",
+      "generators": [
+        "dcgan"
+      ],
+      "protocol": {
+        "epochs": 2,
+        "batch_size": 16,
+        "lr": 0.0001,
+        "seed": 42,
+        "max_fake_ratio": 3,
+        "threshold": 0.5,
+        "positive_class": "fake",
+        "pr_auc_definition": "trapezoidal precision-recall AUC",
+        "split_file": "/Users/juancastillo/Documents/WarlockCode/VetScanForensics/data/splits/real_split.json",
+        "split_sha256": "23eecc4bb7dbbd982e55935893dccb5c76bd34618d72c16fc4f1ec89c7af3f97",
+        "preprocessing": "03: random resize 16..128 ->128, grayscale, train flip, normalization [-1,1]"
+      },
+      "backbone": null,
+      "accuracy": 0.6629213483146067,
+      "precision": 0.6629213483146067,
+      "recall": 1.0,
+      "specificity": 0.0,
+      "f1": 0.7972972972972973,
+      "roc_auc": 0.3830508474576271,
+      "pr_auc": 0.5600416072893812,
+      "mcc": 0.0,
+      "balanced_accuracy": 0.5
+    },
+    {
+      "variant": "spatial",
+      "generators": [
+        "dcgan"
+      ],
+      "protocol": {
+        "epochs": 2,
+        "batch_size": 16,
+        "lr": 0.0001,
+        "seed": 42,
+        "max_fake_ratio": 3,
+        "threshold": 0.5,
+        "positive_class": "fake",
+        "pr_auc_definition": "trapezoidal precision-recall AUC",
+        "split_file": "/Users/juancastillo/Documents/WarlockCode/VetScanForensics/data/splits/real_split.json",
+        "split_sha256": "23eecc4bb7dbbd982e55935893dccb5c76bd34618d72c16fc4f1ec89c7af3f97",
+        "preprocessing": "03: random resize 16..128 ->128, grayscale, train flip, normalization [-1,1]"
+      },
+      "backbone": {
+        "requested": "resnet18",
+        "actual": "resnet18",
+        "weights": "ResNet18_Weights.IMAGENET1K_V1",
+        "note": null
+      },
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "pr_auc": 0.9999999999999999,
+      "mcc": 1.0,
+      "balanced_accuracy": 1.0
+    },
+    {
+      "variant": "wavelet",
+      "generators": [
+        "dcgan"
+      ],
+      "protocol": {
+        "epochs": 2,
+        "batch_size": 16,
+        "lr": 0.0001,
+        "seed": 42,
+        "max_fake_ratio": 3,
+        "threshold": 0.5,
+        "positive_class": "fake",
+        "pr_auc_definition": "trapezoidal precision-recall AUC",
+        "split_file": "/Users/juancastillo/Documents/WarlockCode/VetScanForensics/data/splits/real_split.json",
+        "split_sha256": "23eecc4bb7dbbd982e55935893dccb5c76bd34618d72c16fc4f1ec89c7af3f97",
+        "preprocessing": "03: random resize 16..128 ->128, grayscale, train flip, normalization [-1,1]"
+      },
+      "backbone": null,
+      "accuracy": 0.6629213483146067,
+      "precision": 0.6629213483146067,
+      "recall": 1.0,
+      "specificity": 0.0,
+      "f1": 0.7972972972972973,
+      "roc_auc": 0.39322033898305087,
+      "pr_auc": 0.5922708948817602,
+      "mcc": 0.0,
+      "balanced_accuracy": 0.5
+    }
+  ]
+}

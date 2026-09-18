@@ -1,0 +1,39 @@
+{
+  "note": "\u00daltima ejecuci\u00f3n exitosa por variante; comparar solo protocolos y generadores iguales.",
+  "rows": [
+    {
+      "variant": "resnet18",
+      "generators": [
+        "dcgan"
+      ],
+      "protocol": {
+        "epochs": 2,
+        "batch_size": 16,
+        "lr": 0.0001,
+        "seed": 42,
+        "max_fake_ratio": 3,
+        "threshold": 0.5,
+        "positive_class": "fake",
+        "pr_auc_definition": "trapezoidal precision-recall AUC",
+        "split_file": "/Users/juancastillo/Documents/WarlockCode/VetScanForensics/data/splits/real_split.json",
+        "split_sha256": "23eecc4bb7dbbd982e55935893dccb5c76bd34618d72c16fc4f1ec89c7af3f97",
+        "preprocessing": "03: random resize 16..128 ->128, grayscale, train flip, normalization [-1,1]"
+      },
+      "backbone": {
+        "requested": "resnet18",
+        "actual": "resnet18",
+        "weights": "ResNet18_Weights.IMAGENET1K_V1",
+        "note": null
+      },
+      "accuracy": 0.9775280898876404,
+      "precision": 0.9672131147540983,
+      "recall": 1.0,
+      "specificity": 0.9333333333333333,
+      "f1": 0.9833333333333333,
+      "roc_auc": 0.9977401129943503,
+      "pr_auc": 0.998830571249767,
+      "mcc": 0.9501222239465607,
+      "balanced_accuracy": 0.9666666666666667
+    }
+  ]
+}

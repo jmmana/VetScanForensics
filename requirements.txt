@@ -7,3 +7,5 @@ matplotlib
 tqdm
 kaggle
 pandas
+scipy
+PyWavelets

@@ -132,14 +132,15 @@ class DualStreamDetector(nn.Module):
         return self.head(combined).squeeze(1)
 
 
-def load_dataset_splits(max_fake_ratio: int = 3, split_file: Path = ROOT / "data/splits/real_split.json"):
+def load_dataset_splits(max_fake_ratio: int = 3, split_file: Path = ROOT / "data/splits/real_split.json",
+                        fake_paths: list[Path] | None = None):
     """Test real exclusivamente holdout; falsas en las mismas proporciones."""
     split = load_real_split(split_file, REAL_DIR)
     pool = [REAL_DIR / name for name in split['gen_pool']]
     test_real = [REAL_DIR / name for name in split['holdout']]
     train_real, val_real = train_test_split(pool, test_size=0.25, random_state=42)
     real_groups = [train_real, val_real, test_real]
-    all_fake = sorted(FAKE_DIR.glob('*.png'))
+    all_fake = sorted(FAKE_DIR.glob('*.png') if fake_paths is None else fake_paths)
     n_real = sum(map(len, real_groups))
     n_fake = min(len(all_fake), n_real * max_fake_ratio)
     assert n_fake >= 3, 'Faltan falsas para train/val/test'
