@@ -9,6 +9,7 @@ data/splits/*.npy
 *.zip
 .DS_Store
 kaggle/*.zip
+kaggle/data/
 paper/*.aux
 paper/*.log
 paper/*.out

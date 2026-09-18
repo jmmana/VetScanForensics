@@ -39,7 +39,7 @@ A Dual-Stream Approach Against Pet Insurance Fraud}
 
 % -------------------------------------------------------
 \begin{abstract}
-Generative models can now synthesize medical images realistic enough to deceive both human experts and automated systems, a risk recently confirmed for human radiographs by a 2026 RSNA study in which board-certified radiologists misclassified roughly one in five AI-generated chest X-rays as authentic. This vulnerability directly threatens insurance underwriting, where fraudulent diagnostic imagery can be used to inflate or fabricate claims. While medical deepfake detection has received growing attention in human radiology (e.g., MedForensics, M3Dsynth), no prior published dataset or method addresses \emph{veterinary} diagnostic imaging, despite documented and costly fraud in the pet insurance industry, estimated at 3--7 loss-ratio points (USD 300K--700K per USD 10M in premium). This paper introduces (1) a legally re-distributable dataset of canine thoracic radiographs paired with AI-generated synthetic counterparts, built by re-licensing an existing CC BY 4.0 Mendeley Data collection and augmenting it with a trained generative adversarial network, and (2) a dual-stream detector combining spatial CNN features (ResNet-18) with a radially-averaged frequency-domain descriptor designed to expose the periodic upsampling artifacts characteristic of GAN-based generation. We release the resulting dataset publicly on Kaggle to seed further research in this unexplored niche. \pending{completar con metricas finales: accuracy, AUC, precision, recall sobre el conjunto de prueba}.
+Generative models can now synthesize medical images realistic enough to deceive both human experts and automated systems, a risk recently confirmed for human radiographs by a 2026 RSNA study in which board-certified radiologists misclassified roughly one in five AI-generated chest X-rays as authentic. This vulnerability directly threatens insurance underwriting, where fraudulent diagnostic imagery can be used to inflate or fabricate claims. While medical deepfake detection has received growing attention in human radiology (e.g., MedForensics, M3Dsynth), no prior published dataset or method addresses \emph{veterinary} diagnostic imaging, despite documented and costly fraud in the pet insurance industry, estimated at 3--7 loss-ratio points (USD 300K--700K per USD 10M in premium). This paper introduces (1) a legally re-distributable dataset of canine thoracic radiographs paired with AI-generated synthetic counterparts, built by re-licensing an existing CC BY 4.0 Mendeley Data collection and augmenting it with a trained generative adversarial network, and (2) a dual-stream detector combining spatial CNN features (ResNet-18) with a radially-averaged frequency-domain descriptor designed to expose the periodic upsampling artifacts characteristic of GAN-based generation. We release the resulting dataset publicly on Kaggle to seed further research in this unexplored niche. On a held-out test set, our detector reaches 100\% accuracy, precision, recall, and AUC; we discuss why this ceiling result reflects the limited visual realism of a DCGAN trained on only 152 images rather than a solved problem, and outline the harder cross-generator (GAN vs. diffusion) evaluation needed to validate real-world robustness.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -48,7 +48,7 @@ veterinary radiology, medical deepfake detection, generative adversarial network
 
 % -------------------------------------------------------
 \section*{Resumen (Spanish Abstract)}
-Los modelos generativos ya pueden sintetizar imagenes medicas suficientemente realistas como para enganar tanto a expertos humanos como a sistemas automaticos, un riesgo confirmado en 2026 por un estudio de la RSNA en el que radiologos certificados clasificaron erroneamente como autenticas cerca de una de cada cinco radiografias de torax generadas por IA. Esta vulnerabilidad amenaza directamente la suscripcion de polizas de seguros, donde una imagen diagnostica fraudulenta puede usarse para inflar o fabricar un reclamo. Mientras la deteccion de deepfakes medicos ha recibido atencion creciente en radiologia humana (MedForensics, M3Dsynth), ningun dataset ni metodo publicado aborda la imagen diagnostica \emph{veterinaria}, pese a que el fraude en seguros de mascotas es un problema documentado y costoso para la industria (entre 3 y 7 puntos de loss ratio, 300 mil a 700 mil dolares por cada 10 millones en primas). Este articulo presenta un dataset legalmente redistribuible de radiografias caninas de torax junto con contrapartes sinteticas generadas por IA, construido re-licenciando una coleccion CC BY 4.0 de Mendeley Data y aumentandola con una red generativa adversarial entrenada, y un detector de dos ramas que combina caracteristicas espaciales (ResNet-18) con un descriptor de frecuencia que expone los artefactos periodicos del proceso de upsampling. El dataset resultante se publica en Kaggle para sembrar investigacion futura en este nicho inexplorado.
+Los modelos generativos ya pueden sintetizar imagenes medicas suficientemente realistas como para enganar tanto a expertos humanos como a sistemas automaticos, un riesgo confirmado en 2026 por un estudio de la RSNA en el que radiologos certificados clasificaron erroneamente como autenticas cerca de una de cada cinco radiografias de torax generadas por IA. Esta vulnerabilidad amenaza directamente la suscripcion de polizas de seguros, donde una imagen diagnostica fraudulenta puede usarse para inflar o fabricar un reclamo. Mientras la deteccion de deepfakes medicos ha recibido atencion creciente en radiologia humana (MedForensics, M3Dsynth), ningun dataset ni metodo publicado aborda la imagen diagnostica \emph{veterinaria}, pese a que el fraude en seguros de mascotas es un problema documentado y costoso para la industria (entre 3 y 7 puntos de loss ratio, 300 mil a 700 mil dolares por cada 10 millones en primas). Este articulo presenta un dataset legalmente redistribuible de radiografias caninas de torax junto con contrapartes sinteticas generadas por IA, construido re-licenciando una coleccion CC BY 4.0 de Mendeley Data y aumentandola con una red generativa adversarial entrenada, y un detector de dos ramas que combina caracteristicas espaciales (ResNet-18) con un descriptor de frecuencia que expone los artefactos periodicos del proceso de upsampling. El detector alcanza 100% de exactitud, precision, recall y AUC en el conjunto de prueba; discutimos por que este techo refleja el realismo limitado de un DCGAN entrenado con solo 152 imagenes y no un problema resuelto, y planteamos la evaluacion cruzada GAN contra difusion como el trabajo futuro mas directo. El dataset resultante se publica en Kaggle para sembrar investigacion futura en este nicho inexplorado.
 
 % -------------------------------------------------------
 \section{Introduction}
@@ -117,25 +117,44 @@ The two feature vectors are concatenated (544 dimensions) and passed through a t
 \section{Experimental Setup}
 \label{sec:experiments}
 
-All experiments were run on Apple silicon (M4 Pro) using PyTorch's Metal Performance Shaders (MPS) backend; no CUDA hardware was used. Images were resized to $128\times128$ for both the generator and the detector. The combined dataset (152 real + \pending{N} synthetic images) was split 64/16/20 into train/validation/test with stratified sampling on the real/fake label, using a fixed random seed (42) for reproducibility. The detector was trained with Adam (lr $=1\times10^{-4}$) for \pending{completar numero de epocas final} epochs, selecting the checkpoint with the highest validation AUC for final test-set evaluation. Code, exact hyperparameters, and the trained generator/detector weights accompany this paper in the project repository.
+All experiments were run on Apple silicon (M4 Pro) using PyTorch's Metal Performance Shaders (MPS) backend; no CUDA hardware was used. The generator was trained for 800 epochs on the 152 real images (batch size 16, Adam, lr $=2\times10^{-4}$), producing a pool of 2{,}300 synthetic radiographs, of which 456 (three times the real count) were sampled for detector training to bound class imbalance while the full pool is released on Kaggle for reuse. Images were resized to $128\times128$ for both the generator and the detector. The combined dataset (152 real + 456 synthetic images, 608 total) was split 64/16/20 into train/validation/test (388/98/122) with stratified sampling on the real/fake label, using a fixed random seed (42) for reproducibility. The detector was trained with Adam (lr $=1\times10^{-4}$) for 25 epochs, selecting the checkpoint with the highest validation AUC for final test-set evaluation. Code, exact hyperparameters, and the trained generator/detector weights accompany this paper in the project repository.
 
 % -------------------------------------------------------
 \section{Results}
 \label{sec:results}
 
-\pending{Esta seccion se completa corriendo training/03\_train\_and\_evaluate\_detector.py sobre el dataset real (una vez descargado el zip de Mendeley) y pegando aqui accuracy, precision, recall, F1 y AUC de test, mas la Figura~\ref{fig:roc} y la Figura~\ref{fig:freq}.}
+On the held-out test set (122 images: 30 real, 92 synthetic), the dual-stream detector reaches 100\% accuracy, precision, recall, F1, and AUC (Table~\ref{tab:results}). Validation AUC reached 1.0 by epoch 1 and training loss converged to near zero within 20 epochs, indicating the classification task was fully separable for this generator.
+
+\begin{table}[htbp]
+\centering
+\caption{Test-set performance of the dual-stream detector}
+\label{tab:results}
+\begin{tabular}{lc}
+\toprule
+Metric & Value \\
+\midrule
+Accuracy & 1.000 \\
+Precision & 1.000 \\
+Recall & 1.000 \\
+F1-score & 1.000 \\
+AUC & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We interpret this ceiling result cautiously rather than as evidence of a solved problem: a DCGAN trained on only 152 images at $128\times128$ resolution leaves generation artifacts (Figure~\ref{fig:freq}) that are far more separable than those of a modern diffusion model would be. Section~\ref{sec:discussion} details why we treat this as a lower bound on task difficulty, not an upper bound on detector capability.
 
 \begin{figure}[htbp]
   \centering
-  % \includegraphics[width=0.8\linewidth]{figures/roc_curve.png}
-  \caption{ROC curve of the dual-stream detector on the held-out test set. \pending{regenerar con datos reales}}
+  \includegraphics[width=0.8\linewidth]{figures/roc_curve.png}
+  \caption{ROC curve of the dual-stream detector on the held-out test set. The curve saturates at AUC = 1.0, consistent with the full separability discussed in the text.}
   \label{fig:roc}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  % \includegraphics[width=\linewidth]{figures/frequency_spectrum_comparison.png}
-  \caption{Average log-power spectrum of real radiographs (left), generated radiographs (center), and their difference (right). The periodic structure visible in the difference map corresponds to the transposed-convolution upsampling artifacts described in Section~\ref{sec:related}. \pending{regenerar con datos reales}}
+  \includegraphics[width=\linewidth]{figures/frequency_spectrum_comparison.png}
+  \caption{Average log-power spectrum of real radiographs (left), generated radiographs (center), and their difference (right), computed over the full 152 real and 2{,}300 generated images. The periodic structure visible in the difference map corresponds to the transposed-convolution upsampling artifacts described in Section~\ref{sec:related}.}
   \label{fig:freq}
 \end{figure}
 
@@ -144,6 +163,8 @@ All experiments were run on Apple silicon (M4 Pro) using PyTorch's Metal Perform
 \label{sec:discussion}
 
 \textbf{Dataset scale.} 152 real radiographs is small relative to human-imaging forensics benchmarks such as MedForensics, and results here should be read as a reproducible proof of concept rather than a production-ready fraud detection system. The scarcity itself is evidence for the gap this paper documents: unlike human radiology, veterinary imaging has no equivalent of large public archives (e.g., NIH ChestX-ray14, MIMIC-CXR), because most institutional PACS archives remain closed.
+
+\textbf{Interpreting the 100\% result.} A perfect test-set score is a warning sign as much as a result. With only 152 training images, our DCGAN converges to a generator whose outputs remain visually and spectrally distinguishable from real radiographs at essentially every frequency band, so the detection task is closer to distinguishing two different image distributions than to catching a near-miss forgery. We report it transparently rather than omit it, but we explicitly do not claim this generalizes to stronger generators. The correct reading is: our dual-stream architecture is a sound baseline, and the interesting open question, does it still separate real from fake once the generator is a fine-tuned diffusion model rather than a small DCGAN, remains unanswered and is the paper's most direct future-work item.
 
 \textbf{GAN vs. diffusion generalization.} Our generator is a DCGAN, not a diffusion model. The human-imaging literature has already shown that detectors trained against GAN artifacts generalize poorly to diffusion-generated images and vice versa \cite{hybrid_gan_diffusion_2026}. Fine-tuning a diffusion model (e.g., via LoRA or DreamBooth) on this same 152-image collection, and testing whether our frequency-domain stream transfers across generator families, is the most direct next step and is left as future work.
 

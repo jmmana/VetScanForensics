@@ -6,7 +6,7 @@
 > **Articulo cientifico** — Maestria en Inteligencia Artificial · Universidad de La Salle, Bogota, Colombia
 > **Autor:** Juan Manuel Castillo Pinto · jmmana@gmail.com
 > **Paper (Grimorio):** pendiente de publicar en tesis.grimorio.dev
-> **Dataset (Kaggle):** https://www.kaggle.com/datasets/jmmana/vet-radiographs-real-vs-ai-generated
+> **Dataset (Kaggle):** https://www.kaggle.com/datasets/maktub83/vet-radiographs-real-vs-ai-generated
 > **Repo:** https://github.com/jmmana/VetScanForensics
 
 ---

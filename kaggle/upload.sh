@@ -26,10 +26,10 @@ fi
 
 # primera vez: kaggle datasets create
 # despues de la primera vez: kaggle datasets version -m "mensaje"
-if kaggle datasets list -m --user jmmana 2>/dev/null | grep -q "vet-radiographs-real-vs-ai-generated"; then
-  kaggle datasets version -p "$KAGGLE_DIR" -m "actualizacion automatica" -d
+if kaggle datasets list -m --user maktub83 2>/dev/null | grep -q "vet-radiographs-real-vs-ai-generated"; then
+  kaggle datasets version -p "$KAGGLE_DIR" -m "actualizacion automatica" -r zip
 else
-  kaggle datasets create -p "$KAGGLE_DIR" -d
+  kaggle datasets create -p "$KAGGLE_DIR" -u -r zip
 fi
 
-echo "Listo. Revisa https://www.kaggle.com/datasets/jmmana/vet-radiographs-real-vs-ai-generated"
+echo "Listo. Revisa https://www.kaggle.com/datasets/maktub83/vet-radiographs-real-vs-ai-generated"

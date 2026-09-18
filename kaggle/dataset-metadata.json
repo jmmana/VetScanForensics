@@ -1,18 +1,15 @@
 {
-  "title": "Canine Thoracic Radiographs - Real vs AI-Generated (VetScanForensics)",
-  "id": "jmmana/vet-radiographs-real-vs-ai-generated",
+  "title": "Canine Radiographs: Real vs AI-Generated",
+  "id": "maktub83/vet-radiographs-real-vs-ai-generated",
   "licenses": [
     {
       "name": "CC-BY-4.0"
     }
   ],
   "keywords": [
-    "veterinary",
-    "radiology",
-    "deepfake",
     "gan",
-    "medical imaging",
-    "fraud detection",
-    "x-ray"
+    "healthcare",
+    "computer vision",
+    "deep learning"
   ]
 }
