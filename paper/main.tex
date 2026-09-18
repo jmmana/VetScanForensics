@@ -1,5 +1,5 @@
-%% IEEEtran — conference paper
-\documentclass[conference]{IEEEtran}
+%% IEEEtran — journal-length paper (30-section structure)
+\documentclass[journal]{IEEEtran}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -18,13 +18,12 @@
   urlcolor=blue
 }
 
-% Marca visual para resultados pendientes de correr con el dataset real
-\newcommand{\pending}[1]{\textcolor{red}{[PENDIENTE: #1]}}
+% Marca visual para resultados pendientes de correr con datos reales
+\newcommand{\pending}[1]{\textcolor{red}{[EXPERIMENT REQUIRED: #1]}}
 
 \begin{document}
 
-\title{Detecting AI-Generated Veterinary Radiographs:\\
-A Dual-Stream Approach Against Pet Insurance Fraud}
+\title{VetRad-ForensicsNet: Toward a Benchmark for Veterinary Radiograph Forensics Against AI-Generated Fraud}
 
 \author{
   \IEEEauthorblockN{Juan Manuel Castillo Pinto}
@@ -39,144 +38,256 @@ A Dual-Stream Approach Against Pet Insurance Fraud}
 
 % -------------------------------------------------------
 \begin{abstract}
-Generative models can now synthesize medical images realistic enough to deceive both human experts and automated systems, a risk recently confirmed for human radiographs by a 2026 RSNA study in which board-certified radiologists misclassified roughly one in five AI-generated chest X-rays as authentic. This vulnerability directly threatens insurance underwriting, where fraudulent diagnostic imagery can be used to inflate or fabricate claims. While medical deepfake detection has received growing attention in human radiology (e.g., MedForensics, M3Dsynth), no prior published dataset or method addresses \emph{veterinary} diagnostic imaging, despite documented and costly fraud in the pet insurance industry, estimated at 3--7 loss-ratio points (USD 300K--700K per USD 10M in premium). This paper introduces (1) a legally re-distributable dataset of canine thoracic radiographs paired with AI-generated synthetic counterparts, built by re-licensing an existing CC BY 4.0 Mendeley Data collection and augmenting it with a trained generative adversarial network, and (2) a dual-stream detector combining spatial CNN features (ResNet-18) with a radially-averaged frequency-domain descriptor designed to expose the periodic upsampling artifacts characteristic of GAN-based generation. We release the resulting dataset publicly on Kaggle to seed further research in this unexplored niche. On a held-out test set, our detector reaches 100\% accuracy, precision, recall, and AUC; we discuss why this ceiling result reflects the limited visual realism of a DCGAN trained on only 152 images rather than a solved problem, and outline the harder cross-generator (GAN vs. diffusion) evaluation needed to validate real-world robustness.
+Generative models can now synthesize medical images realistic enough to deceive both human experts and automated systems, a risk recently confirmed for human radiographs by a 2026 \textit{Radiology} study in which board-certified radiologists misclassified a meaningful fraction of AI-generated chest X-rays as authentic. This vulnerability directly threatens insurance underwriting, where fraudulent diagnostic imagery can be used to inflate or fabricate claims. While medical deepfake detection has received growing attention in human radiology, no prior published dataset or method addresses \emph{veterinary} diagnostic imaging, despite documented and costly fraud in the pet insurance industry. This paper reframes an initial proof-of-concept dual-stream detector as the seed of a broader benchmark, \textbf{VetRad-ForensicsNet}, for veterinary radiograph forensics. We report an internal audit that uncovered a resolution-history confound capable of producing a spuriously perfect detector on its own, right of any generator-specific forensic signal, and confirm it empirically (Section~\ref{sec:threats}). We identify a second, substantially larger openly licensed dataset (VetXRay, 9{,}882 canine and feline thoracic radiographs, CC BY 4.0) beyond the single 152-image Mendeley collection used in the initial proof of concept, and lay out a multi-generator, cross-generalization, robustness, and explainability evaluation protocol. \pending{completar con los resultados corregidos una vez determinados: accuracy, AUC, IC 95\% del detector sobre el holdout real, y el resumen de la matriz cross-generator} We release the dataset, code, and trained weights publicly to seed further research in this unexplored niche.
 \end{abstract}
 
 \begin{IEEEkeywords}
-veterinary radiology, medical deepfake detection, generative adversarial networks, insurance fraud, frequency-domain forensics, synthetic medical imaging
+veterinary radiology, medical deepfake detection, generative adversarial networks, diffusion models, insurance fraud, frequency-domain forensics, cross-generator generalization, synthetic medical imaging
 \end{IEEEkeywords}
 
-% -------------------------------------------------------
-\section*{Resumen (Spanish Abstract)}
-Los modelos generativos ya pueden sintetizar imagenes medicas suficientemente realistas como para enganar tanto a expertos humanos como a sistemas automaticos, un riesgo confirmado en 2026 por un estudio de la RSNA en el que radiologos certificados clasificaron erroneamente como autenticas cerca de una de cada cinco radiografias de torax generadas por IA. Esta vulnerabilidad amenaza directamente la suscripcion de polizas de seguros, donde una imagen diagnostica fraudulenta puede usarse para inflar o fabricar un reclamo. Mientras la deteccion de deepfakes medicos ha recibido atencion creciente en radiologia humana (MedForensics, M3Dsynth), ningun dataset ni metodo publicado aborda la imagen diagnostica \emph{veterinaria}, pese a que el fraude en seguros de mascotas es un problema documentado y costoso para la industria (entre 3 y 7 puntos de loss ratio, 300 mil a 700 mil dolares por cada 10 millones en primas). Este articulo presenta un dataset legalmente redistribuible de radiografias caninas de torax junto con contrapartes sinteticas generadas por IA, construido re-licenciando una coleccion CC BY 4.0 de Mendeley Data y aumentandola con una red generativa adversarial entrenada, y un detector de dos ramas que combina caracteristicas espaciales (ResNet-18) con un descriptor de frecuencia que expone los artefactos periodicos del proceso de upsampling. El detector alcanza 100% de exactitud, precision, recall y AUC en el conjunto de prueba; discutimos por que este techo refleja el realismo limitado de un DCGAN entrenado con solo 152 imagenes y no un problema resuelto, y planteamos la evaluacion cruzada GAN contra difusion como el trabajo futuro mas directo. El dataset resultante se publica en Kaggle para sembrar investigacion futura en este nicho inexplorado.
-
-% -------------------------------------------------------
+% =========================================================
 \section{Introduction}
 \label{sec:intro}
 
 Generative adversarial networks (GANs) and diffusion models have reached a level of visual fidelity that makes synthetic medical images increasingly difficult to distinguish from real acquisitions. Tordjman et al., in a multi-institutional study published in \textit{Radiology} in March 2026, exposed 17 radiologists from 12 institutions across six countries to a balanced set of 264 authentic and AI-generated chest radiographs (produced with tools including ChatGPT-based generators and Stanford's RoentGen model); reader accuracy ranged from 58\% to 92\%, meaning a meaningful fraction of fabricated images escaped detection entirely, and the same vulnerability extended to automated multimodal models \cite{rsna_deepfake_xray_2026}. The study explicitly names insurance fraud, litigation, and factitious disorder (Munchausen syndrome) as realistic misuse scenarios \cite{rsna_deepfake_xray_2026}.
 
-This risk is not hypothetical for the pet insurance industry. Unlike human healthcare systems, veterinary medical records do not travel between clinics: there is no shared infrastructure to verify an animal's diagnostic history across providers. Industry analyses estimate that claims fraud costs pet insurance managing general agents (MGAs) 3--7 points of loss ratio, translating to USD 300K--700K per USD 10M in written premium, while noting that even basic rules-based detection programs deliver a 3--10x return on investment \cite{insurnest_fraud_2026}. As image-editing and generative tools become trivially accessible, fabricated or altered diagnostic imagery (a forged fracture, an exaggerated lesion) is a natural next step for claims fraud, exactly mirroring the human-healthcare threat already demonstrated by Tordjman et al. \cite{rsna_deepfake_xray_2026}.
+This risk is not hypothetical for the pet insurance industry. Unlike human healthcare systems, veterinary medical records do not travel between clinics: there is no shared infrastructure to verify an animal's diagnostic history across providers. Industry analyses estimate that claims fraud costs pet insurance managing general agents (MGAs) 3--7 points of loss ratio, translating to USD 300K--700K per USD 10M in written premium, while noting that even basic rules-based detection programs deliver a 3--10x return on investment \cite{insurnest_fraud_2026}. As image-editing and generative tools become trivially accessible, fabricated or altered diagnostic imagery is a natural next step for claims fraud, mirroring the human-healthcare threat already demonstrated by Tordjman et al. \cite{rsna_deepfake_xray_2026}.
 
-Despite this, a review of the medical deepfake detection literature reveals that every existing dataset and method targets \emph{human} imaging modalities. MedForensics, presented at MICCAI 2025, spans six human modalities (ultrasound, endoscopy, histopathology, MRI, CT, X-ray) and twelve generative models, explicitly measuring cross-generator generalization \cite{medforensics2025}. M3Dsynth addresses AI-generated local manipulations in human 3D medical volumes \cite{m3dsynth2023}. Shahzad et al., comparing GAN- and diffusion-generated fakes directly, report the same generalization gap using human skin-cancer imagery \cite{hybrid_gan_diffusion_2026}. None of this work, nor any dataset we could locate on Kaggle or elsewhere, considers veterinary diagnostic images.
+Despite this, a review of the medical deepfake detection literature reveals that every existing dataset and method targets \emph{human} imaging modalities (Section~\ref{sec:related}). An earlier proof-of-concept version of this work reported a dual-stream detector reaching 100\% accuracy and AUC on a small (152-image) dataset. In preparing this expanded study, we audited that result and found a methodological confound: because the source photographs are downsampled from large, heterogeneous native resolutions while the DCGAN's output is native $128\times128$, the resize/construction history alone is separable, independent of any genuine forensic signal (Section~\ref{sec:threats}). We treat this discovery, and its correction, as part of the paper's contribution rather than something to quietly fix and hide: a benchmark that cannot be trusted to catch its own shortcuts is not a benchmark.
 
-This paper makes three contributions:
+This paper makes the following contributions:
 \begin{enumerate}
-  \item A legally clear, publicly re-distributed dataset of canine thoracic radiographs paired with GAN-generated synthetic counterparts, built by re-licensing an existing CC BY 4.0 dataset and republishing it on Kaggle with correct attribution to the original authors.
-  \item A dual-stream detector architecture that fuses spatial CNN features with a frequency-domain descriptor, adapted from the human-imaging forensics literature to a new, data-scarce veterinary domain.
-  \item An honest characterization of what a small, real, publicly available veterinary imaging dataset can and cannot support, intended as a reproducible starting point rather than a production-ready fraud detection system.
+  \item An audited, corrected experimental protocol with a genuine train/test separation at the generator level (Section~\ref{sec:dataset_construction}), replacing an inflated proof-of-concept result with a defensible one.
+  \item Identification and legal verification of a second, substantially larger open veterinary radiograph dataset (VetXRay, 9{,}882 images, CC BY 4.0), in addition to the 152-image Mendeley VHS collection used previously (Section~\ref{sec:landscape}).
+  \item A multi-generator synthesis and cross-generator generalization protocol (DCGAN, StyleGAN2-ADA, and a fine-tuned diffusion model), designed to test whether a detector learns \emph{generator fingerprints} or genuine forensic signal (Sections~\ref{sec:synthesis}--\ref{sec:cross_generator}).
+  \item An explicit threat model separating \emph{image authenticity detection} from \emph{insurance fraud adjudication} (Section~\ref{sec:threat_model}), positioning the detector as a forensic evidence signal within a broader anti-fraud pipeline rather than fraud proof in itself.
+  \item A public dataset, codebase, and reproducibility package to seed further research in this unexplored niche.
 \end{enumerate}
 
-The remainder of this paper is organized as follows. Section~\ref{sec:related} reviews related work on medical deepfake generation and detection. Section~\ref{sec:dataset} describes the dataset and its licensing chain. Section~\ref{sec:method} presents the generation and detection methodology. Section~\ref{sec:experiments} describes the experimental setup. Section~\ref{sec:results} reports results. Section~\ref{sec:discussion} discusses limitations and future work, and Section~\ref{sec:conclusion} concludes.
+% =========================================================
+\section{Problem Definition}
+\label{sec:problem}
 
-% -------------------------------------------------------
+The narrow version of our problem, ``can a CNN plus a frequency descriptor separate a small DCGAN's output from 152 real radiographs,'' is not the question worth answering, and Section~\ref{sec:threats} shows it can be answered affirmatively for reasons that have nothing to do with forensics. The question this benchmark targets instead is: \emph{can a forensic detector reliably distinguish authentic veterinary radiographs from AI-generated or AI-manipulated radiographs under generator shift, common image transformations (compression, resizing, cropping), and previously unseen generative models?} This reframing is what elevates the work from a single-generator proof of concept to a benchmark, and it is why the experimental protocol in Sections~\ref{sec:cross_generator}--\ref{sec:robustness} exists.
+
+% =========================================================
+\section{Threat Model}
+\label{sec:threat_model}
+
+We formalize the setting a veterinary-radiograph forensic detector operates in, following the standard attacker/asset/capability framing used in media-forensics threat modeling.
+
+\textbf{Asset.} The authenticity of a submitted diagnostic radiograph as evidence supporting an insurance claim (e.g., a fracture, a foreign-body ingestion, a cardiomegaly diagnosis).
+
+\textbf{Attacker.} A claimant (or a party assisting a claimant) motivated to inflate, fabricate, or misattribute a veterinary diagnosis to obtain payment. We do not assume attacker sophistication in adversarial machine learning; we assume access to consumer-grade or open-source generative tools, and to standard image editors capable of resizing, compressing, and re-saving files.
+
+\textbf{Attack surface.} (i) Fully synthetic radiograph submission, purporting to show a condition that never existed; (ii) locally manipulated radiographs, where a real study is altered to insert, remove, or exaggerate a finding; (iii) post-processing applied \emph{after} generation or manipulation specifically to launder telltale artifacts (recompression, resizing, cropping, contrast/brightness adjustment).
+
+\textbf{Defender capabilities and knowledge assumptions.} We evaluate under both a closed-world assumption (the defender has seen examples from the generator family used by the attacker; Section~\ref{sec:in_distribution}) and an open-world assumption (the attacker uses a generator family absent from the defender's training data; Section~\ref{sec:open_set}). We do not assume the defender can observe the attacker's exact generation pipeline.
+
+\textbf{White-box vs. black-box.} All experiments in this paper are black-box from the attacker's perspective (the attacker has no access to the detector's weights or gradients); a white-box, adaptive-attacker evaluation (an attacker who optimizes against a known detector) is explicitly out of scope and flagged as future work (Section~\ref{sec:future_work}).
+
+\textbf{Critical scope boundary.} A positive detector output (``this image shows synthesis/manipulation artifacts'') is evidence relevant to a fraud investigation, not proof of fraudulent intent, and a negative output does not certify authenticity. The appropriate deployment is as one forensic signal feeding a broader claims-review pipeline that also considers claimant history, veterinarian attestation, and cross-provider record checks — the same layered posture used in image-based fraud detection outside insurance-specific image forensics \cite{car_fraud_cv_2018}. We are not aware of a published, peer-reviewed threat-model paper specific to image-based insurance fraud; the closest published precedents address visual duplicate-claim detection rather than manipulation forensics \cite{car_fraud_cv_2018}, so this section is offered as an original contribution rather than a synthesis of prior work.
+
+% =========================================================
 \section{Related Work}
 \label{sec:related}
 
 \subsection{Synthetic medical image generation}
-GANs and diffusion models are both used to synthesize medical images across modalities including MRI, CT, X-ray, ultrasound, and dermoscopy, motivated primarily by data augmentation and privacy-preserving data sharing \cite{synthetic_review_2026}. Diffusion models have recently overtaken GANs in perceptual image quality, including for chest X-ray generation, but their clinical reliability and the artifacts they leave behind remain comparatively underexplored relative to GANs \cite{synthetic_review_2026}.
+GANs and diffusion models are both used to synthesize medical images across modalities including MRI, CT, X-ray, ultrasound, and dermoscopy, motivated primarily by data augmentation and privacy-preserving data sharing \cite{synthetic_review_2026}. Diffusion models have recently overtaken GANs in perceptual image quality, including for chest X-ray generation, but their clinical reliability and the artifacts they leave behind remain comparatively underexplored relative to GANs \cite{synthetic_review_2026}. Foundational generator architectures relevant to this benchmark include DCGAN \cite{dcgan_radford2015}, StyleGAN2 \cite{stylegan2_2020} and its low-data variant StyleGAN2-ADA \cite{stylegan2ada_2020}, DDPM \cite{ddpm_2020}, and latent diffusion models \cite{ldm_2022}.
 
 \subsection{Detecting AI-generated medical images}
-MedForensics is, to our knowledge, the most comprehensive published benchmark for medical deepfake detection, spanning six modalities and twelve generative models, and proposes DSKI, a dual-stage knowledge-infusing detector built on a vision-language feature space that outperforms prior methods and human experts in a visual Turing test \cite{medforensics2025}. Its architecture uses three parallel CNN streams targeting visual perception, resampling artifacts, and local inconsistency. M3Dsynth focuses on localized manipulations within 3D volumes rather than whole-image synthesis \cite{m3dsynth2023}. Shahzad et al. train detectors on skin-cancer imagery against both GAN (DCGAN, Pix2Pix) and diffusion (DDPM, VQ-Diffusion) generators, confirming that detectors calibrated to one generator family degrade sharply against the other, and propose domain-specific batch normalization to mitigate this distribution shift \cite{hybrid_gan_diffusion_2026}.
+MedForensics, presented at MICCAI 2025, spans six human modalities and twelve generative models, and proposes DSKI, a dual-stage knowledge-infusing detector built on a vision-language feature space \cite{medforensics2025}. M3Dsynth addresses AI-generated local manipulations in human 3D medical volumes \cite{m3dsynth2023}. Shahzad et al. train detectors on skin-cancer imagery against both GAN and diffusion generators, confirming that detectors calibrated to one generator family degrade sharply against the other \cite{hybrid_gan_diffusion_2026} — precisely the phenomenon Section~\ref{sec:cross_generator} tests for veterinary imagery. Outside medical imaging, Wang et al. showed that a detector trained on a single GAN family (ProGAN) can generalize surprisingly well to unseen GANs under the right training recipe \cite{cnngen_easy_2020}, while Ojha et al. propose universal, generator-agnostic fake-image detectors using frozen foundation-model features \cite{universal_detector_2023} — both directly inform our cross-generator protocol.
 
-\subsection{Frequency-domain forensics}
-Outside the medical domain, a substantial body of work shows that CNN- and GAN-based generators leave periodic, checkerboard-like artifacts in the frequency domain, a direct consequence of the transposed-convolution upsampling operations used to grow a low-resolution latent representation into a full-resolution image \cite{frequency_checkerboard_2021}. These artifacts are frequently invisible in the spatial domain but become a strong, generalizable signal once an image is transformed via FFT or DCT, and have been used as an auxiliary detection stream in several natural-image forensics pipelines \cite{frequency_checkerboard_2021}. To our knowledge, this signal has not previously been evaluated on veterinary radiographic imagery, where anatomical structures (rib spacing, cassette-induced grid patterns) already have their own periodic regularities that could plausibly interact with generator artifacts in either direction.
+\subsection{Frequency-domain and forensic feature analysis}
+A substantial body of work shows that CNN- and GAN-based generators leave periodic, checkerboard-like artifacts in the frequency domain, a direct consequence of transposed-convolution upsampling \cite{frequency_checkerboard_2021}. Frank et al. formalize this as a general frequency-analysis detection strategy \cite{freq_analysis_2020}; Barni et al. use cross-band co-occurrence statistics \cite{cross_band_2020}; Wolter et al. extend the idea to learned wavelet-packet representations \cite{wavelet_deepfake_2022}; Pontorno et al. specifically exploit DCT traces for generative-AI attribution \cite{dct_traces_2024}. Section~\ref{sec:frequency_forensics} ablates spatial, FFT, DCT, and wavelet streams against each other for the first time on veterinary imagery.
+
+\subsection{Open-set and out-of-distribution detection}
+Because an insurer will eventually face a generator absent from any training set, we treat open-set detection as a first-class experiment (Section~\ref{sec:open_set}), building on energy-based OOD scoring \cite{energy_ood_2020} and Mahalanobis-distance-based OOD/adversarial detection \cite{mahalanobis_ood_2018}.
+
+\subsection{Explainability and shortcut learning}
+Grad-CAM \cite{gradcam_2017} is the standard tool for localizing what a CNN attends to; we use it (Section~\ref{sec:explainability}) specifically to audit for shortcut learning, following the general methodological concern that a classifier can achieve high accuracy by exploiting dataset-construction artifacts rather than the phenomenon of interest — the exact failure mode we document in Section~\ref{sec:threats}.
 
 \subsection{The veterinary gap}
-Existing machine-learning work on canine and feline radiographs, largely from Tahghighi et al., is limited to image-quality classification \cite{vet_quality_2024} and hemithorax symmetry assessment \cite{vet_symmetry_2023}, both performed on private institutional archives rather than public data, and neither addresses synthetic image generation or detection. Public veterinary imaging datasets are themselves rare: most published work draws on closed PACS (picture archiving and communication system) archives from single institutions due to case-volume and business-confidentiality constraints, rather than open repositories comparable to those available for human radiology.
+Existing machine-learning work on canine and feline radiographs, from groups at the University of Padua \cite{vetxray_canine_2021,vetxray_cardio_2020,vetxray_quality_2023,vetxray_feline_2021} and from Tahghighi et al. at the Ontario Veterinary College \cite{vet_quality_2024,vet_symmetry_2023}, addresses classification of clinical findings and image quality, not synthetic-image generation or detection. The one veterinary paper we found addressing image \emph{generation} uses a VAE to augment a small cardiomegaly dataset \cite{vet_vae_2024} — a data-augmentation goal, not a forensic one; we distinguish our detection-focused contribution from it explicitly. To our knowledge, no published dataset or benchmark addresses forensic detection of AI-generated or AI-manipulated veterinary diagnostic images.
 
-% -------------------------------------------------------
-\section{Dataset}
-\label{sec:dataset}
+% =========================================================
+\section{Veterinary Imaging Dataset Landscape}
+\label{sec:landscape}
 
-\subsection{Source data and licensing}
-The real-image component of our dataset originates from ``Radiographic Dataset for VHS determination learning process,'' collected by Flores Dueñas, Gaxiola Camacho, and Montaño Gómez at the Small Animal Veterinary Teaching Hospital, Veterinary Sciences Research Institute, Autonomous University of Baja California, and published on Mendeley Data under a CC BY 4.0 license (DOI: 10.17632/ktx4cj55pn.1) \cite{mendeley_vhs_dataset}. The collection comprises 152 latero-lateral thoracic radiographs from 156 canine patients, acquired in 2019--2020 using a Universal AV Choice X-Ray System with a Rayence XMARU 1417PGA-PCA digital detector, converted from DICOM to anonymized PNG format. We verified the license programmatically via the Mendeley Data public API and confirm it permits redistribution with attribution, which we provide here and in the republished Kaggle listing.
+Open, redistributable veterinary radiograph data is scarce. We surveyed Zenodo, Mendeley Data, Figshare, Kaggle, IEEE DataPort, TCIA, institutional repositories, and the data-availability statements of roughly twenty veterinary-radiology machine-learning papers published 2020--2026. Table~\ref{tab:landscape} summarizes what we found.
 
-\subsection{Synthetic counterpart generation}
-We trained a DCGAN-style generator directly on the 152 real radiographs (Section~\ref{sec:method}) to produce a matched set of synthetic ``fake'' radiographs. Because the source collection is small, we treat this generator as a data-scarce, reproducible baseline rather than a state-of-the-art image synthesizer; Section~\ref{sec:discussion} discusses fine-tuned diffusion models as a natural extension.
-
-\subsection{Public re-release}
-We repackage the real images (with attribution) and our generated synthetic images into a single Kaggle dataset, \texttt{vet-radiographs-real-vs-ai-generated}, to our knowledge the first publicly available real-vs-synthetic veterinary radiograph collection. Kaggle's terms explicitly permit re-hosting openly licensed third-party data with correct attribution, which we provide via the original DOI and author names in the dataset card.
-
-% -------------------------------------------------------
-\section{Methodology}
-\label{sec:method}
-
-\subsection{Synthetic radiograph generator}
-We use a DCGAN \cite{dcgan_radford2015} architecture: a five-layer transposed-convolution generator mapping a 100-dimensional latent vector to a $128\times128$ grayscale image, and a mirrored five-layer strided-convolution discriminator, both with batch normalization and, respectively, ReLU and LeakyReLU activations. Given the small training set, we apply aggressive on-the-fly augmentation (random horizontal flip, small affine jitter) and one-sided label smoothing (real label 0.9) to stabilize adversarial training.
-
-\subsection{Dual-stream detector}
-Following the architectural intuition behind MedForensics \cite{medforensics2025} and the frequency-forensics literature \cite{frequency_checkerboard_2021}, our detector fuses two complementary signals rather than relying on spatial appearance alone:
-\begin{itemize}
-  \item \textbf{Spatial stream}: a ResNet-18 backbone, pretrained on ImageNet and fine-tuned end-to-end, producing a 512-dimensional feature vector from the grayscale radiograph (replicated to three channels).
-  \item \textbf{Frequency stream}: a radially-averaged log-power spectrum of the image's 2D FFT, binned into 32 concentric annuli and normalized to $[0,1]$, passed through a small two-layer MLP producing a 32-dimensional feature vector. This descriptor is designed to surface the periodic upsampling artifacts described in Section~\ref{sec:related} regardless of their exact spatial location.
-\end{itemize}
-The two feature vectors are concatenated (544 dimensions) and passed through a two-layer classification head with dropout (p=0.3) to produce a single real/fake logit, trained with binary cross-entropy.
-
-% -------------------------------------------------------
-\section{Experimental Setup}
-\label{sec:experiments}
-
-All experiments were run on Apple silicon (M4 Pro) using PyTorch's Metal Performance Shaders (MPS) backend; no CUDA hardware was used. The generator was trained for 800 epochs on the 152 real images (batch size 16, Adam, lr $=2\times10^{-4}$), producing a pool of 2{,}300 synthetic radiographs, of which 456 (three times the real count) were sampled for detector training to bound class imbalance while the full pool is released on Kaggle for reuse. Images were resized to $128\times128$ for both the generator and the detector. The combined dataset (152 real + 456 synthetic images, 608 total) was split 64/16/20 into train/validation/test (388/98/122) with stratified sampling on the real/fake label, using a fixed random seed (42) for reproducibility. The detector was trained with Adam (lr $=1\times10^{-4}$) for 25 epochs, selecting the checkpoint with the highest validation AUC for final test-set evaluation. Code, exact hyperparameters, and the trained generator/detector weights accompany this paper in the project repository.
-
-% -------------------------------------------------------
-\section{Results}
-\label{sec:results}
-
-On the held-out test set (122 images: 30 real, 92 synthetic), the dual-stream detector reaches 100\% accuracy, precision, recall, F1, and AUC (Table~\ref{tab:results}). Validation AUC reached 1.0 by epoch 1 and training loss converged to near zero within 20 epochs, indicating the classification task was fully separable for this generator.
-
-\begin{table}[htbp]
+\begin{table*}[t]
 \centering
-\caption{Test-set performance of the dual-stream detector}
-\label{tab:results}
-\begin{tabular}{lc}
+\caption{Veterinary radiograph dataset landscape (surveyed 2026)}
+\label{tab:landscape}
+\begin{tabular}{llllll}
 \toprule
-Metric & Value \\
+Dataset & Images & Species/region & Institution & License & Usable here? \\
 \midrule
-Accuracy & 1.000 \\
-Precision & 1.000 \\
-Recall & 1.000 \\
-F1-score & 1.000 \\
-AUC & 1.000 \\
+Mendeley VHS \cite{mendeley_vhs_dataset,dib_companion_2021} & 152--156 & Canine, thoracic lateral & UABC, Mexico & CC BY 4.0 & Yes (used previously) \\
+VetXRay \cite{vetxray_2026} & 9{,}882 & Canine \& feline, thoracic & Univ. of Padua, Italy & CC BY 4.0 & Yes (this paper) \\
+Padua thoracic classification & 3{,}839 & Canine, thoracic & Univ. of Padua & Not public & No — request-only \\
+OVC hemithorax/quality sets & 899--900 & Canine \& feline, thoracic & Univ. of Guelph, Canada & Not public & No — request-only \\
+VetAgro Sup feline set & 500 (subset public) & Feline, thoracic & VetAgro Sup, France & Not public & No — request-only \\
+DogHeart / Dog-Cardiomegaly & 2{,}000 & Canine, thoracic & Shanghai Aichong Pet Hospital & Undeclared, contradictory & No — unresolved rights \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
-We interpret this ceiling result cautiously rather than as evidence of a solved problem: a DCGAN trained on only 152 images at $128\times128$ resolution leaves generation artifacts (Figure~\ref{fig:freq}) that are far more separable than those of a modern diffusion model would be. Section~\ref{sec:discussion} details why we treat this as a lower bound on task difficulty, not an upper bound on detector capability.
+The combination of Mendeley VHS and VetXRay yields approximately 10{,}034 real images under an unambiguous, redistribution-permitting license, an order of magnitude larger than any single dataset used in prior veterinary imaging ML work we could locate, and to our knowledge the first time these two collections have been combined for a machine-learning study. We verified VetXRay's license directly against Zenodo's machine-readable record API (\texttt{license.id = "cc-by-4.0"}, \texttt{access\_right = "open"}) rather than relying on third-party aggregators, after finding that at least one independent inquiry into the same dataset had reported (incorrectly) that its license was unconfirmed. \pending{confirmar compatibilidad de protocolo de adquisicion entre ambos datasets (vistas, resolucion) antes de combinarlos en un unico pool de entrenamiento; documentar si se usan combinados o por separado}
 
-\begin{figure}[htbp]
+% =========================================================
+\section{Dataset Construction}
+\label{sec:dataset_construction}
+
+Figure~\ref{fig:real_vs_fake} shows representative examples from both classes as they exist today, before the corrections described in this section: real canine thoracic radiographs from the Mendeley VHS collection \cite{mendeley_vhs_dataset} alongside DCGAN-generated counterparts. The visual gap is itself informative — it previews why Section~\ref{sec:threats} finds the original 100\% result unconvincing as forensic evidence: a generator this far from photorealism should not need frequency-domain forensics to be caught, and the fact that it appeared to require them is what motivated the audit below.
+
+\begin{figure}[t]
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/roc_curve.png}
-  \caption{ROC curve of the dual-stream detector on the held-out test set. The curve saturates at AUC = 1.0, consistent with the full separability discussed in the text.}
-  \label{fig:roc}
+  \includegraphics[width=\linewidth]{figures/real_vs_fake_examples.png}
+  \caption{Representative real canine thoracic radiographs (top, blue border) from the Mendeley VHS collection \cite{mendeley_vhs_dataset} versus AI-generated counterparts from our DCGAN baseline (bottom, orange border). The generator's outputs are visibly blurred and lack fine anatomical detail, consistent with the small-data regime discussed in Section~\ref{sec:synthesis}.}
+  \label{fig:real_vs_fake}
 \end{figure}
 
-\begin{figure}[htbp]
+\subsection{The resolution-history confound}
+\label{sec:threats}
+Before any expansion, we audited the proof-of-concept pipeline and found that real images (large, heterogeneous native resolution, e.g. 1480$\times$844 up to 2756$\times$2800 pixels) are downsampled to $128\times128$ for the detector, while DCGAN outputs are natively $128\times128$ (built via five transposed-convolution upsampling layers from a random seed). We hypothesized that this asymmetry alone — not any genuine forensic signal — could explain a spuriously perfect detector, and confirmed it directly: a detector trained to distinguish two groups of images that are \emph{both 100\% real} (Figure~\ref{fig:exp00}), differing only in whether they were resized directly from native resolution (Group A) or reconstructed from an $8\times8$ seed mimicking a GAN's upsampling construction (Group B), reaches AUC = 1.000, accuracy = 1.000 on a held-out test split ($n=31$). A first, weaker version of this control (comparing single- vs. double-bicubic downsampling, without the seed-upsampling step) reached only chance-level AUC = 0.446 — the confound is specifically tied to the \emph{upsample-from-a-tiny-seed} construction characteristic of GAN architectures, not to resizing in general. This confirms that a detector can reach a perfect score on this task without any exposure to a single generated image, and directly motivates the corrected protocol below.
+
+\begin{figure}[t]
   \centering
-  \includegraphics[width=\linewidth]{figures/frequency_spectrum_comparison.png}
-  \caption{Average log-power spectrum of real radiographs (left), generated radiographs (center), and their difference (right), computed over the full 152 real and 2{,}300 generated images. The periodic structure visible in the difference map corresponds to the transposed-convolution upsampling artifacts described in Section~\ref{sec:related}.}
-  \label{fig:freq}
+  \includegraphics[width=\linewidth]{figures/exp00_confound_examples.png}
+  \caption{Both rows show the same underlying real radiographs; the only difference is resize history (Group A: direct downsample; Group B: reconstructed from an $8\times8$ seed). A detector separates the two groups at AUC = 1.000, demonstrating that resize/construction history alone is a strong, generator-independent confound.}
+  \label{fig:exp00}
 \end{figure}
 
-% -------------------------------------------------------
-\section{Discussion and Limitations}
+\subsection{Corrected split protocol}
+To eliminate the confound and provide a genuine generalization test, we: (i) reserve a holdout set of real images that is never shown to any generator during training (unlike the original protocol, where the GAN's discriminator saw 100\% of the available real images); (ii) apply a shared, randomized resize round-trip to \emph{both} real and synthetic images before feature extraction, so that neither class carries a cleaner or dirtier resize signature by construction; (iii) evaluate exclusively on the reserved real holdout plus synthetic images never used during detector training. \pending{completar tamanos exactos de gen\_pool/holdout y resultado del audit de shortcut learning tras la correccion}
+
+% =========================================================
+\section{Synthetic Radiograph Generation}
+\label{sec:synthesis}
+
+We synthesize radiographs from three generator families, chosen to span the practical range of what an attacker could plausibly use: (i) DCGAN \cite{dcgan_radford2015}, already trained as a low-data baseline; (ii) StyleGAN2-ADA \cite{stylegan2ada_2020}, NVIDIA's adaptive-discriminator-augmentation method designed specifically for GAN training in the low-to-moderate data regime our combined dataset occupies; (iii) a diffusion model \cite{ddpm_2020,ldm_2022} fine-tuned via low-rank adaptation on the same real image pool. Training for (ii) and (iii) uses Kaggle Notebooks' free GPU tier (NVIDIA P100 or T4$\times$2, reset weekly), with paid cloud compute as a fallback if the free quota is insufficient. \pending{resultados de entrenamiento de StyleGAN2-ADA y del modelo de difusion: FID/KID vs. real, ejemplos generados}
+
+% =========================================================
+\section{Proposed Architecture: VetRad-ForensicsNet}
+\label{sec:architecture}
+
+Building on the dual-stream design of the proof of concept (a ResNet-18 spatial branch plus a radially-averaged FFT frequency branch, fused before a classification head), we extend the architecture with a third, noise-residual stream, and an attention-based fusion layer in place of simple concatenation. The three streams target complementary evidence: anatomical/spatial plausibility (spatial stream), periodic generator fingerprints (frequency stream), and sensor/generation noise statistics (residual stream, computed as the difference between an image and a denoised version of itself). \pending{diagrama de arquitectura y resultados del ablation de 5 configuraciones: spatial; spatial+frequency; spatial+noise; frequency+noise; spatial+frequency+noise}
+
+% =========================================================
+\section{Experimental Protocol}
+\label{sec:protocol}
+
+\pending{describir protocolo final una vez fijado: splits, semillas, numero de repeticiones (5-10), hiperparametros por experimento}
+
+% =========================================================
+\section{Baseline Detector Architectures}
+\label{sec:baselines}
+
+In addition to the ResNet-18 dual-stream baseline, we evaluate ResNet-50, EfficientNet-B0, ConvNeXt-Tiny, and ViT-Small as spatial backbones, chosen to span convolutional and transformer-based architectures at comparable parameter budgets, and to test whether the frequency-branch fusion strategy is backbone-agnostic. \pending{tabla comparativa de las 5 arquitecturas bajo el protocolo corregido}
+
+% =========================================================
+\section{In-Distribution Detection}
+\label{sec:in_distribution}
+
+\pending{resultados de deteccion por generador (DCGAN, StyleGAN2-ADA, difusion) bajo el protocolo corregido con holdout}
+
+% =========================================================
+\section{Cross-Generator Generalization}
+\label{sec:cross_generator}
+
+The central question of this benchmark is whether a detector trained on one generator family transfers to another, or instead memorizes generator-specific fingerprints. We construct a train-generator $\times$ test-generator matrix across DCGAN, StyleGAN2-ADA, and the fine-tuned diffusion model (including training on two families and testing on the third, held out entirely), reporting accuracy, precision, recall, specificity, F1, ROC-AUC, PR-AUC, Matthews correlation coefficient, and balanced accuracy for every cell. \pending{matriz cross-generator 3x3 completa, con mapa de calor}
+
+% =========================================================
+\section{Open-Set Detection}
+\label{sec:open_set}
+
+We evaluate whether energy-based \cite{energy_ood_2020} and Mahalanobis-distance-based \cite{mahalanobis_ood_2018} out-of-distribution scoring, plus a one-class baseline, can flag a generator family entirely absent from training as ``unknown synthetic'' rather than misclassifying it as real. \pending{resultados de deteccion open-set con un generador oculto}
+
+% =========================================================
+\section{Frequency, DCT, and Wavelet Forensics}
+\label{sec:frequency_forensics}
+
+We ablate the forensic feature space across spatial-only, FFT-only \cite{frequency_checkerboard_2021,freq_analysis_2020}, DCT-only \cite{dct_traces_2024}, wavelet-packet-only \cite{wavelet_deepfake_2022}, and fused combinations, to determine which transform domain contributes discriminative signal for veterinary radiographs specifically, and whether the answer differs by generator family. \pending{tabla ablation de dominios de frecuencia}
+
+% =========================================================
+\section{Ablation Studies}
+\label{sec:ablation}
+
+\pending{ablation de VetRad-ForensicsNet (5 configuraciones de streams) y ablation de dominio de frecuencia (Seccion~\ref{sec:frequency_forensics}) consolidados}
+
+% =========================================================
+\section{Robustness and Anti-Forensics}
+\label{sec:robustness}
+
+An attacker is unlikely to submit a generator's raw output unmodified. We evaluate detector performance after JPEG compression (quality 10--95), resizing, cropping, Gaussian blur, Gaussian noise, contrast/brightness/gamma adjustment, sharpening, and repeated recompression, reporting performance-vs-severity curves for the most damaging transformations. \pending{curvas de robustez: accuracy/AUC vs. calidad JPEG, resize, blur, ruido}
+
+% =========================================================
+\section{Generator Attribution}
+\label{sec:attribution}
+
+Beyond binary real/fake detection, we evaluate a multiclass task (real vs. each individual generator family) to test whether generator-specific fingerprints are identifiable, and whether they survive the robustness transformations of Section~\ref{sec:robustness}. \pending{resultados de atribucion multiclase y su degradacion bajo post-procesamiento}
+
+% =========================================================
+\section{Explainability}
+\label{sec:explainability}
+
+We apply Grad-CAM \cite{gradcam_2017} to the spatial stream and a frequency-domain saliency map to the frequency stream, to visualize whether the detector attends to anatomically plausible regions, edges, radiographic markers, or background/artifact regions — direct evidence for or against the shortcut-learning failure mode documented in Section~\ref{sec:threats}. \pending{galeria de mapas Grad-CAM y de frecuencia por generador}
+
+% =========================================================
+\section{Failure Analysis}
+\label{sec:failure}
+
+\pending{casos de falsos positivos/negativos de las Secciones~\ref{sec:cross_generator}, \ref{sec:robustness}, y \ref{sec:open_set}, con ejemplos visuales y analisis}
+
+% =========================================================
+\section{Statistical Analysis}
+\label{sec:statistics}
+
+All headline comparisons are reported as mean $\pm$ standard deviation across 5--10 independent seeds, with 95\% bootstrap confidence intervals. AUC comparisons between architectures or generators use the DeLong test for correlated ROC curves \cite{delong_1988}; paired accuracy comparisons use McNemar's test \cite{mcnemar_1947}; bootstrap procedures follow standard practice \cite{bootstrap_efron1993}. \pending{resultados estadisticos finales: intervalos de confianza, p-valores DeLong/McNemar para las comparaciones principales}
+
+% =========================================================
+\section{Insurance-Fraud Deployment Scenario}
+\label{sec:deployment}
+
+Consistent with the threat model of Section~\ref{sec:threat_model}, we discuss how a detector of this kind would sit within a claims-review pipeline: as a triage signal that routes suspicious submissions to human review, not as an automated denial mechanism, and with explicit logging of confidence and the specific forensic evidence (frequency anomaly, spatial implausibility, or both) driving each flag.
+
+% =========================================================
+\section{Ethical and Legal Considerations}
+\label{sec:ethics}
+
+All real imagery used in this work is licensed CC BY 4.0 with redistribution and derivative-work rights explicitly confirmed against primary sources (Mendeley Data's public API for \cite{mendeley_vhs_dataset}, Zenodo's record API for \cite{vetxray_2026}), and both datasets are de-identified at the patient level by their original publishers. We did not use, and explicitly excluded, any dataset whose licensing terms were unclear, request-only, or contradictory (Section~\ref{sec:landscape}). The human Visual Turing Test design described in Section~\ref{sec:future_work} was not executed in this study; it would require institutional ethics review and informed consent, which are prerequisites we did not pursue here.
+
+% =========================================================
+\section{Threats to Validity}
+\label{sec:validity}
+
+\textbf{Internal validity.} Section~\ref{sec:threats} documents a confound we found and corrected in our own initial protocol; we cannot rule out that other, undiscovered dataset-construction artifacts remain. \textbf{Construct validity.} Detecting a specific generator's output is not the same as detecting all future generators; Section~\ref{sec:open_set} probes but does not solve this. \textbf{External validity.} All real data covers thoracic radiographs in dogs and cats; generalization to other views, species, or modalities (ultrasound, dental radiographs) is untested. \textbf{Statistical validity.} With approximately 10{,}000 real images the dataset is far larger than the original 152-image proof of concept, but still modest relative to human-imaging forensics benchmarks; Section~\ref{sec:statistics}'s confidence intervals should be read accordingly.
+
+% =========================================================
+\section{Reproducibility}
+\label{sec:reproducibility}
+
+All code, trained weights, dataset splits, and configuration files accompany this paper in a public GitHub repository and a public Kaggle dataset. Hardware, software versions, random seeds, and exact training commands are documented in the repository README. \pending{confirmar hashes de dataset finales y checkpoints publicados tras la fase de Kaggle}
+
+% =========================================================
+\section{Discussion}
 \label{sec:discussion}
 
-\textbf{Dataset scale.} 152 real radiographs is small relative to human-imaging forensics benchmarks such as MedForensics, and results here should be read as a reproducible proof of concept rather than a production-ready fraud detection system. The scarcity itself is evidence for the gap this paper documents: unlike human radiology, veterinary imaging has no equivalent of large public archives (e.g., NIH ChestX-ray14, MIMIC-CXR), because most institutional PACS archives remain closed.
+\pending{sintesis final una vez completados los experimentos de las Secciones~\ref{sec:cross_generator}--\ref{sec:attribution}}
 
-\textbf{Interpreting the 100\% result.} A perfect test-set score is a warning sign as much as a result. With only 152 training images, our DCGAN converges to a generator whose outputs remain visually and spectrally distinguishable from real radiographs at essentially every frequency band, so the detection task is closer to distinguishing two different image distributions than to catching a near-miss forgery. We report it transparently rather than omit it, but we explicitly do not claim this generalizes to stronger generators. The correct reading is: our dual-stream architecture is a sound baseline, and the interesting open question, does it still separate real from fake once the generator is a fine-tuned diffusion model rather than a small DCGAN, remains unanswered and is the paper's most direct future-work item.
+% =========================================================
+\section{Future Work}
+\label{sec:future_work}
 
-\textbf{GAN vs. diffusion generalization.} Our generator is a DCGAN, not a diffusion model. The human-imaging literature has already shown that detectors trained against GAN artifacts generalize poorly to diffusion-generated images and vice versa \cite{hybrid_gan_diffusion_2026}. Fine-tuning a diffusion model (e.g., via LoRA or DreamBooth) on this same 152-image collection, and testing whether our frequency-domain stream transfers across generator families, is the most direct next step and is left as future work.
+Beyond StyleGAN3 and additional diffusion variants, the most direct extension is a real Visual Turing Test comparing human (veterinarian, veterinary student, and lay) detection accuracy against the detector on a held-out set of 20--50 radiographs — designed here (Section~\ref{sec:ethics}) but explicitly not executed pending institutional ethics approval and informed consent. Extending the real-image base to additional views (orthopedic, abdominal) and to feline-specific pathology beyond VetXRay's existing feline component is a second natural direction, contingent on identifying further openly licensed data (Section~\ref{sec:landscape}).
 
-\textbf{Scope of imaging modality and species.} The source dataset covers a single view (latero-lateral thoracic) in a single species (canine). Extending this pipeline to feline imaging, abdominal or orthopedic radiographs, and ultrasound would materially increase its relevance to real-world claims review, where fraud is not confined to one view or species.
-
-\textbf{Intended use.} This work is intended as a research contribution and an openly available dataset to seed further study, not as a deployed fraud-detection product. Any operational use in claims adjudication would require substantially larger, prospectively validated data and regulatory/ethical review appropriate to insurance decision-making.
-
-% -------------------------------------------------------
+% =========================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
-We identified a real, unaddressed gap between two active but previously disconnected lines of work: the growing literature on detecting AI-generated human medical images, and the well-documented, costly problem of veterinary insurance claims fraud. We built the first publicly available dataset pairing real and AI-generated veterinary radiographs, by legally re-licensing an existing CC BY 4.0 collection and augmenting it with a trained generator, and proposed a dual-stream detector that combines spatial and frequency-domain evidence. We release both the dataset and the full training pipeline to support future work in this niche, including the open question of cross-generator generalization between GANs and diffusion models in veterinary imaging.
+We identified a real, unaddressed gap between two active but previously disconnected lines of work: the growing literature on detecting AI-generated human medical images, and the well-documented, costly problem of veterinary insurance claims fraud. In building this benchmark, we found and corrected a methodological confound in our own initial result, identified a second large open dataset that expands the field's data landscape by an order of magnitude, and laid out a multi-generator, cross-generalization, robustness, and explainability evaluation protocol intended to withstand scrutiny that a single-generator proof of concept could not. \pending{cerrar con los resultados finales una vez completada la ejecucion}
 
 % -------------------------------------------------------
 \begin{thebibliography}{00}
@@ -241,10 +352,151 @@ C. A. Flores Dueñas, S. M. Gaxiola Camacho, and M. F. Montaño Gómez,
 ``Radiographic Dataset for VHS Determination Learning Process,''
 \textit{Mendeley Data}, V1, doi: 10.17632/ktx4cj55pn.1, 2022.
 
+\bibitem{dib_companion_2021}
+C. A. Flores Dueñas, S. M. Gaxiola Camacho, and M. F. Montaño Gómez,
+``Canine Thoracic Radiographic Images as an Educational Dataset for Distance Learning and Research on Vertebral Heart Score,''
+\textit{Data in Brief}, vol. 36, art. 107022, 2021,
+doi: 10.1016/j.dib.2021.107022.
+
 \bibitem{dcgan_radford2015}
 A. Radford, L. Metz, and S. Chintala,
 ``Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks,''
 arXiv:1511.06434, 2015.
+
+\bibitem{vetxray_2026}
+T. Banzato, S. Burti, A. Zotti, and M. Wodzinski,
+``VetXRay: A Dataset of 9{,}882 Manually Annotated Canine and Feline Thoracic Radiographs with Lesion and Image Quality Annotations,''
+\textit{Zenodo}, V2, doi: 10.5281/zenodo.19051776, 2026.
+
+\bibitem{vetxray_canine_2021}
+T. Banzato, M. Wodzinski, S. Burti, V. Longhin Osti, V. Rossoni, M. Atzori, and A. Zotti,
+``Automatic Classification of Canine Thoracic Radiographs Using Deep Learning,''
+\textit{Scientific Reports}, vol. 11, no. 1, art. 3964, 2021,
+doi: 10.1038/s41598-021-83515-3.
+
+\bibitem{vetxray_cardio_2020}
+S. Burti, V. Longhin Osti, A. Zotti, and T. Banzato,
+``Use of Deep Learning to Detect Cardiomegaly on Thoracic Radiographs in Dogs,''
+\textit{The Veterinary Journal}, vol. 262, art. 105505, 2020,
+doi: 10.1016/j.tvjl.2020.105505.
+
+\bibitem{vetxray_quality_2023}
+T. Banzato, M. Wodzinski, S. Burti, E. Vettore, H. Muller, and A. Zotti,
+``An AI-Based Algorithm for the Automatic Evaluation of Image Quality in Canine Thoracic Radiographs,''
+\textit{Scientific Reports}, vol. 13, no. 1, art. 17024, 2023,
+doi: 10.1038/s41598-023-44089-4.
+
+\bibitem{vetxray_feline_2021}
+T. Banzato, M. Wodzinski, F. Tauceri, C. Donà, F. Scavazza, H. Müller, and A. Zotti,
+``An AI-Based Algorithm for the Automatic Classification of Thoracic Radiographs in Cats,''
+\textit{Frontiers in Veterinary Science}, vol. 8, art. 731936, 2021,
+doi: 10.3389/fvets.2021.731936.
+
+\bibitem{stylegan2_2020}
+T. Karras, S. Laine, M. Aittala, J. Hellsten, J. Lehtinen, and T. Aila,
+``Analyzing and Improving the Image Quality of StyleGAN,''
+in \textit{Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2020.
+arXiv:1912.04958.
+
+\bibitem{stylegan2ada_2020}
+T. Karras, M. Aittala, J. Hellsten, S. Laine, J. Lehtinen, and T. Aila,
+``Training Generative Adversarial Networks with Limited Data,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 33, 2020.
+arXiv:2006.06676.
+
+\bibitem{ddpm_2020}
+J. Ho, A. Jain, and P. Abbeel,
+``Denoising Diffusion Probabilistic Models,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 33, 2020.
+arXiv:2006.11239.
+
+\bibitem{ldm_2022}
+R. Rombach, A. Blattmann, D. Lorenz, P. Esser, and B. Ommer,
+``High-Resolution Image Synthesis with Latent Diffusion Models,''
+in \textit{Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2022, pp. 10684--10695.
+arXiv:2112.10752.
+
+\bibitem{cnngen_easy_2020}
+S.-Y. Wang, O. Wang, R. Zhang, A. Owens, and A. A. Efros,
+``CNN-Generated Images Are Surprisingly Easy to Spot... for Now,''
+in \textit{Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2020.
+arXiv:1912.11035.
+
+\bibitem{universal_detector_2023}
+U. Ojha, Y. Li, and Y. J. Lee,
+``Towards Universal Fake Image Detectors That Generalize Across Generative Models,''
+in \textit{Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2023, pp. 24480--24489.
+arXiv:2302.10174.
+
+\bibitem{energy_ood_2020}
+W. Liu, X. Wang, J. D. Owens, and Y. Li,
+``Energy-Based Out-of-Distribution Detection,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 33, 2020.
+arXiv:2010.03759.
+
+\bibitem{mahalanobis_ood_2018}
+K. Lee, K. Lee, H. Lee, and J. Shin,
+``A Simple Unified Framework for Detecting Out-of-Distribution Samples and Adversarial Attacks,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 31, 2018.
+arXiv:1807.03888.
+
+\bibitem{gradcam_2017}
+R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, and D. Batra,
+``Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization,''
+in \textit{Proc. IEEE International Conference on Computer Vision (ICCV)}, 2017;
+\textit{International Journal of Computer Vision}, 2019,
+doi: 10.1007/s11263-019-01228-7.
+
+\bibitem{dct_traces_2024}
+O. Pontorno, L. Guarnera, and S. Battiato,
+``On the Exploitation of DCT-Traces in the Generative-AI Domain,''
+in \textit{Proc. IEEE International Conference on Image Processing (ICIP)}, 2024.
+arXiv:2402.02209.
+
+\bibitem{freq_analysis_2020}
+J. Frank, T. Eisenhofer, L. Schönherr, A. Fischer, D. Kolossa, and T. Holz,
+``Leveraging Frequency Analysis for Deep Fake Image Recognition,''
+in \textit{Proc. International Conference on Machine Learning (ICML)}, PMLR vol. 119, 2020, pp. 3247--3258.
+arXiv:2003.08685.
+
+\bibitem{cross_band_2020}
+M. Barni, K. Kallas, E. Nowroozi, and B. Tondi,
+``CNN Detection of GAN-Generated Face Images Based on Cross-Band Co-Occurrences Analysis,''
+in \textit{Proc. IEEE International Workshop on Information Forensics and Security (WIFS)}, 2020.
+arXiv:2007.12909.
+
+\bibitem{wavelet_deepfake_2022}
+M. Wolter, F. Blanke, R. Heese, and J. Garcke,
+``Wavelet-Packets for Deepfake Image Analysis and Detection,''
+\textit{Machine Learning}, Springer, 2022,
+doi: 10.1007/s10994-022-06225-5.
+
+\bibitem{delong_1988}
+E. R. DeLong, D. M. DeLong, and D. L. Clarke-Pearson,
+``Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach,''
+\textit{Biometrics}, vol. 44, no. 3, pp. 837--845, 1988,
+doi: 10.2307/2531595.
+
+\bibitem{mcnemar_1947}
+Q. McNemar,
+``Note on the Sampling Error of the Difference Between Correlated Proportions or Percentages,''
+\textit{Psychometrika}, vol. 12, no. 2, pp. 153--157, 1947,
+doi: 10.1007/BF02295996.
+
+\bibitem{bootstrap_efron1993}
+B. Efron and R. J. Tibshirani,
+\textit{An Introduction to the Bootstrap}, Monographs on Statistics and Applied Probability 57.
+Chapman \& Hall/CRC, 1993. ISBN 978-0412042317.
+
+\bibitem{vet_vae_2024}
+I.-G. Lee, J.-Y. Oh, H.-J. Yu, J.-H. Kim, K.-D. Eom, and J.-H. Jeong,
+``Generative Active Learning with Variational Autoencoder for Radiology Data Generation in Veterinary Medicine,''
+arXiv:2403.03642, 2024.
+
+\bibitem{car_fraud_cv_2018}
+P. Li, B. Shen, and W. Dong,
+``An Anti-Fraud System for Car Insurance Claim Based on Visual Evidence,''
+arXiv:1804.11207, 2018.
 
 \end{thebibliography}
 
