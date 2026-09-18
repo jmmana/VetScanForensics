@@ -6,6 +6,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{tabularx}
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{cite}
@@ -120,18 +121,18 @@ Open, redistributable veterinary radiograph data is scarce. We surveyed Zenodo, 
 \centering
 \caption{Veterinary radiograph dataset landscape (surveyed 2026)}
 \label{tab:landscape}
-\begin{tabular}{llllll}
+\begin{tabularx}{\textwidth}{@{}p{2.3cm}p{1.4cm}p{2.6cm}p{2.6cm}p{2.0cm}X@{}}
 \toprule
 Dataset & Images & Species/region & Institution & License & Usable here? \\
 \midrule
 Mendeley VHS \cite{mendeley_vhs_dataset,dib_companion_2021} & 152--156 & Canine, thoracic lateral & UABC, Mexico & CC BY 4.0 & Yes (used previously) \\
-VetXRay \cite{vetxray_2026} & 9{,}882 & Canine \& feline, thoracic & Univ. of Padua, Italy & CC BY 4.0 & Yes (this paper) \\
-Padua thoracic classification & 3{,}839 & Canine, thoracic & Univ. of Padua & Not public & No — request-only \\
-OVC hemithorax/quality sets & 899--900 & Canine \& feline, thoracic & Univ. of Guelph, Canada & Not public & No — request-only \\
-VetAgro Sup feline set & 500 (subset public) & Feline, thoracic & VetAgro Sup, France & Not public & No — request-only \\
-DogHeart / Dog-Cardiomegaly & 2{,}000 & Canine, thoracic & Shanghai Aichong Pet Hospital & Undeclared, contradictory & No — unresolved rights \\
+VetXRay \cite{vetxray_2026} & 9{,}882 & Canine \& feline, thoracic & Univ.\ of Padua, Italy & CC BY 4.0 & Yes (this paper) \\
+Padua thoracic classification & 3{,}839 & Canine, thoracic & Univ.\ of Padua & Not public & No, request-only \\
+OVC hemithorax/quality sets & 899--900 & Canine \& feline, thoracic & Univ.\ of Guelph, Canada & Not public & No, request-only \\
+VetAgro Sup feline set & 500 (subset public) & Feline, thoracic & VetAgro Sup, France & Not public & No, request-only \\
+DogHeart / Dog-Cardiomegaly & 2{,}000 & Canine, thoracic & Shanghai Aichong Pet Hospital & Undeclared, contradictory & No, unresolved rights \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table*}
 
 The combination of Mendeley VHS and VetXRay yields approximately 10{,}034 real images under an unambiguous, redistribution-permitting license, an order of magnitude larger than any single dataset used in prior veterinary imaging ML work we could locate, and to our knowledge the first time these two collections have been combined for a machine-learning study. We verified VetXRay's license directly against Zenodo's machine-readable record API (\texttt{license.id = "cc-by-4.0"}, \texttt{access\_right = "open"}) rather than relying on third-party aggregators, after finding that at least one independent inquiry into the same dataset had reported (incorrectly) that its license was unconfirmed. \pending{confirmar compatibilidad de protocolo de adquisicion entre ambos datasets (vistas, resolucion) antes de combinarlos en un unico pool de entrenamiento; documentar si se usan combinados o por separado}
