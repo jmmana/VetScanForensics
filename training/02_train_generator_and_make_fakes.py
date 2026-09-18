@@ -19,6 +19,8 @@ Uso:
 import argparse
 from pathlib import Path
 
+from preprocessing_common import load_real_split
+
 import torch
 import torch.nn as nn
 from PIL import Image
@@ -44,10 +46,14 @@ def get_device() -> torch.device:
 
 
 class RealRadiographs(Dataset):
-    def __init__(self, folder: Path):
+    def __init__(self, folder: Path, split_file: Path | None = None):
         self.paths = sorted(
             p for p in folder.glob("*") if p.suffix.lower() in {".png", ".jpg", ".jpeg"}
         )
+        if split_file is not None:
+            split = load_real_split(split_file, folder)
+            self.paths = [folder / name for name in split['gen_pool']]
+        print(f"Generador: usando {len(self.paths)} imagenes reales; split_file={split_file}")
         if not self.paths:
             raise RuntimeError(
                 f"No hay imagenes en {folder}. Corre primero 01_prepare_real_data.py"
@@ -133,8 +139,8 @@ def weights_init(m: nn.Module) -> None:
         nn.init.constant_(m.bias.data, 0)
 
 
-def train(epochs: int, batch_size: int, lr: float, device: torch.device) -> Generator:
-    dataset = RealRadiographs(REAL_DIR)
+def train(epochs: int, batch_size: int, lr: float, device: torch.device, split_file: Path | None = None) -> Generator:
+    dataset = RealRadiographs(REAL_DIR, split_file)
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, drop_last=True)
 
     gen = Generator().to(device)
@@ -183,8 +189,13 @@ def train(epochs: int, batch_size: int, lr: float, device: torch.device) -> Gene
     return gen
 
 
-def generate_fakes(gen: Generator, n_fake: int, device: torch.device) -> None:
+def generate_fakes(gen: Generator, n_fake: int, device: torch.device, replace_existing: bool = False) -> None:
     FAKE_DIR.mkdir(parents=True, exist_ok=True)
+    if replace_existing:
+        old_paths = list(FAKE_DIR.glob('*.png')) + list(FAKE_DIR.glob('*.jpg'))
+        for path in old_paths:
+            path.unlink()
+        print(f'Retiradas {len(old_paths)} falsas anteriores para evitar contaminacion del holdout')
     gen.eval()
     with torch.no_grad():
         for i in range(n_fake):
@@ -201,13 +212,14 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--lr", type=float, default=2e-4)
     parser.add_argument("--n-fake", type=int, default=300)
+    parser.add_argument("--split-file", type=Path, default=None)
     args = parser.parse_args()
 
     device = get_device()
     print(f"Usando device: {device}")
 
-    gen = train(args.epochs, args.batch_size, args.lr, device)
-    generate_fakes(gen, args.n_fake, device)
+    gen = train(args.epochs, args.batch_size, args.lr, device, args.split_file)
+    generate_fakes(gen, args.n_fake, device, replace_existing=args.split_file is not None)
 
 
 if __name__ == "__main__":

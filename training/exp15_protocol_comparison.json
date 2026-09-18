@@ -1,0 +1,29 @@
+{
+  "old_protocol": {
+    "test_loss": 0.11848401363755835,
+    "test_auc": 1.0,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "n_train": 388,
+    "n_val": 98,
+    "n_test": 122
+  },
+  "new_protocol": {
+    "test_loss": 0.09481940577539165,
+    "test_auc": 1.0,
+    "accuracy": 0.9550561797752809,
+    "precision": 1.0,
+    "recall": 0.9322033898305084,
+    "f1": 0.9649122807017544,
+    "n_train": 271,
+    "n_val": 92,
+    "n_test": 89
+  },
+  "shortcut_audit": {
+    "auc_without_fix": 1.0,
+    "auc_with_fix": 1.0,
+    "interpretation": "AUC sin correccion=1.000000; con correccion=1.000000. Persiste una senal aprendible del historial de resize; no se demuestra neutralizacion del shortcut. El AUC del detector nuevo no basta para descartar este confound. Se aplico el rango prescrito 16..128 despues de construir las rutas A/B, antes de FFT y tensor, sin ajustar hiperparametros segun el test."
+  }
+}

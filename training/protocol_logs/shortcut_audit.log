@@ -1,0 +1,51 @@
+Usando device: mps
+Total imagenes reales: 152 (grupo A=72, grupo B=80)
+[epoch 1/20] train_auc=0.973 val_auc=1.000
+[epoch 2/20] train_auc=1.000 val_auc=1.000
+[epoch 3/20] train_auc=1.000 val_auc=1.000
+[epoch 4/20] train_auc=1.000 val_auc=1.000
+[epoch 5/20] train_auc=1.000 val_auc=1.000
+[epoch 6/20] train_auc=1.000 val_auc=1.000
+[epoch 7/20] train_auc=1.000 val_auc=1.000
+[epoch 8/20] train_auc=1.000 val_auc=1.000
+[epoch 9/20] train_auc=1.000 val_auc=1.000
+[epoch 10/20] train_auc=1.000 val_auc=1.000
+[epoch 11/20] train_auc=1.000 val_auc=1.000
+[epoch 12/20] train_auc=1.000 val_auc=1.000
+[epoch 13/20] train_auc=1.000 val_auc=1.000
+[epoch 14/20] train_auc=1.000 val_auc=1.000
+[epoch 15/20] train_auc=1.000 val_auc=1.000
+[epoch 16/20] train_auc=1.000 val_auc=1.000
+[epoch 17/20] train_auc=1.000 val_auc=1.000
+[epoch 18/20] train_auc=1.000 val_auc=1.000
+[epoch 19/20] train_auc=1.000 val_auc=1.000
+[epoch 20/20] train_auc=1.000 val_auc=1.000
+fix=False: test_auc=1.000000, test_accuracy=1.000000
+Usando device: mps
+Total imagenes reales: 152 (grupo A=72, grupo B=80)
+[epoch 1/20] train_auc=0.950 val_auc=1.000
+[epoch 2/20] train_auc=0.996 val_auc=1.000
+[epoch 3/20] train_auc=0.997 val_auc=1.000
+[epoch 4/20] train_auc=1.000 val_auc=1.000
+[epoch 5/20] train_auc=1.000 val_auc=1.000
+[epoch 6/20] train_auc=0.998 val_auc=1.000
+[epoch 7/20] train_auc=1.000 val_auc=1.000
+[epoch 8/20] train_auc=1.000 val_auc=1.000
+[epoch 9/20] train_auc=1.000 val_auc=1.000
+[epoch 10/20] train_auc=0.993 val_auc=1.000
+[epoch 11/20] train_auc=1.000 val_auc=1.000
+[epoch 12/20] train_auc=1.000 val_auc=1.000
+[epoch 13/20] train_auc=1.000 val_auc=1.000
+[epoch 14/20] train_auc=1.000 val_auc=1.000
+[epoch 15/20] train_auc=1.000 val_auc=1.000
+[epoch 16/20] train_auc=1.000 val_auc=1.000
+[epoch 17/20] train_auc=1.000 val_auc=1.000
+[epoch 18/20] train_auc=1.000 val_auc=1.000
+[epoch 19/20] train_auc=1.000 val_auc=1.000
+[epoch 20/20] train_auc=0.989 val_auc=1.000
+fix=True: test_auc=1.000000, test_accuracy=1.000000
+{
+  "auc_without_fix": 1.0,
+  "auc_with_fix": 1.0,
+  "interpretation": "AUC sin correccion=1.000000; con correccion=1.000000. Persiste una senal aprendible del historial de resize; no se demuestra neutralizacion del shortcut. El AUC del detector nuevo no basta para descartar este confound. Se aplico el rango prescrito 16..128 despues de construir las rutas A/B, antes de FFT y tensor, sin ajustar hiperparametros segun el test."
+}

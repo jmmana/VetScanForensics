@@ -1,0 +1,5 @@
+{
+  "auc_without_fix": 1.0,
+  "auc_with_fix": 1.0,
+  "interpretation": "AUC sin correccion=1.000000; con correccion=1.000000. Persiste una senal aprendible del historial de resize; no se demuestra neutralizacion del shortcut. El AUC del detector nuevo no basta para descartar este confound. Se aplico el rango prescrito 16..128 despues de construir las rutas A/B, antes de FFT y tensor, sin ajustar hiperparametros segun el test."
+}

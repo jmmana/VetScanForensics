@@ -17,6 +17,8 @@ import argparse
 import json
 from pathlib import Path
 
+from preprocessing_common import load_real_split, random_resize_round_trip
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -72,6 +74,7 @@ def radial_power_spectrum(img_gray: np.ndarray, n_bins: int = FREQ_BINS) -> np.n
 
 class RadiographDataset(Dataset):
     def __init__(self, paths: list[Path], labels: list[int], train: bool):
+        self.train = train
         self.paths = paths
         self.labels = labels
         aug = (
@@ -82,7 +85,6 @@ class RadiographDataset(Dataset):
         self.transform = transforms.Compose(
             [
                 transforms.Grayscale(num_output_channels=1),
-                transforms.Resize((IMG_SIZE, IMG_SIZE)),
                 *aug,
                 transforms.ToTensor(),
             ]
@@ -93,9 +95,10 @@ class RadiographDataset(Dataset):
 
     def __getitem__(self, idx: int):
         img = Image.open(self.paths[idx]).convert("L")
-        img_resized = img.resize((IMG_SIZE, IMG_SIZE))
+        seed = int(torch.randint(0, 2**32, ()).item()) if self.train else 42 + idx
+        img_resized = random_resize_round_trip(img, np.random.default_rng(seed))
         freq = radial_power_spectrum(np.array(img_resized, dtype=np.float32) / 255.0)
-        tensor = self.transform(img)
+        tensor = self.transform(img_resized)
         tensor3 = tensor.repeat(3, 1, 1)  # ResNet espera 3 canales
         tensor3 = (tensor3 - 0.5) / 0.5
         return tensor3, torch.tensor(freq, dtype=torch.float32), torch.tensor(
@@ -129,42 +132,34 @@ class DualStreamDetector(nn.Module):
         return self.head(combined).squeeze(1)
 
 
-def load_dataset_splits(max_fake_ratio: int = 3):
-    """Carga reales + falsas para entrenar el detector.
-
-    El dataset publicado en Kaggle puede tener miles de falsas (mientras
-    mas grande, mas reutilizable para otros), pero entrenar el detector
-    con un desbalance extremo (152 reales vs miles de falsas) sesga el
-    modelo. Aqui se limita el numero de falsas usadas en entrenamiento a
-    `max_fake_ratio` veces el numero de reales, elegidas al azar con
-    semilla fija para que sea reproducible.
-    """
-    real_paths = sorted(REAL_DIR.glob("*.png")) + sorted(REAL_DIR.glob("*.jpg"))
-    all_fake_paths = sorted(FAKE_DIR.glob("*.png"))
-    if not real_paths or not all_fake_paths:
-        raise RuntimeError(
-            "Faltan imagenes. Corre primero 01_prepare_real_data.py y "
-            "02_train_generator_and_make_fakes.py"
-        )
-
+def load_dataset_splits(max_fake_ratio: int = 3, split_file: Path = ROOT / "data/splits/real_split.json"):
+    """Test real exclusivamente holdout; falsas en las mismas proporciones."""
+    split = load_real_split(split_file, REAL_DIR)
+    pool = [REAL_DIR / name for name in split['gen_pool']]
+    test_real = [REAL_DIR / name for name in split['holdout']]
+    train_real, val_real = train_test_split(pool, test_size=0.25, random_state=42)
+    real_groups = [train_real, val_real, test_real]
+    all_fake = sorted(FAKE_DIR.glob('*.png'))
+    n_real = sum(map(len, real_groups))
+    n_fake = min(len(all_fake), n_real * max_fake_ratio)
+    assert n_fake >= 3, 'Faltan falsas para train/val/test'
     rng = np.random.default_rng(42)
-    max_fake = min(len(all_fake_paths), len(real_paths) * max_fake_ratio)
-    fake_paths = list(rng.choice(all_fake_paths, size=max_fake, replace=False))
-    print(
-        f"Usando {len(real_paths)} reales + {len(fake_paths)} falsas para entrenar "
-        f"(de un total de {len(all_fake_paths)} falsas disponibles en {FAKE_DIR})"
-    )
-
-    paths = real_paths + fake_paths
-    labels = [0] * len(real_paths) + [1] * len(fake_paths)  # 0=real, 1=fake
-
-    train_p, test_p, train_l, test_l = train_test_split(
-        paths, labels, test_size=0.2, stratify=labels, random_state=42
-    )
-    train_p, val_p, train_l, val_l = train_test_split(
-        train_p, train_l, test_size=0.2, stratify=train_l, random_state=42
-    )
-    return (train_p, train_l), (val_p, val_l), (test_p, test_l)
+    fake_paths = [all_fake[i] for i in rng.permutation(len(all_fake))[:n_fake]]
+    exact_counts = np.array([len(group) for group in real_groups]) * n_fake / n_real
+    counts = np.floor(exact_counts).astype(int)
+    for i in np.argsort(-(exact_counts - counts))[:n_fake - counts.sum()]:
+        counts[i] += 1
+    result, offset = [], 0
+    for name, real, count in zip(('train', 'val', 'test'), real_groups, counts):
+        assert count > 0, f'Split {name} sin falsas'
+        fake = fake_paths[offset:offset + count]
+        offset += count
+        result.append((real + fake, [0] * len(real) + [1] * len(fake)))
+        print(f'{name}: {len(real)} reales + {len(fake)} falsas')
+    assert offset == n_fake
+    assert not set(train_real + val_real) & set(test_real)
+    print(f'Usando {n_real} reales + {n_fake} falsas de {len(all_fake)} disponibles')
+    return tuple(result)
 
 
 def run_epoch(model, loader, criterion, optimizer, device, train: bool):
@@ -194,12 +189,15 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=25)
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--lr", type=float, default=1e-4)
+    parser.add_argument("--split-file", type=Path, default=ROOT / "data/splits/real_split.json")
     args = parser.parse_args()
+    torch.manual_seed(42)
+    np.random.seed(42)
 
     device = get_device()
     print(f"Usando device: {device}")
 
-    (train_p, train_l), (val_p, val_l), (test_p, test_l) = load_dataset_splits()
+    (train_p, train_l), (val_p, val_l), (test_p, test_l) = load_dataset_splits(split_file=args.split_file)
     print(f"train={len(train_p)} val={len(val_p)} test={len(test_p)}")
 
     train_ds = RadiographDataset(train_p, train_l, train=True)

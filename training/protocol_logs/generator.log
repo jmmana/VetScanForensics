@@ -1,0 +1,20 @@
+Usando device: mps
+Generador: usando 122 imagenes reales; split_file=data/splits/real_split.json
+[epoch 50/800] loss_d=0.856 loss_g=6.365
+[epoch 100/800] loss_d=1.687 loss_g=7.371
+[epoch 150/800] loss_d=0.582 loss_g=4.173
+[epoch 200/800] loss_d=0.391 loss_g=5.683
+[epoch 250/800] loss_d=0.586 loss_g=3.720
+[epoch 300/800] loss_d=0.682 loss_g=4.556
+[epoch 350/800] loss_d=0.720 loss_g=3.686
+[epoch 400/800] loss_d=0.602 loss_g=3.995
+[epoch 450/800] loss_d=0.527 loss_g=3.907
+[epoch 500/800] loss_d=0.782 loss_g=4.568
+[epoch 550/800] loss_d=0.600 loss_g=4.853
+[epoch 600/800] loss_d=0.506 loss_g=4.162
+[epoch 650/800] loss_d=0.757 loss_g=4.287
+[epoch 700/800] loss_d=0.562 loss_g=3.488
+[epoch 750/800] loss_d=0.537 loss_g=4.218
+[epoch 800/800] loss_d=1.038 loss_g=2.793
+Retiradas 2300 falsas anteriores para evitar contaminacion del holdout
+Generadas 300 radiografias sinteticas en /Users/juancastillo/Documents/WarlockCode/VetScanForensics/data/fake

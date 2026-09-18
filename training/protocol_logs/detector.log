@@ -1,0 +1,45 @@
+Usando device: mps
+train: 91 reales + 180 falsas
+val: 31 reales + 61 falsas
+test: 30 reales + 59 falsas
+Usando 152 reales + 300 falsas de 300 disponibles
+train=271 val=92 test=89
+[epoch 1/25] train_loss=0.381 train_auc=0.954 val_loss=0.222 val_auc=0.999
+[epoch 2/25] train_loss=0.124 train_auc=0.998 val_loss=0.091 val_auc=1.000
+[epoch 3/25] train_loss=0.081 train_auc=0.998 val_loss=0.035 val_auc=1.000
+[epoch 4/25] train_loss=0.096 train_auc=0.991 val_loss=0.024 val_auc=1.000
+[epoch 5/25] train_loss=0.050 train_auc=0.999 val_loss=0.018 val_auc=1.000
+[epoch 6/25] train_loss=0.088 train_auc=0.993 val_loss=0.027 val_auc=1.000
+[epoch 7/25] train_loss=0.061 train_auc=0.998 val_loss=0.038 val_auc=1.000
+[epoch 8/25] train_loss=0.046 train_auc=1.000 val_loss=0.034 val_auc=1.000
+[epoch 9/25] train_loss=0.043 train_auc=0.999 val_loss=0.030 val_auc=1.000
+[epoch 10/25] train_loss=0.023 train_auc=1.000 val_loss=0.015 val_auc=1.000
+[epoch 11/25] train_loss=0.037 train_auc=1.000 val_loss=0.028 val_auc=1.000
+[epoch 12/25] train_loss=0.073 train_auc=0.997 val_loss=0.030 val_auc=1.000
+[epoch 13/25] train_loss=0.016 train_auc=1.000 val_loss=0.014 val_auc=1.000
+[epoch 14/25] train_loss=0.023 train_auc=1.000 val_loss=0.018 val_auc=1.000
+[epoch 15/25] train_loss=0.017 train_auc=1.000 val_loss=0.018 val_auc=1.000
+[epoch 16/25] train_loss=0.026 train_auc=1.000 val_loss=0.044 val_auc=1.000
+[epoch 17/25] train_loss=0.006 train_auc=1.000 val_loss=0.024 val_auc=1.000
+[epoch 18/25] train_loss=0.029 train_auc=1.000 val_loss=0.016 val_auc=1.000
+[epoch 19/25] train_loss=0.014 train_auc=1.000 val_loss=0.016 val_auc=1.000
+[epoch 20/25] train_loss=0.014 train_auc=1.000 val_loss=0.007 val_auc=1.000
+[epoch 21/25] train_loss=0.040 train_auc=0.998 val_loss=0.057 val_auc=0.999
+[epoch 22/25] train_loss=0.046 train_auc=0.999 val_loss=0.041 val_auc=0.999
+[epoch 23/25] train_loss=0.025 train_auc=1.000 val_loss=0.031 val_auc=1.000
+[epoch 24/25] train_loss=0.031 train_auc=1.000 val_loss=0.026 val_auc=0.999
+[epoch 25/25] train_loss=0.015 train_auc=1.000 val_loss=0.022 val_auc=0.999
+
+=== METRICAS FINALES (test) ===
+{
+  "test_loss": 0.09481940577539165,
+  "test_auc": 1.0,
+  "accuracy": 0.9550561797752809,
+  "precision": 1.0,
+  "recall": 0.9322033898305084,
+  "f1": 0.9649122807017544,
+  "n_train": 271,
+  "n_val": 92,
+  "n_test": 89
+}
+Figuras guardadas en /Users/juancastillo/Documents/WarlockCode/VetScanForensics/paper/figures

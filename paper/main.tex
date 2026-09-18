@@ -161,7 +161,33 @@ Before any expansion, we audited the proof-of-concept pipeline and found that re
 \end{figure}
 
 \subsection{Corrected split protocol}
-To eliminate the confound and provide a genuine generalization test, we: (i) reserve a holdout set of real images that is never shown to any generator during training (unlike the original protocol, where the GAN's discriminator saw 100\% of the available real images); (ii) apply a shared, randomized resize round-trip to \emph{both} real and synthetic images before feature extraction, so that neither class carries a cleaner or dirtier resize signature by construction; (iii) evaluate exclusively on the reserved real holdout plus synthetic images never used during detector training. \pending{completar tamanos exactos de gen\_pool/holdout y resultado del audit de shortcut learning tras la correccion}
+To address the confound and provide a genuine generalization test, we: (i) reserve a holdout set of 30 real images (of 152) that is never shown to the generator during training, training the DCGAN exclusively on the remaining 122 (unlike the original protocol, where the GAN's discriminator saw 100\% of the available real images); (ii) attempt a shared, randomized resize round-trip (uniform intermediate size in $[16,128]$, applied identically to both classes) before feature extraction, intended to prevent either class from carrying a cleaner or dirtier resize signature by construction; (iii) evaluate exclusively on the reserved real holdout (30 images) plus 59 synthetic images never used during detector training.
+
+\textbf{The proposed mitigation did not neutralize the confound.} Re-running the EXP-00 audit \emph{with} the shared round-trip applied still separates Group A from Group B at AUC = 1.000 (Table~\ref{tab:protocol_comparison}), identical to the unmitigated control. We attribute this to an asymmetry the mitigation does not address: Group B's information loss is fixed by an $8\times8$ bottleneck, more severe than any point in the $[16,128]$ range the shared round-trip draws from, so the shared step cannot retroactively erase a difference more extreme than its own range. We report this as a negative result rather than adjusting the range or hyperparameters post hoc to force a lower audit score, consistent with the pre-registered rule that experimental corrections are validated by the audit, not tuned against it.
+
+Table~\ref{tab:protocol_comparison} reports the resulting detector metrics under the corrected split. Accuracy drops from a perfect 100\% to 95.5\% (recall 93.2\%, precision remains 100\%), a genuine change driven at minimum by the newly enforced generator-level holdout, but because EXP-13 shows the resize-history shortcut persists, \textbf{we do not present 95.5\% as confound-free forensic evidence}. The more decisive test of whether this detector captures genuine generative-model forensics, rather than DCGAN-specific construction artifacts, is cross-generator generalization (Section~\ref{sec:cross_generator}): a signal that transfers to StyleGAN2-ADA and diffusion-generated images, architectures with entirely different upsampling mechanics than DCGAN's transposed convolutions, cannot be explained by this particular confound.
+
+\begin{table}[t]
+\centering
+\caption{Original vs. corrected protocol (DCGAN only); EXP-13 shortcut audit before and after the attempted mitigation}
+\label{tab:protocol_comparison}
+\begin{tabular}{lcc}
+\toprule
+Metric & Original protocol & Corrected protocol \\
+\midrule
+Accuracy & 1.000 & 0.955 \\
+Precision & 1.000 & 1.000 \\
+Recall & 1.000 & 0.932 \\
+F1 & 1.000 & 0.965 \\
+Test AUC & 1.000 & 1.000 \\
+$n$ train/val/test & 388/98/122 & 271/92/89 \\
+\midrule
+\multicolumn{3}{l}{\textit{EXP-13 shortcut audit (real-only, A vs.\ B)}} \\
+AUC, no mitigation & \multicolumn{2}{c}{1.000} \\
+AUC, with mitigation & \multicolumn{2}{c}{1.000 (unchanged)} \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % =========================================================
 \section{Synthetic Radiograph Generation}
@@ -191,7 +217,7 @@ In addition to the ResNet-18 dual-stream baseline, we evaluate ResNet-50, Effici
 \section{In-Distribution Detection}
 \label{sec:in_distribution}
 
-\pending{resultados de deteccion por generador (DCGAN, StyleGAN2-ADA, difusion) bajo el protocolo corregido con holdout}
+For DCGAN, in-distribution detection under the corrected split protocol is reported in Table~\ref{tab:protocol_comparison} (Section~\ref{sec:dataset_construction}): 95.5\% accuracy, 100\% precision, 93.2\% recall, with the caveat that the resize-history shortcut audited in Section~\ref{sec:threats} is not confirmed neutralized, so this number should be read as an upper bound pending the mitigation work discussed there. \pending{resultados equivalentes para StyleGAN2-ADA y difusion una vez entrenados}
 
 % =========================================================
 \section{Cross-Generator Generalization}
@@ -263,7 +289,7 @@ All real imagery used in this work is licensed CC BY 4.0 with redistribution and
 \section{Threats to Validity}
 \label{sec:validity}
 
-\textbf{Internal validity.} Section~\ref{sec:threats} documents a confound we found and corrected in our own initial protocol; we cannot rule out that other, undiscovered dataset-construction artifacts remain. \textbf{Construct validity.} Detecting a specific generator's output is not the same as detecting all future generators; Section~\ref{sec:open_set} probes but does not solve this. \textbf{External validity.} All real data covers thoracic radiographs in dogs and cats; generalization to other views, species, or modalities (ultrasound, dental radiographs) is untested. \textbf{Statistical validity.} With approximately 10{,}000 real images the dataset is far larger than the original 152-image proof of concept, but still modest relative to human-imaging forensics benchmarks; Section~\ref{sec:statistics}'s confidence intervals should be read accordingly.
+\textbf{Internal validity.} Section~\ref{sec:threats} documents a confound we found in our own initial protocol and an attempted mitigation that, audited empirically, did \emph{not} neutralize it — we report this as a negative result rather than retroactively tuning the mitigation to pass its own audit. We cannot rule out that other, undiscovered dataset-construction artifacts remain, and the single-generator (DCGAN) accuracy figures in Section~\ref{sec:in_distribution} should not be read as confound-free until the cross-generator test of Section~\ref{sec:cross_generator} is complete. \textbf{Construct validity.} Detecting a specific generator's output is not the same as detecting all future generators; Section~\ref{sec:open_set} probes but does not solve this. \textbf{External validity.} All real data covers thoracic radiographs in dogs and cats; generalization to other views, species, or modalities (ultrasound, dental radiographs) is untested. \textbf{Statistical validity.} With approximately 10{,}000 real images the dataset is far larger than the original 152-image proof of concept, but still modest relative to human-imaging forensics benchmarks; Section~\ref{sec:statistics}'s confidence intervals should be read accordingly.
 
 % =========================================================
 \section{Reproducibility}

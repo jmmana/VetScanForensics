@@ -1,0 +1,46 @@
+{
+  "commands": [
+    "python3 training/01b_split_holdout.py",
+    "python3 training/02_train_generator_and_make_fakes.py --epochs 800 --split-file data/splits/real_split.json",
+    "python3 training/03_train_and_evaluate_detector.py --epochs 25 --split-file data/splits/real_split.json",
+    "python3 training/13_shortcut_audit.py"
+  ],
+  "old_metrics_sha256": "a4c18800d82b8649cb71f50fa5f6fdba7b8ebf06b46b538e0382b725baaf14fe",
+  "paper_main_sha256": "ad5906a3a675ca1ed85a19f12057c45e7ece01e6bf211bfb4f2f437537ebeacf",
+  "split_sha256": "23eecc4bb7dbbd982e55935893dccb5c76bd34618d72c16fc4f1ec89c7af3f97",
+  "generator_epochs": 800,
+  "generator_n_fake": 300,
+  "detector_epochs": 25,
+  "audit_epochs_per_arm": 20,
+  "resize_range": [
+    16,
+    128
+  ],
+  "final_size": 128,
+  "real_counts": {
+    "gen_pool": 122,
+    "holdout": 30,
+    "detector_train": 91,
+    "detector_val": 31,
+    "detector_test": 30
+  },
+  "generator_seed": "unseeded, preserving original training behavior",
+  "detector_and_audit_seed": 42,
+  "audit_order": "EXP-00 route first, shared round-trip second, FFT and spatial tensor last",
+  "device": "mps",
+  "note": "MPS requires execution outside sandbox. Old fake images are removed in split-file mode before generating the new batch.",
+  "external_paper_change": {
+    "commit": "3b501fc",
+    "description": "Concurrent external commit changed paper/main.tex during training; initial hash matches 871ac1e, current file matches 3b501fc. This task did not edit paper/main.tex or execute commit/push.",
+    "current_sha256": "2325848a78334cdb55d553acde2ce04a6377e7349157ba0034c8cf1a7036fe24"
+  },
+  "completed": true,
+  "exit_codes": {
+    "split": 0,
+    "generator": 0,
+    "detector": 0,
+    "shortcut_audit": 0
+  },
+  "new_fake_count": 300,
+  "final_checks": "old metrics and split hashes unchanged; paper matches external commit 3b501fc; real test exactly holdout; val/test reproducible for both classes; new metrics differ; all pipeline commands exited 0"
+}
