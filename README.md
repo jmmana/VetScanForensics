@@ -1,6 +1,6 @@
 # VetScanForensics
 
-**Toward a Benchmark for Veterinary Radiograph Forensics Against AI-Generated Fraud**
+**Detecting AI-Generated Veterinary Radiographs: A Benchmark, a Confound, and a Correction**
 
 > **Research paper** — MSc in Artificial Intelligence, Universidad de La Salle, Bogotá, Colombia
 > **Author:** Juan Manuel Castillo Pinto · jmmana@gmail.com
