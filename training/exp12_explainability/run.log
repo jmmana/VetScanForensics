@@ -1,0 +1,7 @@
+Matplotlib is building the font cache; this may take a moment.
+train: 91 reales + 180 falsas
+val: 31 reales + 61 falsas
+test: 30 reales + 59 falsas
+Usando 152 reales + 300 falsas de 300 disponibles
+Reutilizando detector_best.pth; sin entrenamiento
+Figuras y atribuciones guardadas en /Users/juancastillo/Documents/WarlockCode/VetScanForensics/training/exp12_explainability

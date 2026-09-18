@@ -1,0 +1,2429 @@
+{
+  "identity": {
+    "generators": [
+      "dcgan"
+    ],
+    "split_sha256": "23eecc4bb7dbbd982e55935893dccb5c76bd34618d72c16fc4f1ec89c7af3f97",
+    "seed": 42,
+    "architecture": "resnet18+fft32",
+    "preprocessing": "03-roundtrip16..128-final128",
+    "manifest": {
+      "train": [
+        {
+          "path": "data/real/real_0020.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0092.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0028.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0145.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0115.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0105.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0042.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0098.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0085.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0011.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0046.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0033.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0090.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0039.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0150.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0137.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0005.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0084.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0089.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0054.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0068.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0050.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0021.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0087.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0048.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0106.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0008.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0059.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0093.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0088.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0101.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0038.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0025.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0122.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0142.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0010.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0017.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0107.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0003.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0023.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0053.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0119.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0007.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0099.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0129.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0121.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0073.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0069.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0103.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0063.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0138.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0081.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0148.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0100.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0120.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0056.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0078.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0066.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0111.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0147.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0076.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0095.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0045.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0143.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0079.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0083.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0126.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0052.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0040.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0133.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0001.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0071.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0027.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0002.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0029.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0128.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0124.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0109.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0135.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0094.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0108.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0104.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0151.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0026.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0080.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0091.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0131.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0018.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0116.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0070.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0127.png",
+          "label": 0
+        },
+        {
+          "path": "data/fake/fake_0261.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0293.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0061.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0253.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0166.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0026.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0127.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0284.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0019.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0254.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0191.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0290.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0214.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0046.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0296.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0193.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0077.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0051.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0098.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0184.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0235.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0297.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0234.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0273.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0271.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0281.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0000.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0064.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0201.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0092.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0146.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0126.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0050.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0256.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0230.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0259.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0198.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0029.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0283.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0012.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0003.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0101.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0100.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0068.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0233.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0002.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0274.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0143.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0269.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0149.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0025.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0080.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0220.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0038.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0096.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0056.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0075.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0024.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0168.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0238.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0040.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0221.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0172.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0280.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0082.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0152.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0196.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0095.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0104.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0232.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0148.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0258.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0134.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0299.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0089.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0070.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0205.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0189.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0054.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0298.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0062.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0138.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0249.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0286.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0150.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0266.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0118.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0030.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0159.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0246.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0202.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0047.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0192.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0144.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0058.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0007.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0027.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0255.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0153.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0060.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0084.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0115.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0285.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0203.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0132.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0135.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0164.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0171.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0037.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0217.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0267.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0216.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0178.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0188.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0213.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0020.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0262.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0107.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0242.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0156.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0033.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0008.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0088.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0131.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0226.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0211.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0112.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0210.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0229.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0173.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0250.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0079.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0222.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0066.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0009.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0174.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0179.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0059.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0287.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0291.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0004.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0145.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0048.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0067.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0197.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0094.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0158.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0278.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0124.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0072.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0133.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0295.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0165.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0032.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0161.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0162.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0155.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0276.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0180.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0121.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0292.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0130.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0108.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0268.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0081.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0169.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0207.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0055.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0181.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0052.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0245.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0086.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0028.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0011.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0106.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0257.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0120.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0140.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0294.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0225.png",
+          "label": 1
+        }
+      ],
+      "val": [
+        {
+          "path": "data/real/real_0024.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0061.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0065.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0112.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0004.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0055.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0082.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0132.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0043.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0074.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0072.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0149.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0012.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0114.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0134.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0013.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0096.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0075.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0144.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0000.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0037.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0060.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0086.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0123.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0032.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0057.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0130.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0118.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0051.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0125.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0015.png",
+          "label": 0
+        },
+        {
+          "path": "data/fake/fake_0128.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0264.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0247.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0091.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0185.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0039.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0209.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0147.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0013.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0204.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0218.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0005.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0085.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0231.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0176.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0186.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0228.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0227.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0239.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0263.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0260.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0243.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0265.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0078.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0044.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0119.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0277.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0114.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0170.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0083.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0123.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0045.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0103.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0090.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0199.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0018.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0251.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0206.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0087.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0200.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0142.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0111.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0219.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0073.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0236.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0021.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0151.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0093.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0252.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0215.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0272.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0187.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0065.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0282.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0099.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0071.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0270.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0069.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0154.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0241.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0125.png",
+          "label": 1
+        }
+      ],
+      "test": [
+        {
+          "path": "data/real/real_0006.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0009.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0014.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0016.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0019.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0022.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0030.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0031.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0034.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0035.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0036.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0041.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0044.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0047.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0049.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0058.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0062.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0064.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0067.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0077.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0097.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0102.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0110.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0113.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0117.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0136.png",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0139.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0140.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0141.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/real/real_0146.jpg",
+          "label": 0
+        },
+        {
+          "path": "data/fake/fake_0177.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0224.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0289.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0117.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0074.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0248.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0010.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0116.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0053.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0157.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0063.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0223.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0183.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0244.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0001.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0042.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0122.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0017.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0167.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0076.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0208.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0031.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0129.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0105.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0212.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0043.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0279.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0160.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0057.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0023.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0015.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0109.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0137.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0190.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0016.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0240.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0110.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0195.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0034.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0035.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0182.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0049.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0006.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0102.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0175.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0139.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0288.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0041.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0022.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0275.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0163.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0113.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0237.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0014.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0141.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0194.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0036.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0097.png",
+          "label": 1
+        },
+        {
+          "path": "data/fake/fake_0136.png",
+          "label": 1
+        }
+      ]
+    },
+    "files_sha256": {
+      "data/real/real_0020.png": "f37a8f147f5c6b0b54801086875dacd2b684dfbb9413688ae592dc9553fa1c81",
+      "data/real/real_0092.png": "ce3d89f127ff575cade8531e8e26c0a82055f905745e82e08eccfc798c5d0f34",
+      "data/real/real_0028.png": "52af5e4c4f5a11181133edcea9ccfb8d584a3a6c50eb6d6204967182517457fc",
+      "data/real/real_0145.jpg": "cbf91e4031de72140e61bcaa8cb0c0a406e42f75b0754b24b39e7e5d11433ff2",
+      "data/real/real_0115.png": "783878978f6244a89ce62dda179e190403d28c5a104d5f3d76a6c9ea37786905",
+      "data/real/real_0105.png": "d879e1a8d09083bee27520b319442e7307fed0864fd6bceda304a7ddaa74cce3",
+      "data/real/real_0042.png": "a9a42d749de2c4249377abf3e1c68cbd1c3c2663be545c82a47bf32f949c524e",
+      "data/real/real_0098.png": "492057abd0eaab8ae64e0e94b70e08ed30eb33d4a1f357bdca6996ef795f4564",
+      "data/real/real_0085.png": "ab434ea496f16a333a0f8236b0b6d7786bf4091d47a9d2f01af73fad3f308754",
+      "data/real/real_0011.png": "3c6d954537a5023df10f545ebdfe8ce2cf29ca697433e8e21b69c3f8e34a8eac",
+      "data/real/real_0046.png": "4e8f38df39b40329b30992753e2ee304c9ecbd498d8df896c8e7d8d10c6ea4a6",
+      "data/real/real_0033.png": "2f87c7889844d912ab1a0ec2261081b519f2fce4faefcc2d416f0558c30aa050",
+      "data/real/real_0090.png": "5ba671e8684ced1d53709f42117cc42ee803937751df7e6f08331e07d4d17909",
+      "data/real/real_0039.png": "44fb26a90edd414a6a45f3050c451ca252bc018ef5d032209f0950eaca755d1b",
+      "data/real/real_0150.jpg": "625473daf08455089bef42ee526c7eddb8cf384539ef938a43169539f9ca9c0e",
+      "data/real/real_0137.png": "6397e3a49f44a13eb4f3fc84f960d83870b6830765f6fb4ac06ba958f97d8d3a",
+      "data/real/real_0005.png": "bf05c5075312fcbe1cbdd5d3e112b448afcde1520510d7177b34819287efcfb9",
+      "data/real/real_0084.png": "6c183f6b078bf0fcc8937faafc9f1a7be36f5356a9184ab4837f41a902889630",
+      "data/real/real_0089.png": "6d38bce88e72f05516ee8994a87c87427d557525655d3900444d1a36f8899c0a",
+      "data/real/real_0054.png": "53ec14c28cba2f0213773d248aabd4b52912016b59ad1fb8b7f860ae5fd37a1c",
+      "data/real/real_0068.png": "23cea6b063757d67691a3b89f93679e77cd93183e8a055d4a5ae724572d7b235",
+      "data/real/real_0050.png": "b3979c05c0730baa42000ddf3875d13e310d5b66bf2b6d1b40e12feee732d913",
+      "data/real/real_0021.png": "a153be7c07e17b3db1c9ff2ca30bcc0b42d355f9d700fb1899a80d4d240babac",
+      "data/real/real_0087.png": "28a626c5db5c7f3420b3c78d20b87c3ae3e8ac536a25fb0091647731654a2b3c",
+      "data/real/real_0048.png": "1ccb3797c1a2044e95f5970bddd8a873e16268a7260af68d22393cf922a15363",
+      "data/real/real_0106.png": "f237c0d6628e1b644f3aed87c2b2bc7885abb6c03fa8e667494852063af7f957",
+      "data/real/real_0008.png": "b63446bb98727fbec8a7696fef4588a559dd1127a84b62fc50a59e687cf1d380",
+      "data/real/real_0059.png": "d894c529632ed56a7932bc65a652f9831ffc685e53efb79a384b2bf6916d8e89",
+      "data/real/real_0093.png": "d0a593870186e65f5945a1b1fea8a6c59ab5bf68f43701f6d1f02d8443e55ccb",
+      "data/real/real_0088.png": "22ecf16e5c973bd17fe95f754f0c912a6dc40b8e34facbf47c3fb5a5878d0612",
+      "data/real/real_0101.png": "f3d530940edf3743cbf835d09fa347fa548ceebce779d3f340bfe39b43c96a99",
+      "data/real/real_0038.png": "bbed2d99ccb9e84d3e0df570a8fbe85a292bd4b50808c24d151963dbe9dd006b",
+      "data/real/real_0025.png": "4434f3b409eafed6d2db741e45c070ceae97d8a976e57d7fadbcc2aaa17cc4fb",
+      "data/real/real_0122.png": "e4f37478abe80a44c79f4ffd159a1a3180cf1d2abf6643534fbd0c109774c6ae",
+      "data/real/real_0142.png": "9801f6882f0cbb4f2c6e7a3691a673e9a3f40ce9995b516cfb8ed17010cdf244",
+      "data/real/real_0010.png": "4b24d5931b0c387e199be77024dfca58e9efe53473e699eacf3e4cc3e826fa45",
+      "data/real/real_0017.png": "ef1d9e3547f33da75ba3b02b63328dddf1c7d3151f343d3a5842ee32f06e52ef",
+      "data/real/real_0107.png": "3c005cd1d7d88d4cc9db3c474e302a7541f76f1d5e3801fff91c2495d0d11f56",
+      "data/real/real_0003.png": "d69195cd0e096ba26c7b7c5792500ea6d52cd9e1a8f7bfdbc91a2d77be42a1cd",
+      "data/real/real_0023.png": "1d6ded53bac253286d37b346079a5745b42742f40f3434c6814aea3f890153a3",
+      "data/real/real_0053.png": "a25d2f4a02187eeaf0f0ee9604d24d996d3725c045d33dfa61a5c0673cd11294",
+      "data/real/real_0119.png": "ff745b5ee250fe03792b4895be14f989665bc013d827c2a9067b2aca4c500d2f",
+      "data/real/real_0007.png": "410ad0b55050b42a6953697ddc958c38b5f7260dbd74e3a8aa6b2e42da0fdc82",
+      "data/real/real_0099.png": "edcd9b14243d726c7f4ffe5ef32d1b0c0be2005d6bc18b45f507d06577b722a8",
+      "data/real/real_0129.png": "0372c20eee41f6288f982626988c842456c60c94d74d46c885b7af702694bc8b",
+      "data/real/real_0121.png": "18dcde454f6876eb0f7a890c476dd9e86cb581672d67ca9d56de948e0d5b91a7",
+      "data/real/real_0073.png": "7d1fac96b0e2cc5ee87720288bb0d356d8daa5f03f11975ced8f4c79f0547ae3",
+      "data/real/real_0069.png": "c07e11cb2177a07dbfdbcf9e4b01b6f2068d7766cf452923a454e692f8d07cd2",
+      "data/real/real_0103.png": "c572f02bfdcd8490889df1bc0d5aad19f67ed3f507ab99de98d9d28410dfc260",
+      "data/real/real_0063.png": "11142bbf2c5c4a1e24594644ea0838d77a2d9fd3ca76a491aa46b2201bdcd2d8",
+      "data/real/real_0138.png": "47dda6fe4021942d581c6661874cf65a81c2127e69ba21829f0c2aaa19f6fef1",
+      "data/real/real_0081.png": "e3d7843f468736cbead1f53dbc48e782734cf8f1b578260c9ea4ca3584b07f35",
+      "data/real/real_0148.jpg": "16cd67c9ae3641c73fee8c5a1721d40965bd009dcbdcbe190f2e7366efbc1a8f",
+      "data/real/real_0100.png": "3e910b7c3c5a418c82bd5d6e6cc50dd219ddb074c9230144477d858013b90e93",
+      "data/real/real_0120.png": "6b5fa664099eee1344c7a8cb0c87e7ad339c57b83c7358b32ef4d3eba5ea876b",
+      "data/real/real_0056.png": "350f566a80351e101985babc2664ba5aa3011a3212142a77dad92f96bb7abe94",
+      "data/real/real_0078.png": "f537dee032b3ab255cc4612d1a9bfc930112dd5a6c771a65d7c31c3e72488399",
+      "data/real/real_0066.png": "c26198e8c7a5489cbb097ce0d394e947fc6980ff710a7186d128bcc5e08822b9",
+      "data/real/real_0111.png": "0fef6a4c3d0551bb93dbba738dd2bf8e02fb8afefa34c7b26ea407c5363be221",
+      "data/real/real_0147.jpg": "e0b85ad2d7bb64d5e47900564d3644a4a6e3e855632242feb003a3d2047a412c",
+      "data/real/real_0076.png": "e152327d3b953105032ec89118bbad9df3bbfcb0a7bf3dfd6a182c585b8c4ecd",
+      "data/real/real_0095.png": "75b87b6f269f04c37b4a15a59a9b29fac9f0506ae9fa42773c3ac10fb4295367",
+      "data/real/real_0045.png": "382b8d25c809fe168c555f0b5b9535d7b3428089f1d9bda694ef665ecc6d97a1",
+      "data/real/real_0143.png": "fa81101d91ffd4976c2dc07ff69ea3d9a88b8f984febc4ec364c6c33c5acd607",
+      "data/real/real_0079.png": "140e432adde67b9feb4f8370f52be2c76df5dd541c35b45d33579aca1cfcae46",
+      "data/real/real_0083.png": "ec5f1a85903c48dcab436a1271224af9eb4d9f4ec12f6a3752107f5bc196d9a1",
+      "data/real/real_0126.png": "7683d650d47fe9ef16f0eb8da5c4f4c60ec605284a36eb57f8e325f037af8f95",
+      "data/real/real_0052.png": "e92d47161308a0f932177aea756f828565e13bca17e67cda8b8c3155c70cc612",
+      "data/real/real_0040.png": "4ead1acf6180bcbc357aa1d4136d1f1e53c0bb8756642785df928a2b134799c2",
+      "data/real/real_0133.png": "e777b52cee51d58baeb22cee736c8c1faac2c6dcd94c84c854b4ce97a4962df6",
+      "data/real/real_0001.png": "7c9e7b0e8e07f3398d7524515d34e415aafa4a3468e9748aa06e58c5a97ae251",
+      "data/real/real_0071.png": "305554a316807fff173f36ff3be25b6c98e68c6ed56802e85b1471f4d28c0a2f",
+      "data/real/real_0027.png": "926efd086a0834d0b8e5c02037d631d37bf9271300b587df9f81551a6426bf3c",
+      "data/real/real_0002.png": "a2d7366b01759e85da49ade54ffd2009c31793f30be83361580a1f28c58151d3",
+      "data/real/real_0029.png": "689be8fd5827c5fd5d95d754405d2e4720da501e940464946605865e78f052a7",
+      "data/real/real_0128.png": "21cd494e9f063d50737f2d8cb9faa004508cd598d982e52375abc17b53b13e87",
+      "data/real/real_0124.png": "ecc922eba0ef27c04c023b7dcce3755d5042b81c1e033bcf43ba078d1cf3d206",
+      "data/real/real_0109.png": "2d6c125ca3bb886a44a6bc4a465daf1bd893dfde145d670d2823081d90e27208",
+      "data/real/real_0135.png": "7f37dbcc545f0efa0964027ff6cc2dc34434ddd61599f5bacbf29dc95daef775",
+      "data/real/real_0094.png": "e073d5a93a339f6016321f2faddcaaa50a471a8255367650b81d714afe355466",
+      "data/real/real_0108.png": "6c1b6ed7f4b67d459f0ceab1e27439ea6fec8298e5f170dedf0ef9fb2462c44c",
+      "data/real/real_0104.png": "1ea218362e1992e94d096f8d53ba80e53168c61dee2ff010245239ec3dcac40d",
+      "data/real/real_0151.jpg": "94035962aae23e612fea0285a36f4b8487f3a53c3b45eba63833a8c4f74fc4dd",
+      "data/real/real_0026.png": "8a239f72bdd455b67cd2842dfa3b4cae0c89051f09c3f55ccc0c37e502c4d96a",
+      "data/real/real_0080.png": "b8936078903e4a8a10c4bba9e806e79dc5a5952fabff972f68c175dab476235e",
+      "data/real/real_0091.png": "430c470c71bd32543a056428b4e8e0451251f92480dd4545016778df7b84a4a7",
+      "data/real/real_0131.png": "87e954fcdbd3ad697a10a3e9bb1d446abb2aa3ee1fdc47da3556540ccbb6b732",
+      "data/real/real_0018.png": "9c46fb5878539674a3b5f7cec5878180a2dfd3913c8b024757235c28c61bb013",
+      "data/real/real_0116.png": "a0756f73f85ce6dbc300f89c65c8df15db082d4b890379c352b1fa0ccaa6585e",
+      "data/real/real_0070.png": "72ecde816a7d11bd4e6659db06eafbb6da213cd36a5abf0de980d0b9845f6f30",
+      "data/real/real_0127.png": "92b62dad7b2ed3d9f7c7fa4145ae3bebe1bd203a318e59ce2f2f7499845ebb7f",
+      "data/fake/fake_0261.png": "ab809875f77bc4eb5560684b4a4e5ccea82f85fb2ed1df9ddbad8fe5bbeabe33",
+      "data/fake/fake_0293.png": "95fa79789619ebb80367e7d206b4aade6db28b867e007cf674bfa1245892a325",
+      "data/fake/fake_0061.png": "7403e67d183644476084a663532a40f17e7613529f04579684961a8da7aede2b",
+      "data/fake/fake_0253.png": "df82b6a71229c02fd6c882ef0dc3d523dd7aec05673fa3efd6dee7f442c6a1c9",
+      "data/fake/fake_0166.png": "c1710fe28e770a8fc15ade7a442de6c0e576e69e3582c37cbe75ca9f51ffebda",
+      "data/fake/fake_0026.png": "1db5640dba6faef36629193d4991465837fe90df8604f93b225c1bfa424d85ea",
+      "data/fake/fake_0127.png": "cab07b9719958a714c93c74cdb89a39e2944dad08ad55a1e29adf1b30d363ab7",
+      "data/fake/fake_0284.png": "92f24ed8dad00af3fc4a9cec27102bcafe52d6d0b736d95fd387dc3e14c0600e",
+      "data/fake/fake_0019.png": "b2cb8c1b1f06f7ff06d8ce8f69857f5411c4dc50abcdfaf7b6974aec1438c3c5",
+      "data/fake/fake_0254.png": "478e96c3d3d7353d4e84f0c75575cbc4425883bb5c856a009ee0f075bd75b542",
+      "data/fake/fake_0191.png": "1eaaf1fad50aea61f19918f5504338be0838029b6a8460093553613e1cce08d3",
+      "data/fake/fake_0290.png": "f9dcba7fa757ef2d0d85e32881b6de425a8e98b30e4766edeb497716e0aa5563",
+      "data/fake/fake_0214.png": "0d580065b112c7795b0668f6ccbab9d2554a064f7d31c210691e58009e5c69cc",
+      "data/fake/fake_0046.png": "07f7df9d4fc1f5c7c2cc88a0130421a3c74cbc927f2e0fabd443ba3ee7cbd3c0",
+      "data/fake/fake_0296.png": "0ba349a11c6f3552ef4e73a04929b719fcec0ee7b0f3a5e02e23e1317c61c5b9",
+      "data/fake/fake_0193.png": "6cf94df5483271636891e16411b8b3fa30dcdf811e52ce1e1aaf52356108f0ce",
+      "data/fake/fake_0077.png": "60ab659f58d245dd37e41d18cb46fbae206920fdcb3e280c4f1b614a55130197",
+      "data/fake/fake_0051.png": "336194d5a4f926c50647ca5a0e0e5bb8dee922aed1eb950af24bac47543bf65c",
+      "data/fake/fake_0098.png": "3b3f95aa5bccb5adbc93cefa07f0b879592ca99a9782d03759908cd220021da9",
+      "data/fake/fake_0184.png": "c9c8a6e59c76cca91c209f3c415202914d815292d1a98be141c4a6d813b0ad3a",
+      "data/fake/fake_0235.png": "9044136b472af2e1bca8e6c4632bd5b42dd41c214c75b47f047bd9c859da5688",
+      "data/fake/fake_0297.png": "9700dcaef5731bc6e1d1007c75e6d7a30a82895c04fa668d71b57f520b45383d",
+      "data/fake/fake_0234.png": "e124a891b84f38f03fe73647ef1e3f0f702c435bb564d68730e185d866b619c3",
+      "data/fake/fake_0273.png": "928ee6a8a3f78a1288e9658a708d8c9fb860143e9bb2c5b63a2a994094d83903",
+      "data/fake/fake_0271.png": "dad02a08abf7c881927192055ffc9734017bcbf67133840ba403fb9e4deeccdd",
+      "data/fake/fake_0281.png": "525f27633365cd4a13ac75e9603094dbe82273ca57217595a2ce5644af3625b2",
+      "data/fake/fake_0000.png": "bf7c1cf71853237f36a86d88a698e2f4853357985cbd4f5f2f5c95748c8b1218",
+      "data/fake/fake_0064.png": "5f975a0b188ec2c9b3ebcc6545d03b99f59d5efa59751832214d4a548746c474",
+      "data/fake/fake_0201.png": "5374f31b165cbef93367722edd556bc51150136f214da3ca1c8a4e26218b4781",
+      "data/fake/fake_0092.png": "f3026a85c2e9fddeedf64c578e18aa9f6674c2629c5a3bf843e3182cf53a74be",
+      "data/fake/fake_0146.png": "6a19d5836370856b9750192de9460fb4ebd393bbf43146c4c6d9218f80a9ab50",
+      "data/fake/fake_0126.png": "adcfcc1451acba696e6f424f2b2d4cef2d21013966ab332f33861f63c7ace383",
+      "data/fake/fake_0050.png": "b744ebd58bb15b7e644f0505eb3dbec7e408ed0dad5dce7ff8bb95a2f84baea4",
+      "data/fake/fake_0256.png": "1a489e9c46169b52a5ffef443a9968826e139581c7a233ed0700a11a21efba95",
+      "data/fake/fake_0230.png": "035057f2cb253851e4635d5c4ad18ac7ced310843ebf5463adbe266bb22d11b3",
+      "data/fake/fake_0259.png": "5161e7ddc2c570fedf5d3f8f181f7f0295e4a643e1812aa5b3eda653e89bce5b",
+      "data/fake/fake_0198.png": "15ed4277e0affd6e2bea5dfada5a733c41b877be74954b141f218fbbdb8f518d",
+      "data/fake/fake_0029.png": "3f82d8b7cbcb7a6a3c569fab8d2d52b068842439c0fa49873d6ff0e7aa7dcfe7",
+      "data/fake/fake_0283.png": "e0d49de0e55ac124a0c4fcb2677c84b8ae14a4c6eea1b7dfab4bee63e7eff743",
+      "data/fake/fake_0012.png": "7e9dcee056118e7bc04c8917f9ea4161035335d660fe094bcd07d7d4c119877e",
+      "data/fake/fake_0003.png": "8ecb95bdf0a5b8592496f7c216a1b84daef66821003a9ba86133d28aa5abbfdb",
+      "data/fake/fake_0101.png": "557f7a0b6839c74510db47d77d093af537ac3298fd5b6814e18188078a08d8d7",
+      "data/fake/fake_0100.png": "2a95772c5e75862cc78016ba5eb82f41b3a9c86e94c9b94275d41e0986febd41",
+      "data/fake/fake_0068.png": "01095380cbb6a4311efd6ce45cba6fa03a82f6e85079e722e7377d60b6e57968",
+      "data/fake/fake_0233.png": "0a25a0d140f82086222aa1783fc59194c48a76fd6de12c2e27c58f85ceb8cea7",
+      "data/fake/fake_0002.png": "6d81c258e59ab19ea1469b47172f7a444480c83a57949b9474594a97596927d8",
+      "data/fake/fake_0274.png": "2e9eee9cf874108e858057a27376e570438583ec6b5facea7c9bedbc15fa19ee",
+      "data/fake/fake_0143.png": "e84a5bfa381c8ba1a62a01027daacde59391bb6f14c2fafe78496184a563c273",
+      "data/fake/fake_0269.png": "f05a76aa1d4e655c4efad8a81885497c1eed9fc7ea6f02d4a3f45ac9bf0a0e7d",
+      "data/fake/fake_0149.png": "28890dd6e24d9d97841f7b8b59715b691a3b22a9767038a92f3c0cbd869a875d",
+      "data/fake/fake_0025.png": "9a16fb26cc431a1461054f3498908a79cce1fc6bf35ec3d91321d69521e03150",
+      "data/fake/fake_0080.png": "86eec2de983afceae594b63305a9136c1e7ccd6d09c1861dc51ee7a463934489",
+      "data/fake/fake_0220.png": "439948aafa22572b3ae723fe9df690899ec8863fed2dcb2764df062d16e32caf",
+      "data/fake/fake_0038.png": "3daf5bf5edb177585bd9835dc928eae7747abbff1f0dfb0234b7f3d3bc2bd5f5",
+      "data/fake/fake_0096.png": "5221de2752aa18145e5109b69cb7124a98c25abcb08f2909562d3879eee9a221",
+      "data/fake/fake_0056.png": "c045cdc01754c1e9ac624f8bcaabc1f2a23b91c281ad39a956c19712876c9e97",
+      "data/fake/fake_0075.png": "9203caa2187005673d62eaeb36f1c4b0ae6e38a51d2cb1c2fef5fa61a86d871d",
+      "data/fake/fake_0024.png": "b72df318bc93f8c69df12b1d9596fafb5262c2c5de38212f3e85440019450ab2",
+      "data/fake/fake_0168.png": "0acbc822b547ec11a2725e82189da3f29b5cd114899c7c4d39ca4666e375ae65",
+      "data/fake/fake_0238.png": "65336cea9fe79785cf89dcd5a33d4264542e83e95ff8b765df620051bba7ff25",
+      "data/fake/fake_0040.png": "898ee5dd9befb9a3702fe9dfa60d0e0175a5ec68c3240625002de0425704961a",
+      "data/fake/fake_0221.png": "3f72784e3d2b770b1d5c9b2a6437426f8574c02c1074184871eaefe50b2d1b02",
+      "data/fake/fake_0172.png": "e3ddad7924ffbe3b5559270749988c3a91a3265022ec66100ada78551d2f6a20",
+      "data/fake/fake_0280.png": "a1ccd6d9cfac593f27b9b82a36f3f3e58cf1942ca40fc85f6cfc1209ca99962c",
+      "data/fake/fake_0082.png": "513dc81cdaf62ebe0cfbe959d48bdb93e936a134eb06981f28d6f74891ecb6e9",
+      "data/fake/fake_0152.png": "dd1c1bb4c9f7b19b60c73e5d36980dfcb63331826e5ece23d0d0630ecd4730db",
+      "data/fake/fake_0196.png": "56652f229381cb37bb6788b2b2b310c4008b239566f9557a33220eda3a1cac35",
+      "data/fake/fake_0095.png": "5c092ff2e044a14a4615627e33ff735d5b834366d3cc30916c7fc47e95d36ab5",
+      "data/fake/fake_0104.png": "b17cd6984625e785743473920a0ffd9b429fdd70b7e90e5ddccec29bd093fa34",
+      "data/fake/fake_0232.png": "bbe20c782d052e0d40e6f4e3cebc3adfecb3c29c38f7714efb01af1b5e4e14e5",
+      "data/fake/fake_0148.png": "1bde5e04499cd052a8a3e7139b005789ec7e44db3498aea899c1f6f738e6279d",
+      "data/fake/fake_0258.png": "62749a63f17612c2a97697f8c3f94cf5b02cd1e449757502b8d9404066ffa92a",
+      "data/fake/fake_0134.png": "141456fa9cf86bb96d790888639071b508f58ee3866a311948e08810456b84dd",
+      "data/fake/fake_0299.png": "852262e6dceb2f42997068110f2b35da1328aa5e17a9377135ca48a32020b3f7",
+      "data/fake/fake_0089.png": "7c3b94eae00e0865df2863adf909474f551ceb8c94d928f84de0f0f4dfa18270",
+      "data/fake/fake_0070.png": "76009f0f93788ace6a481f45c6070a1d7b5dffe9b2148b29985753b71bf9a03a",
+      "data/fake/fake_0205.png": "e208864b7298d0912a489db88f9349ef5c54fd12a165bd1ca092bcd2edf97fc2",
+      "data/fake/fake_0189.png": "fff3833706ca5cc3e7138a846d440213a60b9453aeee0513983326cbfe1bda20",
+      "data/fake/fake_0054.png": "073a597410f4f04a430785cc73d97151e094723d064ec04677dc9d120e9b8f17",
+      "data/fake/fake_0298.png": "8dbd1cf41e4a571bdcf4a8b27ef4188e16631d49781e148dc4e4e22dc4968365",
+      "data/fake/fake_0062.png": "70b6786b3dc18c0ebae482e3b9bb4461339fe6062cd59cb091b5f839d018d7ab",
+      "data/fake/fake_0138.png": "7ca245d70fc8ef7d79c277817746b34c0d1dd55cdd00ed60ad83fc8cdf402d13",
+      "data/fake/fake_0249.png": "1dee0435fc6cf699afb74b6f43878f0fe56d7bc03d104a4b037685bb98043d0e",
+      "data/fake/fake_0286.png": "651e26341b729c8c6e817a24ba06035c73badb76f10c112625b8a63426c84879",
+      "data/fake/fake_0150.png": "251cb0908531ff7941433673f1efa2200d3b3d7acbf9c9dd7c9108d29f4d7f92",
+      "data/fake/fake_0266.png": "85957a7987b8f2c66cf427053779db51a6d40c9396f7af0dfeca2752c252af59",
+      "data/fake/fake_0118.png": "740679fea2f3457124f0250746c1e8c8ae67e931a76bfc038cdbfb0c17f6001e",
+      "data/fake/fake_0030.png": "07186fa2fb69918c8f45d1e52efcb5cf115c9df4ee4a999710e423596f6da634",
+      "data/fake/fake_0159.png": "2d58251dc70555bbc251f3ce2b4eee00541ef5e36c9b916a24bec710b59d7f8b",
+      "data/fake/fake_0246.png": "ffc6efa367945452570b375645e821c45b16ecee242c8e4fc427bb1550223a69",
+      "data/fake/fake_0202.png": "ae9cc8ddf50190aa633cd696e16f18001f5d175047f1810f57283bf2114a54ff",
+      "data/fake/fake_0047.png": "488865406e6b926f84c891a0a0534caf3561e3f53df22e45a4d2e0a69c335e65",
+      "data/fake/fake_0192.png": "195e2b24d690cc82c01cca069ff7f10b7d0199596effaa9ed73c1b59cc5b4564",
+      "data/fake/fake_0144.png": "8a1aeb4bc9258166a360d28c9f62453274af29fb0dd0d123d367f6238d466bc7",
+      "data/fake/fake_0058.png": "731a7224d6fa66a5fc658ef083f29e591860e378df68264a8cfbc3a606d9823c",
+      "data/fake/fake_0007.png": "e21ec1a08c94756b08b2048417847be014953cdb702305119f5e8cb9f0ca65f4",
+      "data/fake/fake_0027.png": "79cc3cca265678c092f78097a288d6547e085cfe30132cf4c420ad3ce2bedbe5",
+      "data/fake/fake_0255.png": "43da365e645071121061b144ceca4aa057c7dc473d08ef805dcfd4be7faf487c",
+      "data/fake/fake_0153.png": "0225e01aa9c16375ad30b771e5942d8ac9adfe239b55255a95802bfcb67bd6cf",
+      "data/fake/fake_0060.png": "75164a733bbde63179598bce1b59bf5919ee7a02833c7be834f419a641677e4a",
+      "data/fake/fake_0084.png": "de854b523197ab4b6239195d22b1e470b6d400f3fa9440a60c24d18963bca95a",
+      "data/fake/fake_0115.png": "544bbfabf61e5ab05f5bf04371b52e89a77592c750b7e2219ec7cfc7bbc306cc",
+      "data/fake/fake_0285.png": "769fab63a228fa137aa00332ba4ea4d8ff4cfb450f00777b6e5c4d1c701afa03",
+      "data/fake/fake_0203.png": "f2644db80ec8eb35c8a7ee55d16d37ba2c35ee88c0ea4cd85ba8491129b11255",
+      "data/fake/fake_0132.png": "b237032f9ca627b55a61f7f808bf3b5139cd03df195998bebf89b50d179f3968",
+      "data/fake/fake_0135.png": "6b9f327df11a8ee2a8d75eee38cf231a258cb5eb26e662efae974f9e7c042915",
+      "data/fake/fake_0164.png": "3b30f062138dbf8ad9649dfe01a637539a032b21f8549ca485ddad9a9a760a8a",
+      "data/fake/fake_0171.png": "6ee06ddf7042115cee1442859ff28de4a12a7e0ee5f254761890bde1552ee9d6",
+      "data/fake/fake_0037.png": "128769b9d0a4c4a94a87bb5716f82a306a702b772b86a7f4e4976b170fc95979",
+      "data/fake/fake_0217.png": "44f611b10f78c3c433dc64ca123a1d006df46fe7df081a2c59701db30d291a9e",
+      "data/fake/fake_0267.png": "1fbd03a18d26e7d5af6b1b7f945f91e8917d437217f64061eb8a538aa06a6316",
+      "data/fake/fake_0216.png": "11d6d7a7932517c307b9ebae78ceea755180c033fac5cec280a51c27b113251c",
+      "data/fake/fake_0178.png": "3f62280127e3a0644bd8ae183eb83c926fc3d712d3fa106f2e2bef6107e383a3",
+      "data/fake/fake_0188.png": "b0a39bce3981c1090ceda3f960ae3e97ea2546fada663f1a71e2cfa3d0c2e61a",
+      "data/fake/fake_0213.png": "1d10d9b6255ac0d965a963f6436f74e189542a449cf4faa2b0df33a6f5640e90",
+      "data/fake/fake_0020.png": "b7e356b216e4e529877e52006a3d8c27579adc503a60d1e6daef03196bcf739f",
+      "data/fake/fake_0262.png": "43aff596c8ad381b1d534c6a27e0b6778cdcd0d17a0d6d7f7e536e194db6f5a0",
+      "data/fake/fake_0107.png": "5938c9c3b91893c0047584060d51e11f99ab7dca68b350b6830f17aeab533f35",
+      "data/fake/fake_0242.png": "260f3d888ced745b811bd146a27ec7b2f66aae123f0b138337d97847219029df",
+      "data/fake/fake_0156.png": "6ec337fb38e4e2a47887a310367b76d28ed72d6c1b26d6ef240acc34205053c9",
+      "data/fake/fake_0033.png": "07e943d8c07236bbcbff752c1e8e95d8400e98b010bb66ae932acc6f148663da",
+      "data/fake/fake_0008.png": "21e25d06f758611ae377a0f03cfa46e7921e432d05ab197798081e8c14f2e7fe",
+      "data/fake/fake_0088.png": "9f9650628e39728a5082665ba575f29f74ee8de0501854512238115e20d486f5",
+      "data/fake/fake_0131.png": "c615061d273d9cd9d1ba0229df6b927c438cc3757651d11449fece52439bd769",
+      "data/fake/fake_0226.png": "3450e875fe4691a5e5fa099e1f69ab0b41e7b20e82171d3dbc56f12948741b1d",
+      "data/fake/fake_0211.png": "641c1510e62d3a429da045c7a344bf2efc720220e17dcf8232784163006cbcde",
+      "data/fake/fake_0112.png": "f1e4efd53281edf4dbadd79fb23c4793d01da54971297054f5f42743fd083993",
+      "data/fake/fake_0210.png": "0216484c87c3ba7ea5ebdec3529d80591f668315348b5bba981d11b41a4500f9",
+      "data/fake/fake_0229.png": "1b2ea386b358780f05de5c0ab962627de6ad307148364afac7b3ce2ee6a29474",
+      "data/fake/fake_0173.png": "2b826cedd0a55416126206cbdea65896de40842f754bb415e57179ecdc428faf",
+      "data/fake/fake_0250.png": "d5e39ea4209b4a3a64fb9ba88856eb71cc7fca7cb3cb21baf89936c40e53a235",
+      "data/fake/fake_0079.png": "2658a696fe5a6bf6c531d2d3f1415b25ab20c583487826aa5928e8ed62abb0e9",
+      "data/fake/fake_0222.png": "0a269b93c9bd8c110556eeebbdb7d25549bca3b696cf163c8846c80d9a72e873",
+      "data/fake/fake_0066.png": "138c263cdb9b6ea2d71845905eb3fe1b99db0968e62c60fff011079d2a0f28f1",
+      "data/fake/fake_0009.png": "2ce1681db4fcf0dd7b3d4b5f144767f74dd45d0de94418f622630c03d004c152",
+      "data/fake/fake_0174.png": "abbf4f6d54dbc7b54d941457c871b4eae27f40c6ea041c7dbe328f9599633e73",
+      "data/fake/fake_0179.png": "c34473e69812be8b9d3c3a3e5535dafd728df94995ea778b45062a79b0a02d91",
+      "data/fake/fake_0059.png": "96773c1ffc2decf81ecb9529a69d79a3b5ed6bc7297dad619ef28c1d81662c3f",
+      "data/fake/fake_0287.png": "6e4147c731a462a50b516e91faf49f84fd3340b050e9d410aa613b7a99dcdb93",
+      "data/fake/fake_0291.png": "8eace999c159331d9e7fbccabccc0ca5e8740a6c16492b9131b6e6ef5aa67023",
+      "data/fake/fake_0004.png": "f83a09507d4265828b7eed60961cba08de4d057b8cc2a20482bf260a6b52a013",
+      "data/fake/fake_0145.png": "136248cb513616891654d1f4a6ee51cafa588c00a37766aaccddd34b0aca4607",
+      "data/fake/fake_0048.png": "47863abb5a2231eee21eacdcec94b11aa5d80a013769e82ddda3e67c173337b1",
+      "data/fake/fake_0067.png": "40fd3aa6f3a97b63bd56c0f8c02036d0c6cceb4a08a88e2b65678781f6185695",
+      "data/fake/fake_0197.png": "0d16a03d87be099426be6d810263ee6ec3f231894f57aab73433f8a50528b9bf",
+      "data/fake/fake_0094.png": "bcd699b27d6ad49f675b7649db10a5d79458b7493ce20e67832cdec39d71e3bf",
+      "data/fake/fake_0158.png": "b783d933212f85452e1d0621ea5c43020120b51534636d5399e8d78d02f4cb6e",
+      "data/fake/fake_0278.png": "57fa30575939ad3a511d5f7d9fb576e69faa240ab63999553954c65e8081cf3f",
+      "data/fake/fake_0124.png": "28b25b677afee4a36a9f356163184ffd8df386cdbcdd8609280722c91b8159f5",
+      "data/fake/fake_0072.png": "7d8ddf7f55e7eb403731a451994a3bb2a02b0fab88694b68ae5074bd30484794",
+      "data/fake/fake_0133.png": "7b8b3985ba92c0cb22243bd9ab402c8c50140deb3a02d67b2a8b6cfe63685618",
+      "data/fake/fake_0295.png": "a51d09d8cf25064ef935becc2228a2ca5b3ce390e88445d81836f09eda5d7276",
+      "data/fake/fake_0165.png": "e9afa735ff29ba396cc9086a4bd285cfcedce29f92ce74123181a2b4a566192b",
+      "data/fake/fake_0032.png": "137a465a424e567b32a455cf142e06b034539a902286911ae2fe0a0a48d93fe9",
+      "data/fake/fake_0161.png": "2baa359ee3a47ca1a9a247497cdb695e65d5bc5b6f0c9f41d3395b92dea65603",
+      "data/fake/fake_0162.png": "7171e994915dae78e368069d7ba4e9c05bc976ca03d68972404f8dbddcda1e81",
+      "data/fake/fake_0155.png": "fcdc4cbd52b27325f74560a55e963baa6e31bc8fe78e5fe1af4fb77170973a4f",
+      "data/fake/fake_0276.png": "5a99c497f06659959b690a9d004399221baa2f065487ab05519453e804b36e39",
+      "data/fake/fake_0180.png": "302080320b7f620fa4f3646539c4e69ae3ef71d1aa7e13be553c637f6a18c53a",
+      "data/fake/fake_0121.png": "149a6706a340ea74bbee9f289b64b7dddd5d9e6b442ad195befca1ffbee55b09",
+      "data/fake/fake_0292.png": "09c5140d9699e0b5fe7cfa980a34fa25c141792fd9c44d9fe07bec9104a417c1",
+      "data/fake/fake_0130.png": "ce9c2e03f4099ddab85e24979f7bce8d66690ecbc3876d890769c9e4938f3d9e",
+      "data/fake/fake_0108.png": "c676288eb7e7de395d3580f20b6d91b6c3a70aced334cde7290be21d66f1f89c",
+      "data/fake/fake_0268.png": "0652a8ee51334586b2d3ac8cf90e532ba6549efb598e936b4efda6937b86e8d5",
+      "data/fake/fake_0081.png": "fae0fac47e9b6959e4959ba1a68846a2b7729605ba12175ccc4ab6ffb4f0ca4f",
+      "data/fake/fake_0169.png": "83c94c8bc7a0b9b4078a9b1121e10dcf8865a6d1752754c2f49d9e6edce8fb3d",
+      "data/fake/fake_0207.png": "820d3a01852e1d724f62707641a79d6f90903a2c84a85faab12b5f1b74cb0ec3",
+      "data/fake/fake_0055.png": "9a0b87dbf82e81abe99b1c63f09a369f5eb52af4a529189aa388af4fc44bf8b8",
+      "data/fake/fake_0181.png": "f338a1f2217c5af21820589b41b765f57d68694d9039c7ca460e9e94c85e3eee",
+      "data/fake/fake_0052.png": "36c589e244288db94a7a7ed0649a4437e3c8ad0c418b8ff3bdaa137b487939d0",
+      "data/fake/fake_0245.png": "55aa4f5fd9af910c0bf238254bed9fca88b13129e09415ef41aa04d4106e2958",
+      "data/fake/fake_0086.png": "4b7e6ec6183166e6b038189c11918b3fd1a6331b4abdbeecacff261b131ab478",
+      "data/fake/fake_0028.png": "55562fe0eb81ba0c27c2d79179e185361ff2c5aebc6599ca7d862c66e8c4fd1a",
+      "data/fake/fake_0011.png": "4dfe9702e1b3b376b44551442a0eaf553e034a12dfc8a07ab58211901131a871",
+      "data/fake/fake_0106.png": "7fed1608e4eaed1583f05fdc620ae33be76f74fc35aa0a43dd8928b981708aa6",
+      "data/fake/fake_0257.png": "ba64815194dac9dfcae7c7d67951dc0bf308c397ae21fee8f046ccc09a3d7c5c",
+      "data/fake/fake_0120.png": "a0301c636a9f33675c4745823c721dbca800446469afa13b7b1cad31ddc25b82",
+      "data/fake/fake_0140.png": "655ac957b06fc2441371adfe3e70eb8ab5f58daf4c8215e619261094884c4960",
+      "data/fake/fake_0294.png": "50f9b545acf0c8e82833e0225dd7b4fd860214f2702a84ec7f1655b39e968e19",
+      "data/fake/fake_0225.png": "7d5ba614570cb6a803869967448420a4251b85ccf1389dffa7e200c352aa4976",
+      "data/real/real_0024.png": "f49d150837f7e6c7adc9aac60c7ed587f05a681e909768fc6c148e8b56a99962",
+      "data/real/real_0061.png": "56bc87cc37f2ce2c405e267e0dc4630801c4526886f61db310df35cade027c81",
+      "data/real/real_0065.png": "18750ab5b68a5258261e64e20a505084ee7e9ebf4d4b21dcbbb2b30413947645",
+      "data/real/real_0112.png": "f31d994dd1452f592e0492523939d0cc77cfe217a944dbcdaaedbaf142dcd642",
+      "data/real/real_0004.png": "bb0dd0010274bdd1fc54908d45d61ee3e01d38698459b62fefccd9d5722283ca",
+      "data/real/real_0055.png": "b761c396fa5092053a8d62a8506df01c07e1e8de3d55a0e637d9b526dae51692",
+      "data/real/real_0082.png": "bab466505fbe5651425c1a3d9537341cb28256bd09c77f2a19cf6b4912bc8670",
+      "data/real/real_0132.png": "c49d096d6fcc83507e7168cb49f598dfc8dab42b183ddb6be7b90b5e6b7b5bf0",
+      "data/real/real_0043.png": "9a5b9823e17579c33f089e219f3eed86d1ebec2906c391676c3a621708684ff8",
+      "data/real/real_0074.png": "c0316fa956c263dc7e0c815cdddee26c39503a258f5e257d5071f0d00ca74f41",
+      "data/real/real_0072.png": "9b7a9cacc968978a4a0f0234253dc712b4e204861645f3aff52b92561884dfe5",
+      "data/real/real_0149.jpg": "56bb33484ef90986ae3549448f4b48ef132b7136a3df7149ae12841d9c029bba",
+      "data/real/real_0012.png": "d79346eb217fc2003cf6c09b08eb167fef50371fb2eb433ee8ec276438f03731",
+      "data/real/real_0114.png": "812b606214362e230d6c9237a6216eb953b6bfbb23164fb1efa4ab28e1eec2c6",
+      "data/real/real_0134.png": "658d1eeae936608aa60ddb551a2a4988fea97054fbf05cc95d13bd446a4b98df",
+      "data/real/real_0013.png": "7520839490a26e649dd187da0d3de71a093829effaef223a42304963c4da2bda",
+      "data/real/real_0096.png": "d89e101446328d39c7c2371a244c33c382663be10d446f36719abf89ddb81a5f",
+      "data/real/real_0075.png": "d84bf223ebce2635304fab589c30383e106d513e584c703b6a9afe0a81ac362b",
+      "data/real/real_0144.png": "bebed4d5347a3aa81abc81ddd77a17a4a46bee6ad9b3cef9dc18240559dd746d",
+      "data/real/real_0000.png": "ea4f6e2fcf125d323cbf0fd17a77004822d8403c1b93861220eac729ed8aeecd",
+      "data/real/real_0037.png": "45765ccb94eb6eda8c26d00f313bf7cc15d2a48b67b1e7b035220ea4ad638c8b",
+      "data/real/real_0060.png": "68b9d47ea1454f595967383b5f3c846419d4af704a6549b281aaf3d6640ffc98",
+      "data/real/real_0086.png": "76f426726d312cff55e2e2eb8671eef0fe33587311ad53d3636cdd0e18551851",
+      "data/real/real_0123.png": "d152cf2bd2a2eea99c493c669d133d44858f38ba72fb4d89e8e7413e21141032",
+      "data/real/real_0032.png": "6caed42bf3e85605958d899c522d99da2c3b384f28fbc5459e9da2e1ffc9a886",
+      "data/real/real_0057.png": "4cc75d44033df12369af530e1d35981fee2a05b0086a8ff7530e89d51687271e",
+      "data/real/real_0130.png": "81693946e4f9afcb8027d944f31b4057e4d697b4a7e5fdbbebdbb5786058072a",
+      "data/real/real_0118.png": "912a99d81b30a55fe634fd8ff7c1b2e2a403547a7eb217c7b57c0b63f1a246fd",
+      "data/real/real_0051.png": "130d548aa706d7e043e0635eb49f08acd8894938629dd1e6cbe7590d54e1c74f",
+      "data/real/real_0125.png": "1efd3d7b147830a721b0b420a8aa40b5a7f3a4c5f3b1dc9767c0dc620d55d570",
+      "data/real/real_0015.png": "1955581c141a695f544423ab4a9d11834f3478ad66391532eb005a703c27df62",
+      "data/fake/fake_0128.png": "fac9515204bc20878e23b05f74bde6ec550e6ab5a97fed42548435f3ef16837d",
+      "data/fake/fake_0264.png": "2e7f77f5b2481f0bbaace4643179759eb1edeccdf6693ef257d1dd5161420a88",
+      "data/fake/fake_0247.png": "bff67650cc3d3b7516d23c8db2ea1b1c125d82689c4fd58e2cff8786cba46da3",
+      "data/fake/fake_0091.png": "63fa125d44836ba2aa34217503ada18527d224195845b678f9d0b1d8fc93219b",
+      "data/fake/fake_0185.png": "8536cd2fc4bf9df8dd7f1ba113cdcfd78d637a35ff0c40610ae87a404ad06be4",
+      "data/fake/fake_0039.png": "674de11fad3339b14a58589e0d3f8c5030acbcb6ab1f725c8e43adaf2f59b75c",
+      "data/fake/fake_0209.png": "ec1f57cda46705d47781f448db4067f7ef970fcba33e0371b1a7c1aad6244ee5",
+      "data/fake/fake_0147.png": "844a7d10e994f96d666324dde1885915de109825922e8699dbe8039f683784af",
+      "data/fake/fake_0013.png": "bbb429d9896d364c25271e7950f12ddac7bdd1f3d02c7c3fb7b834e8ec0926da",
+      "data/fake/fake_0204.png": "ad3ed721567ad1dd1d9be584cefdc4d650884f8e0f3ff2b618ccd52709cdadfb",
+      "data/fake/fake_0218.png": "04830de1acfd578319c51e664b1bde07ab4b8d7320ff4c6a35798cf489f2c1e8",
+      "data/fake/fake_0005.png": "e06f1d19fd3d3a11f6f3c94eb1df6fd8c5666b23a2c892a3be50028ccecaf8b0",
+      "data/fake/fake_0085.png": "e4d26fa9a5dfdc8635baaa6600162867cf28a59ab1ac88a59b264798ecfe9443",
+      "data/fake/fake_0231.png": "f20a83d9ddc199cbdef5c0b6d03b5827ab755ee2a4c224838980228117b7023b",
+      "data/fake/fake_0176.png": "cc20215c02c741f012583814cef41d8b1949bf15286dc549e8d195808840f147",
+      "data/fake/fake_0186.png": "b97e1f5668ef351499d93b2df7f174c21b6400e813f1f92b6562612dca70e7ed",
+      "data/fake/fake_0228.png": "02c586b0bc55b1a0d943c5534b2dabd121b658367fc0d35f8eeb0f40f8633d24",
+      "data/fake/fake_0227.png": "65920a11ef85554d793bb39512de965d60d0579b1ceb8a4c7bd734f0a25b0531",
+      "data/fake/fake_0239.png": "7654860a39a43cd24646b9de2e5aa511b6cc0fba33dd4b07b260f4c92a3b0a4b",
+      "data/fake/fake_0263.png": "e3fd9ece0c10d3056be9b4fe0f28c25f85494130c951c4ad239ce6cf7c260187",
+      "data/fake/fake_0260.png": "01ed6a7a6b40a28e2e9c04edcb9eaa22058442b31dc10172ecb321fc896b8f21",
+      "data/fake/fake_0243.png": "9808c08cfa24d3f051de2f89cd70166f13ab5825c394904f6f16136d7af5d859",
+      "data/fake/fake_0265.png": "cb19168a56141d63471f77a0366a9853fc3710688c0b66e13b455d7193f6f68b",
+      "data/fake/fake_0078.png": "5e2a7cf3baa8241490da19cfba956fb78930e7ffdbb6249ab68c35c4a3b21240",
+      "data/fake/fake_0044.png": "c9baec2f9d3b3f8e206ca53869bc1d0bdde4fa9d3f10014b91ea6b45b68aaa21",
+      "data/fake/fake_0119.png": "66d611abb30712d1b4dbe7d196061f50efd33ab1fb669e6f44ace00f090e7ad2",
+      "data/fake/fake_0277.png": "28eab0b7a561d2fd6da6cb0158caf1bd2e96ad082534f7794f7b1d303eab517b",
+      "data/fake/fake_0114.png": "cde020b90c8b1911f06b841ecc87c1c0b8822ad033677649d78d3f5bf5dee435",
+      "data/fake/fake_0170.png": "a970dbfa28afb2639e6a66b769c9aa8ce0a42175524e54f1c1651efff252e7a8",
+      "data/fake/fake_0083.png": "cc74705a5e85023c633ad285310383295fe6d324b17dbdd9ba7103f4d102c324",
+      "data/fake/fake_0123.png": "1c9b3e744b53500955222daea37d9d3d0208d1ade1ea72de10fb57b4cfe6f611",
+      "data/fake/fake_0045.png": "8250285c8166f753a64a221a48a4f3f79dfafe2c4d058d4c9a047016c05655b8",
+      "data/fake/fake_0103.png": "2883dd9792948f77a63f63e55004e9d07a7c140033a7a84f8451e2a179939640",
+      "data/fake/fake_0090.png": "99a6744308672d857b627494befd2282ba8a54fcd1b8e779965602b151a11dbb",
+      "data/fake/fake_0199.png": "c6f0f62540dacd96b6701783ef51810af54c04702b12ae01aee7040f0a1939a8",
+      "data/fake/fake_0018.png": "7899da2f99c0458e4c346bfa8669f9fb56dc9469f5f2963746e43a25890fabd1",
+      "data/fake/fake_0251.png": "7fc9579e6d55dd4c7afb6e3c44b867397d0671887f13bff2a16a81e52660e063",
+      "data/fake/fake_0206.png": "a4e5ac315a3abf955371ca99f7da880579436c8f7277b86ebd1bad6e08b35292",
+      "data/fake/fake_0087.png": "b1aaca5f0a828ea9dda32e4b8de7de16d5e395ca6dcb48e3f20dad85d221a88b",
+      "data/fake/fake_0200.png": "f71c8e7b3318d77e6308cac70a635bcb28a27caa180cf3259df98fd241c446e2",
+      "data/fake/fake_0142.png": "24f5195a271c9e03f3df80c6d55c291b58580ecead98950caa2a0cf0c94b405b",
+      "data/fake/fake_0111.png": "4266b014e577fa39fe1b5537e063608775e9143c6b24e3f320715e6440442ab9",
+      "data/fake/fake_0219.png": "242235249c28abac25c089875b70ee0179118ba057eb05c42816a7a8855c3803",
+      "data/fake/fake_0073.png": "bab61917a7c06d8d8e9d579cac3fedea69831085209c748c0bb48c88829422d8",
+      "data/fake/fake_0236.png": "f2a0faa09b374283e8a7b3445ef37031d879b11f1074980c5470e7ac54e1cfc5",
+      "data/fake/fake_0021.png": "6d41a7fc4539303db67f78b64cdaa2cb4faa8ab876f211183c778a344c181429",
+      "data/fake/fake_0151.png": "6967fb6f499dc4f8dc9b81582eed76ffc71b9b620d6b7c12740817e09a88a71f",
+      "data/fake/fake_0093.png": "141c7a2ac74e9d9a4f927a1f6e8af0d23f0f7fc34e644a9b8242c3775eeb86ed",
+      "data/fake/fake_0252.png": "4918bfd170862b276378d8c0346c1264e1bbf287585740b02b08c26db8f35660",
+      "data/fake/fake_0215.png": "9c6fca49e5e1df267e185e5cee54e1c9570fab3e0d54b1b86bf640995a7f1165",
+      "data/fake/fake_0272.png": "ca2e6982aa982ead76252d1ca21cad60debb52ad0e81332994a5ce4949e76f6f",
+      "data/fake/fake_0187.png": "976aedbe1fd5d90dfe1829681be3de69e3875ae1379e9ceee122eee930b87060",
+      "data/fake/fake_0065.png": "56ed93b63103e20c7312f0831b50c1661b8e6e85a49b5db3f86cec0099dfc067",
+      "data/fake/fake_0282.png": "a98adca41f8faf2918f55801e5c682c4ee988a0b64348525fa44cf34bc35c0a8",
+      "data/fake/fake_0099.png": "d8f1b0743a4a37261391f537cd885d35988724a7b3752619f59b4a61ece7fd20",
+      "data/fake/fake_0071.png": "4d2b69362dbd842872caa8da9d0cfab4995613dfd4f05a3a27f0cd6100badf98",
+      "data/fake/fake_0270.png": "67bcc5fdaec591ff07381e7ed208a0fc1191ff5c24446fd625136dc431a75737",
+      "data/fake/fake_0069.png": "1eb4c387497567b057ee49e1638e105858dd420ff557bd3a3816724f435e0270",
+      "data/fake/fake_0154.png": "0fb15af7affdf781c1e72a271356f4702e01ae8050c4f4341a2b863e2aa1372b",
+      "data/fake/fake_0241.png": "e470f5361bbed1960fab144d0874f50a736bb1c181d1bdd848972b8b94cb718b",
+      "data/fake/fake_0125.png": "c6954ce8fb4de5c13b92f312e6a6e8c5b17c2120a67a9187b5e1e7c19d073041",
+      "data/real/real_0006.png": "f17480f6b7d4fc11e91be8085231876f27db405a86f39afc7a5f703288a86b26",
+      "data/real/real_0009.png": "24c9f741eb6fa536b5d3391e6ba931788db3effc776fc29269fa88c0a313b104",
+      "data/real/real_0014.png": "4f39d3451fc5065492a5cfe4eac10b3dd2cbeaad729f701c4d771b68ded8d9a3",
+      "data/real/real_0016.png": "8b4d0bffddc118cd5d2b6c545be29128be0fb819afe892b9a6b9ceeda413a459",
+      "data/real/real_0019.png": "36518f148a43f863b16d9aaa249787010080a0be2f3e4f4cb591116bbeb09ee6",
+      "data/real/real_0022.png": "b86e975d5ec7af21ea1c04172da9057841ab0e8e8509badf8c18a4e94c626d5d",
+      "data/real/real_0030.png": "83c01a11268a88dbf6ded490afe4524d9c01c6f9a53da8bfc943742284df79af",
+      "data/real/real_0031.png": "ae86f226f36f36e8b84813f3e05abf5fa0227721eaea2b858f1cefc8d26e8490",
+      "data/real/real_0034.png": "2e11110801d3677da51672b59a2a28cb181d2ffdaecab6fe4378092e7a0e1fae",
+      "data/real/real_0035.png": "8e0f101b8a954e77833ca3f412f3ead5161f0282099cda5f12ab2786788a6efc",
+      "data/real/real_0036.png": "e1f2f110f54e4bdafbde3ecf188d2b88e5b118f370be7751f6d42d603f2bfafc",
+      "data/real/real_0041.png": "60a36c3b63cbe98e847ae32a576eebcfeae2026782ad27cad781a261914be3b9",
+      "data/real/real_0044.png": "fdf36abc124279dcc12947ab4f38077a153b30f24147595451125f216a701f66",
+      "data/real/real_0047.png": "8ebe0f3118f69d015cfe6a004bf81e98819e32040cc8338ac221fc7f6f368da6",
+      "data/real/real_0049.png": "07ae6a0bf339da30d1096c672d433b5a7813efde810cd1c3a0f4a6fc1b9f2a32",
+      "data/real/real_0058.png": "f4f4125bc72537d12d760d90ec3838a42bc779be297a20898279fb7556d8adc4",
+      "data/real/real_0062.png": "054c220eaaa7e679a873caca3b39e38d3f9f2b805ee0ad1575f2a2655fa66b22",
+      "data/real/real_0064.png": "746d859e5e6af4e01cef643542b76d73d888c8203403a8fa3f22908342b5de26",
+      "data/real/real_0067.png": "f8285391331b0b701b647390cd14814f36be60446645be1a5e83137b0204c91c",
+      "data/real/real_0077.png": "e4317d2cc00b245922048965c91562afb2c06718c315df2fb62126f23ee75edc",
+      "data/real/real_0097.png": "049ad79515f5e617bef1bf75829240cdbe7dbc5a354e0869579b942013f41907",
+      "data/real/real_0102.png": "e1acc18b4d3e35a803dbee9338235bedabc61568cfc5cf17f9edec2750fc96c6",
+      "data/real/real_0110.png": "9e5d25a1dd95e75ec8469ac517f2a59ce6828057648d43bd1b0045aa3a6619f1",
+      "data/real/real_0113.png": "d3c752cccf57d44779b209b3264713cb3d7166eef33c505ca8a3744c2ef7f2ba",
+      "data/real/real_0117.png": "b93a3a9dae1d214b33a41984a418fd0e055804a5caa2a65c24950385d69a1327",
+      "data/real/real_0136.png": "6cc1583e00e1a93c2f308696407431425bf907e815758e4849204a5921dcefee",
+      "data/real/real_0139.jpg": "755a49b1039689cb8412c1606e0af6b45c64d6bedfae8227d293261f8398b8c0",
+      "data/real/real_0140.jpg": "c0d91bcd8b2327f35bf99cf677a0249ff785925f2fbf208c982b61ff72f4e994",
+      "data/real/real_0141.jpg": "e4c8b916cb0bb72b553ccd04972624d2d01424ff3f29ca05a647c6c56cba1779",
+      "data/real/real_0146.jpg": "0eacfdbfb2ffb6196964b76820091c9a5f6b2a023600dc78a462dd452116fca9",
+      "data/fake/fake_0177.png": "761c81e3c9c1234aa9ab94b1c1f2c8a62151d3e2417eda4f638770865b66491a",
+      "data/fake/fake_0224.png": "21e0c50667d0dd74058c24d80deafdf39e36a901bf5e345f71fce258455c99bf",
+      "data/fake/fake_0289.png": "8520977c70a71a04f2046b2a405de649318353207cbedd2d0231acf09e63da05",
+      "data/fake/fake_0117.png": "f8975d8ae5de26abb76cd570433e483507f58e0b53d4a99cd299256f5bbb7980",
+      "data/fake/fake_0074.png": "9ed25c2b4c126acd8d1b9692372ce13d9da8c019b8a17b8e7a3c6527d15c3929",
+      "data/fake/fake_0248.png": "df48276e3fd9896e3ab6c26bf7a8aa719aafded6dd4a78985ac643ad58ddfa38",
+      "data/fake/fake_0010.png": "142bcc6db8049e63b4338aae2e33817633a8326fe8be67ceb631a3414817c9a0",
+      "data/fake/fake_0116.png": "c3f99a481ad91ea1cefafce741e4db2ee2c0bd94fdc8f1e1ba532fd4b616605d",
+      "data/fake/fake_0053.png": "571c63e2a31191681774c3ff22618b76e77f89eb331f1b10f65b2259676b3e23",
+      "data/fake/fake_0157.png": "448a435071b18b836f5ab471f3579a9d080caffac51e85426c4e7e9f46485162",
+      "data/fake/fake_0063.png": "4d9a004b7f34aafa0bcbc16e4cec78c8b792e318fa4e69b3f019970bfedcecc9",
+      "data/fake/fake_0223.png": "82804b12b551a46bd25912a3ed88c73e41cd75861d607648bd8af838acf3d212",
+      "data/fake/fake_0183.png": "19aa0140129c6949f0b11f3ede83ea92037cdb618de4480ee4923d2ee4638997",
+      "data/fake/fake_0244.png": "e1d30b7dde26cdda17ba1de9f3c8600d0f296cdfb19d9e64b58f1d45b0606072",
+      "data/fake/fake_0001.png": "45cf16b68a3f273b9fa203cede7edb384eae9c43eb90be208ed1837577e6b319",
+      "data/fake/fake_0042.png": "a6bbfe6e346e3028d17c218344cd2dad1047e0cb418204878a3cc3ea286cac6b",
+      "data/fake/fake_0122.png": "f62e18e1760ac15b00840f540809a4d2012e1ec5cabcb0b6a1729e9affd0a6e7",
+      "data/fake/fake_0017.png": "d8e51e67522b6ea32d2864d060850596093ebcd58490ebff0548611f56c7f8cb",
+      "data/fake/fake_0167.png": "c37bfa9558a0fdc54bb65dc40afd65ec894c25e7a6041efdb26fcc31f450f525",
+      "data/fake/fake_0076.png": "8c043c2c330ca67ee760ba1e4fbb172d94b78bb975ee39f4f0f39577c770abdf",
+      "data/fake/fake_0208.png": "1a7356078388f3c893d0db0997d68c08075adf4f7f593b86612b1f076e8416b2",
+      "data/fake/fake_0031.png": "c1ba42b4d262ac409b100c064ea00c74e0180878868dd2a29e84056306a8bd42",
+      "data/fake/fake_0129.png": "3758584f8a20fc1ed3bac86cd1249b8fb3b97fcad7cc67156b8a5831762820cf",
+      "data/fake/fake_0105.png": "13fb26565cdd6af3cea2e486478dd762636d3effd39a1d756b8103dbeff00e8c",
+      "data/fake/fake_0212.png": "d09e77183c57f49a75c87a89510ff2fa6af343aaa2d74da032212be391fab2d4",
+      "data/fake/fake_0043.png": "15e7c49a16d53ad14ee0a6c30110466093d6d3501f3a82c489d86c4c34ba9329",
+      "data/fake/fake_0279.png": "156106b6a4e29662412ac23e5c0354f28545a770b1d9878581b6a2cd42104cff",
+      "data/fake/fake_0160.png": "9056e63ec72c7dd60949d2f1ccbce5a46c3b82de6e261e7d7553b8b3d008db23",
+      "data/fake/fake_0057.png": "02272622b973dad1e17fc6cc41a6b3355d15d9a14d8ca9e3f2d1b37a5721f6f3",
+      "data/fake/fake_0023.png": "09cf032563ca154eb422ef49b65f2f188cc4567267bbc82f39f99205186cbae8",
+      "data/fake/fake_0015.png": "e2e0e8e6af99fa55cd58c271712a3ee4f8fc4a0fdcba9733cf30056118c1277f",
+      "data/fake/fake_0109.png": "94e303b6a2d54dc639b345b3d95493588bf50812288967561ba7414a8522c700",
+      "data/fake/fake_0137.png": "202935713285dcf5f403c22cee7a65c51f33c6aea87722fef4a7b7c51f75a0fe",
+      "data/fake/fake_0190.png": "13ee16351c16289dcae43839d3f368a68f37eca23b369e7e01c19a700bce15ef",
+      "data/fake/fake_0016.png": "48b6c1c315c921c2cff63159a39d447001fee017ef1728815dac50b7d9691454",
+      "data/fake/fake_0240.png": "acb790e7512d905d5a6a7b706bc24b6b82118dacbb7408c44da0db66d68aa11d",
+      "data/fake/fake_0110.png": "2bff5b65ef29e0e38179c6492f9a0f4889f9b2bcf40a34bd7efe30373acbb3c9",
+      "data/fake/fake_0195.png": "5a096954158d9a81a549950958a2b30f12066595b69540275c36241e390439f6",
+      "data/fake/fake_0034.png": "53a02b35c4498d589735608933e3ab57224c0835b7b474f7a31882687f6d7994",
+      "data/fake/fake_0035.png": "db370be68941bb67a926b48df769b5ec689b7f33f06cd9f1ee363feba411642c",
+      "data/fake/fake_0182.png": "3bc1252c5c91209e4278bcea6c6a1c36d556de44cd032ade2308cc67b0ae8f53",
+      "data/fake/fake_0049.png": "53919c2885ce8f240bbe2f08b703ae43578337b82b2219a33360135131f09cbc",
+      "data/fake/fake_0006.png": "8bfacb1e2ed6331bb3e325a7dacff7d0b9e9bbc908bf3a56647882a138ad62cb",
+      "data/fake/fake_0102.png": "b20dee0f38f90356671f7483cf2442c572962c58975ac8e33eefe0029fcb7a49",
+      "data/fake/fake_0175.png": "14a91c30a30eea8c83fdf6176974f6b6ca78fa11413fb7c9b07f3bf97d5c7e46",
+      "data/fake/fake_0139.png": "9843341f91796a658a97f822692618be3595d8a22c134907064e04ede2222f13",
+      "data/fake/fake_0288.png": "fa2e383762c6277899dc82b3af00b7ba631f5b28b2241a0fc8ba75b6fb5766e6",
+      "data/fake/fake_0041.png": "9bc4b3d19fe5f882fd575aeccf8ad9c7d1dee3ad1867fe86256be76021b34230",
+      "data/fake/fake_0022.png": "b215a57187bec1324df2973a5e4771cd9d6bd65db0f96f0156cf73567c9f035c",
+      "data/fake/fake_0275.png": "676929d65827ccc448a6787798106c351fc887295361281f97ef12e34138e799",
+      "data/fake/fake_0163.png": "1967e54f06472e6a7579ace74028931afee85abcaa06a508e9d4446073b1b513",
+      "data/fake/fake_0113.png": "639019cd3845bb7d98231b2618932176fef9a166e4b53e945c587387fef71ef3",
+      "data/fake/fake_0237.png": "479af87a4676ffc2bed7f3541fc4f1bbfbeb6cc0f46b6d98fedb0f921ae1949c",
+      "data/fake/fake_0014.png": "9d4fd555c41e3de5963ca018b27b4ff2c8840230fec8f731e8434abc946eabcc",
+      "data/fake/fake_0141.png": "c338ffe77e223cdd7fdcd7014a94a25cfea5263bd63775eee256137bad11c320",
+      "data/fake/fake_0194.png": "3f8d2bf2dfd542f06042d8c7d84cc9a05a739d907c392bbce6cb4e3511353344",
+      "data/fake/fake_0036.png": "e6c77096f6e8c2d04b5ca39c1b10241425fe75ea53122a8043578364e6fe4c89",
+      "data/fake/fake_0097.png": "9186004c77a09e42f473cc39bdca9e046b0694c332826d6c3e98c2c52b31cf33",
+      "data/fake/fake_0136.png": "f8bb56057e3052c5c334db48181ab5657d19bd2dce55f15d42cdc447af8dfe5f"
+    }
+  },
+  "checkpoint": "training/checkpoints/detector_best.pth",
+  "checkpoint_sha256": "9ae77cac53967ff77c235673fd17cb56a1ed8f7ecb2c9610d64d17ef5b4e6d8d",
+  "reused": true,
+  "provenance": {
+    "legacy_evidence": "training/protocol_logs/run_manifest.json",
+    "evidence_sha256": {
+      "training/protocol_logs/run_manifest.json": "2ccd525c718312b8874e0c9d16a2838a14850cc13dfcee328837a83f77c0bcee",
+      "training/metrics.json": "fa1d7d11ebe95ef4439d78f78a896558aac4fd3122261cf8196b49cad9e20e07",
+      "training/protocol_logs/detector.log": "bd5d14e69429b5af052e37220df6c32d8697bfd955f7d06a55b1a54568ff9d41"
+    },
+    "limitation": "El registro hist\u00f3rico no vincula pesos/datos por hash; se verifica arquitectura, registro y reproducci\u00f3n num\u00e9rica.",
+    "reference": {
+      "test_loss": 0.09481940577539165,
+      "test_auc": 1.0,
+      "accuracy": 0.9550561797752809,
+      "precision": 1.0,
+      "recall": 0.9322033898305084,
+      "f1": 0.9649122807017544,
+      "n_train": 271,
+      "n_val": 92,
+      "n_test": 89
+    }
+  },
+  "device": "cpu",
+  "unavailable_generators": [
+    "stylegan2ada",
+    "diffusion"
+  ],
+  "examples": [
+    {
+      "index": 0,
+      "group": "real",
+      "path": "data/real/real_0006.png",
+      "label": 0,
+      "probability_fake": 0.12427275627851486,
+      "target_class": 0,
+      "raw_min": 0.06453685462474823,
+      "raw_max": 0.1949802041053772,
+      "raw_std": 0.035043999552726746,
+      "activation_gradient_norm": 0.06572434306144714
+    },
+    {
+      "index": 1,
+      "group": "real",
+      "path": "data/real/real_0009.png",
+      "label": 0,
+      "probability_fake": 0.025224467739462852,
+      "target_class": 0,
+      "raw_min": 0.11041025817394257,
+      "raw_max": 0.3608418107032776,
+      "raw_std": 0.06690526008605957,
+      "activation_gradient_norm": 0.060343872755765915
+    },
+    {
+      "index": 30,
+      "group": "dcgan",
+      "path": "data/fake/fake_0177.png",
+      "label": 1,
+      "probability_fake": 0.979237973690033,
+      "target_class": 1,
+      "raw_min": 0.10318572074174881,
+      "raw_max": 0.3612082898616791,
+      "raw_std": 0.08547034859657288,
+      "activation_gradient_norm": 0.06802558153867722
+    },
+    {
+      "index": 31,
+      "group": "dcgan",
+      "path": "data/fake/fake_0224.png",
+      "label": 1,
+      "probability_fake": 0.9802232980728149,
+      "target_class": 1,
+      "raw_min": 0.0742700845003128,
+      "raw_max": 0.4105965495109558,
+      "raw_std": 0.10378090292215347,
+      "activation_gradient_norm": 0.06379895657300949
+    }
+  ],
+  "gradcam_method": "ReLU of activation weighted by spatial mean gradient; layer4; predicted-class signed logit",
+  "frequency_method": "mean absolute gradient of fake logit w.r.t. normalized FFT bins over full test",
+  "frequency_importance": [
+    0.0006654935423284769,
+    0.001527965534478426,
+    0.0014745452208444476,
+    0.0006749324384145439,
+    0.0007667029858566821,
+    0.0010428396053612232,
+    0.0013676868984475732,
+    0.0008879866218194366,
+    0.0014740446349605918,
+    0.0006224463577382267,
+    0.0008110126364044845,
+    0.0008167637279257178,
+    0.0007214895449578762,
+    0.000602839223574847,
+    0.0009015821851789951,
+    0.0011925897561013699,
+    0.0017209099605679512,
+    0.001786158187314868,
+    0.0008654381963424385,
+    0.0018459414131939411,
+    0.0009685473632998765,
+    0.0005915859364904463,
+    0.0010062326909974217,
+    0.0009196432656608522,
+    0.0004743713070638478,
+    0.0016658996464684606,
+    0.000738586881197989,
+    0.0005793138989247382,
+    0.0007289701607078314,
+    0.0005874434718862176,
+    0.0012251936132088304,
+    0.0008625389891676605
+  ],
+  "frequency_signed_mean": [
+    -0.0003165632952004671,
+    -1.9119288481306285e-05,
+    0.0014745452208444476,
+    0.0003346235607750714,
+    0.000538454158231616,
+    0.0002785487740766257,
+    0.00036599181476049125,
+    0.00048414667253382504,
+    0.0006722534308210015,
+    0.0002421432436676696,
+    -0.0006261091330088675,
+    0.0007356208516284823,
+    -0.00015745876589789987,
+    0.0005492591881193221,
+    -0.0003297958173789084,
+    0.0004736335831694305,
+    0.0013362045865505934,
+    8.47325791255571e-05,
+    0.0005492795025929809,
+    0.0010319947032257915,
+    -0.0009350287145934999,
+    -0.00023392238654196262,
+    -0.00010898298933170736,
+    0.0006548675009980798,
+    -0.00011658955190796405,
+    -0.0007957292255014181,
+    0.0006515244604088366,
+    0.0004848785465583205,
+    0.0007004834478721023,
+    -0.00039463440771214664,
+    -0.00043020618613809347,
+    0.0007879295153543353
+  ]
+}

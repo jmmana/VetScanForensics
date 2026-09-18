@@ -1,0 +1,16 @@
+{
+  "checkpoint_reused": true,
+  "checkpoint_sha256": "9ae77cac53967ff77c235673fd17cb56a1ed8f7ecb2c9610d64d17ef5b4e6d8d",
+  "paper_unchanged": true,
+  "test_images": 89,
+  "robustness_conditions_including_clean": 30,
+  "gradcam_examples": 4,
+  "frequency_gradient_shape": [
+    89,
+    32
+  ],
+  "new_tests_passed": 4,
+  "existing_tests_passed": 6,
+  "missing_generator_cli_checks_passed": 4,
+  "figures_visually_opened_and_checked": true
+}

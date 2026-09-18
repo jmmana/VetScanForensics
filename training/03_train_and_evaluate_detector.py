@@ -73,10 +73,11 @@ def radial_power_spectrum(img_gray: np.ndarray, n_bins: int = FREQ_BINS) -> np.n
 
 
 class RadiographDataset(Dataset):
-    def __init__(self, paths: list[Path], labels: list[int], train: bool):
+    def __init__(self, paths: list[Path], labels: list[int], train: bool, postprocess=None):
         self.train = train
         self.paths = paths
         self.labels = labels
+        self.postprocess = postprocess
         aug = (
             [transforms.RandomHorizontalFlip(p=0.5)]
             if train
@@ -97,6 +98,8 @@ class RadiographDataset(Dataset):
         img = Image.open(self.paths[idx]).convert("L")
         seed = int(torch.randint(0, 2**32, ()).item()) if self.train else 42 + idx
         img_resized = random_resize_round_trip(img, np.random.default_rng(seed))
+        if self.postprocess is not None:
+            img_resized = self.postprocess(img_resized, idx)
         freq = radial_power_spectrum(np.array(img_resized, dtype=np.float32) / 255.0)
         tensor = self.transform(img_resized)
         tensor3 = tensor.repeat(3, 1, 1)  # ResNet espera 3 canales
