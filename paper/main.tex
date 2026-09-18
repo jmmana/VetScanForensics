@@ -189,6 +189,13 @@ AUC, with mitigation & \multicolumn{2}{c}{1.000 (unchanged)} \\
 \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/confusion_matrix.png}
+  \caption{Confusion matrix of the dual-stream detector under the corrected protocol (real holdout, $n=30$; synthetic, $n=59$). All 30 real holdout images are classified correctly; 4 of 59 synthetic images are misclassified as real, consistent with the 93.2\% recall in Table~\ref{tab:protocol_comparison}.}
+  \label{fig:confusion}
+\end{figure}
+
 % =========================================================
 \section{Synthetic Radiograph Generation}
 \label{sec:synthesis}
@@ -199,7 +206,16 @@ We synthesize radiographs from three generator families, chosen to span the prac
 \section{Proposed Architecture: VetRad-ForensicsNet}
 \label{sec:architecture}
 
-Building on the dual-stream design of the proof of concept (a ResNet-18 spatial branch plus a radially-averaged FFT frequency branch, fused before a classification head), we extend the architecture with a third, noise-residual stream, and an attention-based fusion layer in place of simple concatenation. The three streams target complementary evidence: anatomical/spatial plausibility (spatial stream), periodic generator fingerprints (frequency stream), and sensor/generation noise statistics (residual stream, computed as the difference between an image and a denoised version of itself). \pending{diagrama de arquitectura y resultados del ablation de 5 configuraciones: spatial; spatial+frequency; spatial+noise; frequency+noise; spatial+frequency+noise}
+Building on the dual-stream design of the proof of concept (a ResNet-18 spatial branch plus a radially-averaged FFT frequency branch, fused before a classification head), we extend the architecture with a third, noise-residual stream, and an attention-based fusion layer in place of simple concatenation (Figure~\ref{fig:architecture}). The three streams target complementary evidence: anatomical/spatial plausibility (spatial stream), periodic generator fingerprints (frequency stream, generalized in Section~\ref{sec:frequency_forensics} to FFT, DCT, and wavelet-packet variants), and sensor/generation noise statistics (residual stream, computed as the difference between an image and a denoised version of itself). Section~\ref{sec:frequency_forensics} already reports a pilot four-way spatial+FFT+DCT+wavelet fusion (Table~\ref{tab:freq_ablation}); the noise-residual stream and the full five-configuration ablation (spatial; spatial+frequency; spatial+noise; frequency+noise; spatial+frequency+noise) are implemented per Section~\ref{sec:baselines} but not yet run to completion.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/architecture_diagram.png}
+  \caption{VetRad-ForensicsNet: three complementary streams (spatial, frequency, noise-residual) combined via attention-based fusion before classification.}
+  \label{fig:architecture}
+\end{figure}
+
+\pending{resultados del ablation completo de 5 configuraciones de streams, incluyendo el residual de ruido}
 
 % =========================================================
 \section{Experimental Protocol}
@@ -211,7 +227,7 @@ Building on the dual-stream design of the proof of concept (a ResNet-18 spatial 
 \section{Baseline Detector Architectures}
 \label{sec:baselines}
 
-In addition to the ResNet-18 dual-stream baseline, we evaluate ResNet-50, EfficientNet-B0, ConvNeXt-Tiny, and ViT-Small as spatial backbones, chosen to span convolutional and transformer-based architectures at comparable parameter budgets, and to test whether the frequency-branch fusion strategy is backbone-agnostic. \pending{tabla comparativa de las 5 arquitecturas bajo el protocolo corregido}
+In addition to the ResNet-18 dual-stream baseline, we evaluate ResNet-50, EfficientNet-B0, ConvNeXt-Tiny, and a Vision Transformer as spatial backbones, chosen to span convolutional and transformer-based architectures at comparable parameter budgets, and to test whether the frequency-branch fusion strategy is backbone-agnostic. Because torchvision does not ship a ViT-Small checkpoint, we substitute ViT-B/16 (ImageNet-1K weights) explicitly and flag every result derived from it accordingly, rather than silently approximating a different model. In a 2-epoch pilot verification against DCGAN alone, ResNet-18 (the architecture used throughout this paper) reaches 0.978 accuracy and 0.998 ROC-AUC, consistent with Table~\ref{tab:protocol_comparison}'s longer 25-epoch run; the remaining four backbones are implemented and unit-tested for correct output shape and gradient flow, but not yet trained end-to-end pending the full multi-generator dataset. \pending{tabla comparativa completa de las 5 arquitecturas entrenadas 25 epocas bajo los 3 generadores}
 
 % =========================================================
 \section{In-Distribution Detection}
@@ -223,7 +239,7 @@ For DCGAN, in-distribution detection under the corrected split protocol is repor
 \section{Cross-Generator Generalization}
 \label{sec:cross_generator}
 
-The central question of this benchmark is whether a detector trained on one generator family transfers to another, or instead memorizes generator-specific fingerprints. We construct a train-generator $\times$ test-generator matrix across DCGAN, StyleGAN2-ADA, and the fine-tuned diffusion model (including training on two families and testing on the third, held out entirely), reporting accuracy, precision, recall, specificity, F1, ROC-AUC, PR-AUC, Matthews correlation coefficient, and balanced accuracy for every cell. \pending{matriz cross-generator 3x3 completa, con mapa de calor}
+The central question of this benchmark is whether a detector trained on one generator family transfers to another, or instead memorizes generator-specific fingerprints. We construct a train-generator $\times$ test-generator matrix across DCGAN, StyleGAN2-ADA, and the fine-tuned diffusion model (including training on two families and testing on the third, held out entirely), reporting accuracy, precision, recall, specificity, F1, ROC-AUC, PR-AUC, Matthews correlation coefficient, and balanced accuracy for every cell. The evaluation pipeline for this matrix is implemented and verified end-to-end with the one generator family available at the time of writing (DCGAN, diagonal cell only: accuracy 0.978, ROC-AUC 0.998, balanced accuracy 0.967, matching Table~\ref{tab:protocol_comparison}); it explicitly reports which generators are unavailable rather than fabricating off-diagonal cells. \pending{matriz cross-generator 3x3 completa, con mapa de calor, una vez disponibles StyleGAN2-ADA y difusion}
 
 % =========================================================
 \section{Open-Set Detection}
@@ -235,7 +251,28 @@ We evaluate whether energy-based \cite{energy_ood_2020} and Mahalanobis-distance
 \section{Frequency, DCT, and Wavelet Forensics}
 \label{sec:frequency_forensics}
 
-We ablate the forensic feature space across spatial-only, FFT-only \cite{frequency_checkerboard_2021,freq_analysis_2020}, DCT-only \cite{dct_traces_2024}, wavelet-packet-only \cite{wavelet_deepfake_2022}, and fused combinations, to determine which transform domain contributes discriminative signal for veterinary radiographs specifically, and whether the answer differs by generator family. \pending{tabla ablation de dominios de frecuencia}
+We ablate the forensic feature space across spatial-only, FFT-only \cite{frequency_checkerboard_2021,freq_analysis_2020}, DCT-only \cite{dct_traces_2024}, wavelet-packet-only \cite{wavelet_deepfake_2022}, and a fused combination, to determine which transform domain contributes discriminative signal for veterinary radiographs specifically, and whether the answer differs by generator family.
+
+Table~\ref{tab:freq_ablation} reports a pilot verification run (2 epochs, DCGAN only, $n=89$ test images; the full protocol runs 25 epochs across all three generator families once StyleGAN2-ADA and diffusion outputs are available). Even at this pilot scale, the pattern is informative: at the fixed 0.5 decision threshold, FFT-only, DCT-only, and wavelet-only branches each classify every test image as synthetic (specificity = 0, balanced accuracy = 0.5), yet their ROC-AUC values differ meaningfully (0.38--0.72), showing each transform domain carries some ranking signal despite an uncalibrated threshold after only 2 epochs. The spatial-only branch alone already reaches a perfect score, corroborating Section~\ref{sec:threats}: with the resolution-history confound still active, spatial appearance alone is sufficient to solve this particular pilot, independent of any frequency-domain analysis. The fused (\texttt{all}) configuration recovers a strong result (accuracy 0.989, balanced accuracy 0.983) without matching spatial-only's ceiling, consistent with the fusion head needing more than 2 epochs to fully exploit the added features.
+
+\begin{table}[t]
+\centering
+\caption{Frequency-domain ablation, pilot run (2 epochs, DCGAN only)}
+\label{tab:freq_ablation}
+\begin{tabular}{lccccc}
+\toprule
+Features & Acc. & Spec. & F1 & ROC-AUC & Bal.\ Acc. \\
+\midrule
+Spatial only & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+FFT only & 0.663 & 0.000 & 0.797 & 0.383 & 0.500 \\
+DCT only & 0.663 & 0.000 & 0.797 & 0.722 & 0.500 \\
+Wavelet only & 0.663 & 0.000 & 0.797 & 0.393 & 0.500 \\
+Spatial+FFT+DCT+Wavelet & 0.989 & 0.967 & 0.992 & 1.000 & 0.983 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\pending{repetir esta tabla con 25 epocas y los 3 generadores una vez disponibles StyleGAN2-ADA y difusion}
 
 % =========================================================
 \section{Ablation Studies}
@@ -271,7 +308,7 @@ We apply Grad-CAM \cite{gradcam_2017} to the spatial stream and a frequency-doma
 \section{Statistical Analysis}
 \label{sec:statistics}
 
-All headline comparisons are reported as mean $\pm$ standard deviation across 5--10 independent seeds, with 95\% bootstrap confidence intervals. AUC comparisons between architectures or generators use the DeLong test for correlated ROC curves \cite{delong_1988}; paired accuracy comparisons use McNemar's test \cite{mcnemar_1947}; bootstrap procedures follow standard practice \cite{bootstrap_efron1993}. \pending{resultados estadisticos finales: intervalos de confianza, p-valores DeLong/McNemar para las comparaciones principales}
+All headline comparisons are reported as mean $\pm$ standard deviation across 5--10 independent seeds, with 95\% bootstrap confidence intervals, rather than a single point estimate. We distinguish three comparison types, each with a matched test: (i) comparing two ROC curves from the \emph{same} test set (e.g., ResNet-18 vs.\ ResNet-50 dual-stream detectors evaluated on identical held-out images) uses the DeLong test for correlated AUCs \cite{delong_1988}, which accounts for the correlation induced by sharing test examples rather than treating the two AUCs as independent; (ii) comparing paired per-example correctness between two classifiers on the same test set (e.g., spatial-only vs.\ fused features) uses McNemar's test on the discordant-pair count \cite{mcnemar_1947}; (iii) confidence intervals on a single metric (accuracy, AUC, or a cross-generator matrix cell) use the non-parametric percentile bootstrap \cite{bootstrap_efron1993} with 10{,}000 resamples of the test set. Every JSON result file already stores per-example probabilities and labels (Section~\ref{sec:reproducibility}), which is what these three procedures consume; no additional data collection is required to apply them once the underlying experiments (Sections~\ref{sec:cross_generator}--\ref{sec:attribution}) are complete. \pending{resultados estadisticos finales: intervalos de confianza, p-valores DeLong/McNemar para las comparaciones principales}
 
 % =========================================================
 \section{Insurance-Fraud Deployment Scenario}
@@ -295,7 +332,7 @@ All real imagery used in this work is licensed CC BY 4.0 with redistribution and
 \section{Reproducibility}
 \label{sec:reproducibility}
 
-All code, trained weights, dataset splits, and configuration files accompany this paper in a public GitHub repository and a public Kaggle dataset. Hardware, software versions, random seeds, and exact training commands are documented in the repository README. \pending{confirmar hashes de dataset finales y checkpoints publicados tras la fase de Kaggle}
+All code, trained weights, dataset splits, and configuration files accompany this paper in a public GitHub repository (\texttt{jmmana/VetScanForensics}) and public Kaggle datasets. Local (Apple M4 Pro, PyTorch Metal Performance Shaders) and cloud (Kaggle Notebooks, NVIDIA P100/T4$\times$2) runs use Python 3.14 with PyTorch 2.12.0 and torchvision 0.27.0; StyleGAN2-ADA and diffusion training run under Python 3.12 in Kaggle's managed environment with \texttt{stylegan2\_pytorch} and \texttt{diffusers}, respectively. All detector and audit scripts fix the random seed to 42 for split generation, weight initialization, and evaluation-time preprocessing (Section~\ref{sec:dataset_construction}); training-time data augmentation uses PyTorch's default per-epoch RNG state, documented per run in each result JSON alongside library versions, an exact train/val/test file manifest, and a hash of the real-image split file, so a given result can be traced back to the precise data partition that produced it. Every experiment script writes a machine-readable JSON result file (probabilities, labels, confusion matrix, and configuration) rather than only a summary metric, so post hoc re-analysis (e.g., recomputing a metric we did not originally report) does not require re-running the model. \pending{confirmar hashes de dataset finales y checkpoints publicados tras la fase de Kaggle}
 
 % =========================================================
 \section{Discussion}
