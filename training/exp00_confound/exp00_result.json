@@ -1,0 +1,8 @@
+{
+  "description": "EXP-00: puede el detector distinguir dos rutas de resize DENTRO de imagenes 100% reales",
+  "n_images": 152,
+  "test_accuracy": 1.0,
+  "test_auc": 1.0,
+  "n_test": 31,
+  "interpretation": "Si test_accuracy/test_auc estan muy por encima de 0.5, el historial de resize por si solo es una senal aprendible, separada de cualquier forense real de generador. Esto apoya la hipotesis del confound de resolucion del plan maestro."
+}
