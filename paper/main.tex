@@ -54,11 +54,11 @@ Los modelos generativos ya pueden sintetizar imagenes medicas suficientemente re
 \section{Introduction}
 \label{sec:intro}
 
-Generative adversarial networks (GANs) and diffusion models have reached a level of visual fidelity that makes synthetic medical images increasingly difficult to distinguish from real acquisitions. A controlled study published through RSNA in March 2026 exposed board-certified radiologists and multimodal large language models to a mixed set of 264 authentic and AI-generated chest radiographs (produced with tools including ChatGPT-based generators and Stanford's RoentGen model); accuracy ranged from 58\% to 92\% among human readers, meaning a meaningful fraction of fabricated images escaped detection entirely \cite{rsna_deepfake_xray_2026}. The same report explicitly names insurance fraud, litigation, and factitious disorder (Munchausen syndrome) as realistic misuse scenarios \cite{rsna_deepfake_xray_2026}.
+Generative adversarial networks (GANs) and diffusion models have reached a level of visual fidelity that makes synthetic medical images increasingly difficult to distinguish from real acquisitions. Tordjman et al., in a multi-institutional study published in \textit{Radiology} in March 2026, exposed 17 radiologists from 12 institutions across six countries to a balanced set of 264 authentic and AI-generated chest radiographs (produced with tools including ChatGPT-based generators and Stanford's RoentGen model); reader accuracy ranged from 58\% to 92\%, meaning a meaningful fraction of fabricated images escaped detection entirely, and the same vulnerability extended to automated multimodal models \cite{rsna_deepfake_xray_2026}. The study explicitly names insurance fraud, litigation, and factitious disorder (Munchausen syndrome) as realistic misuse scenarios \cite{rsna_deepfake_xray_2026}.
 
-This risk is not hypothetical for the pet insurance industry. Unlike human healthcare systems, veterinary medical records do not travel between clinics: there is no shared infrastructure to verify an animal's diagnostic history across providers. Industry analyses estimate that claims fraud costs pet insurance managing general agents (MGAs) 3--7 points of loss ratio, translating to USD 300K--700K per USD 10M in written premium, while noting that even basic rules-based detection programs deliver a 3--10x return on investment \cite{insurnest_fraud_2026}. As image-editing and generative tools become trivially accessible, fabricated or altered diagnostic imagery (a forged fracture, an exaggerated lesion) is a natural next step for claims fraud, exactly mirroring the human-healthcare threat already demonstrated at RSNA.
+This risk is not hypothetical for the pet insurance industry. Unlike human healthcare systems, veterinary medical records do not travel between clinics: there is no shared infrastructure to verify an animal's diagnostic history across providers. Industry analyses estimate that claims fraud costs pet insurance managing general agents (MGAs) 3--7 points of loss ratio, translating to USD 300K--700K per USD 10M in written premium, while noting that even basic rules-based detection programs deliver a 3--10x return on investment \cite{insurnest_fraud_2026}. As image-editing and generative tools become trivially accessible, fabricated or altered diagnostic imagery (a forged fracture, an exaggerated lesion) is a natural next step for claims fraud, exactly mirroring the human-healthcare threat already demonstrated by Tordjman et al. \cite{rsna_deepfake_xray_2026}.
 
-Despite this, a review of the medical deepfake detection literature reveals that every existing dataset and method targets \emph{human} imaging modalities. MedForensics, presented at MICCAI 2025, spans six human modalities (ultrasound, endoscopy, histopathology, MRI, CT, X-ray) and twelve generative models, explicitly measuring cross-generator generalization \cite{medforensics2025}. M3Dsynth addresses AI-generated local manipulations in human 3D medical volumes \cite{m3dsynth2023}. A 2026 study directly comparing GAN- and diffusion-generated fakes reports the same generalization gap using human skin-cancer imagery \cite{hybrid_gan_diffusion_2026}. None of this work, nor any dataset we could locate on Kaggle or elsewhere, considers veterinary diagnostic images.
+Despite this, a review of the medical deepfake detection literature reveals that every existing dataset and method targets \emph{human} imaging modalities. MedForensics, presented at MICCAI 2025, spans six human modalities (ultrasound, endoscopy, histopathology, MRI, CT, X-ray) and twelve generative models, explicitly measuring cross-generator generalization \cite{medforensics2025}. M3Dsynth addresses AI-generated local manipulations in human 3D medical volumes \cite{m3dsynth2023}. Shahzad et al., comparing GAN- and diffusion-generated fakes directly, report the same generalization gap using human skin-cancer imagery \cite{hybrid_gan_diffusion_2026}. None of this work, nor any dataset we could locate on Kaggle or elsewhere, considers veterinary diagnostic images.
 
 This paper makes three contributions:
 \begin{enumerate}
@@ -77,13 +77,13 @@ The remainder of this paper is organized as follows. Section~\ref{sec:related} r
 GANs and diffusion models are both used to synthesize medical images across modalities including MRI, CT, X-ray, ultrasound, and dermoscopy, motivated primarily by data augmentation and privacy-preserving data sharing \cite{synthetic_review_2026}. Diffusion models have recently overtaken GANs in perceptual image quality, including for chest X-ray generation, but their clinical reliability and the artifacts they leave behind remain comparatively underexplored relative to GANs \cite{synthetic_review_2026}.
 
 \subsection{Detecting AI-generated medical images}
-MedForensics is, to our knowledge, the most comprehensive published benchmark for medical deepfake detection, spanning six modalities and twelve generative models, and proposes DSKI, a dual-stage knowledge-infusing detector built on a vision-language feature space that outperforms prior methods and human experts in a visual Turing test \cite{medforensics2025}. Its architecture uses three parallel CNN streams targeting visual perception, resampling artifacts, and local inconsistency. M3Dsynth focuses on localized manipulations within 3D volumes rather than whole-image synthesis \cite{m3dsynth2023}. A 2026 study on skin-cancer imagery trains detectors against both GAN (DCGAN, Pix2Pix) and diffusion (DDPM, VQ-Diffusion) generators, confirming that detectors calibrated to one generator family degrade sharply against the other, and proposes domain-specific batch normalization to mitigate this distribution shift \cite{hybrid_gan_diffusion_2026}.
+MedForensics is, to our knowledge, the most comprehensive published benchmark for medical deepfake detection, spanning six modalities and twelve generative models, and proposes DSKI, a dual-stage knowledge-infusing detector built on a vision-language feature space that outperforms prior methods and human experts in a visual Turing test \cite{medforensics2025}. Its architecture uses three parallel CNN streams targeting visual perception, resampling artifacts, and local inconsistency. M3Dsynth focuses on localized manipulations within 3D volumes rather than whole-image synthesis \cite{m3dsynth2023}. Shahzad et al. train detectors on skin-cancer imagery against both GAN (DCGAN, Pix2Pix) and diffusion (DDPM, VQ-Diffusion) generators, confirming that detectors calibrated to one generator family degrade sharply against the other, and propose domain-specific batch normalization to mitigate this distribution shift \cite{hybrid_gan_diffusion_2026}.
 
 \subsection{Frequency-domain forensics}
 Outside the medical domain, a substantial body of work shows that CNN- and GAN-based generators leave periodic, checkerboard-like artifacts in the frequency domain, a direct consequence of the transposed-convolution upsampling operations used to grow a low-resolution latent representation into a full-resolution image \cite{frequency_checkerboard_2021}. These artifacts are frequently invisible in the spatial domain but become a strong, generalizable signal once an image is transformed via FFT or DCT, and have been used as an auxiliary detection stream in several natural-image forensics pipelines \cite{frequency_checkerboard_2021}. To our knowledge, this signal has not previously been evaluated on veterinary radiographic imagery, where anatomical structures (rib spacing, cassette-induced grid patterns) already have their own periodic regularities that could plausibly interact with generator artifacts in either direction.
 
 \subsection{The veterinary gap}
-Existing machine-learning work on canine and feline radiographs is limited to image-quality classification \cite{vet_quality_2024} and hemithorax symmetry assessment \cite{vet_symmetry_2023}, both performed on private institutional archives rather than public data, and neither addresses synthetic image generation or detection. Public veterinary imaging datasets are themselves rare: most published work draws on closed PACS (picture archiving and communication system) archives from single institutions due to case-volume and business-confidentiality constraints, rather than open repositories comparable to those available for human radiology.
+Existing machine-learning work on canine and feline radiographs, largely from Tahghighi et al., is limited to image-quality classification \cite{vet_quality_2024} and hemithorax symmetry assessment \cite{vet_symmetry_2023}, both performed on private institutional archives rather than public data, and neither addresses synthetic image generation or detection. Public veterinary imaging datasets are themselves rare: most published work draws on closed PACS (picture archiving and communication system) archives from single institutions due to case-volume and business-confidentiality constraints, rather than open repositories comparable to those available for human radiology.
 
 % -------------------------------------------------------
 \section{Dataset}
@@ -161,40 +161,58 @@ We identified a real, unaddressed gap between two active but previously disconne
 \begin{thebibliography}{00}
 
 \bibitem{rsna_deepfake_xray_2026}
-Radiological Society of North America, ``Deepfake X-Rays Fool Radiologists and AI,''
-RSNA Press Release, \url{https://www.rsna.org/news/2026/march/chatgpt-generated-radiographs}, March 2026.
+M. Tordjman, M. Yuce, A. Ammar, M. Huang, F. Mihoubi Bouvier, M. Lacroix,
+A. Meribout, I. Bolger, E. Ozkaya, H. Joshi, A. Geahchan, R. El Rahi,
+H. Almansour, A. S. Parihar, C. Horst, S. Ozturk, M. E. Isleyen, G. G. Pamuk,
+A. T. Cimilli, T. Deyer, A. Calinghen, E. Guillo, R. Husain, J.-D. Laredo,
+Z. A. Fayad, X. Mei, and B. Taouli,
+``The Rise of Deepfake Medical Imaging: Radiologists' Diagnostic Accuracy in
+Detecting ChatGPT-Generated Radiographs,''
+\textit{Radiology}, vol. 318, no. 3, e252094, 2026,
+doi: 10.1148/radiol.252094.
 
 \bibitem{insurnest_fraud_2026}
 Insurnest, ``Pet Insurance Claims Fraud: Common Schemes and How MGAs Detect and Prevent Them,''
 \url{https://insurnest.com/blog/pet-insurance-mga-claims-fraud/}, 2026.
 
 \bibitem{medforensics2025}
-Authors of MedForensics, ``Toward Medical Deepfake Detection: A Comprehensive Dataset and Novel Method,''
+S. Li, Z. Xing, H. Wang, P. Hao, X. Li, Z. Liu, and L. Zhu,
+``Toward Medical Deepfake Detection: A Comprehensive Dataset and Novel Method,''
 in \textit{Proc. Medical Image Computing and Computer Assisted Intervention (MICCAI)}, 2025.
 arXiv:2509.15711.
 
 \bibitem{m3dsynth2023}
-G. Pasqualino et al., ``M3Dsynth: A Dataset of Medical 3D Images with AI-Generated Local Manipulations,''
+G. Zingarini, D. Cozzolino, R. Corvi, G. Poggi, and L. Verdoliva,
+``M3Dsynth: A Dataset of Medical 3D Images with AI-Generated Local Manipulations,''
 arXiv:2309.07973, 2023.
 
 \bibitem{hybrid_gan_diffusion_2026}
-Authors, ``A Hybrid Transfer Learning Approach for Multi-Class Classification of Medical Deepfakes Generated by GAN and Diffusion Models,''
-\textit{Discover Computing}, Springer Nature, 2026.
+A. Shahzad, B. Zafar, R. Talib, and M. M. Khan,
+``A Hybrid Transfer Learning Approach for Multi-Class Classification of Medical Deepfakes Generated by GAN and Diffusion Models,''
+\textit{Discover Computing}, Springer Nature, 2026,
+doi: 10.1007/s10791-026-10116-x.
 
 \bibitem{synthetic_review_2026}
-Authors, ``A Systematic Review on Synthetic Medical Images Generation: Recent Trends and Future Opportunities,''
-\textit{Diagnostics}, vol. 16, no. 14, 2026.
+Y. Waheed, M. N. Noor, and I. Ashraf,
+``A Systematic Review on Synthetic Medical Images Generation—Recent Trends and Future Opportunities,''
+\textit{Diagnostics}, vol. 16, no. 14, art. 2166, 2026,
+doi: 10.3390/diagnostics16142166.
 
 \bibitem{frequency_checkerboard_2021}
-Y. Nataraj et al. (representative work), ``A Universal Detector of CNN-Generated Images Using Properties of Checkerboard Artifacts in the Frequency Domain,''
-arXiv:2108.01892, 2021.
+M. Tanaka, S. Shiota, and H. Kiya,
+``A Universal Detector of CNN-Generated Images Using Properties of Checkerboard Artifacts in the Frequency Domain,''
+in \textit{Proc. IEEE Global Conference on Consumer Electronics (GCCE)}, 2021.
+arXiv:2108.01892.
 
 \bibitem{vet_quality_2024}
-S. Tahghighi et al., ``Classification of the Quality of Canine and Feline Ventrodorsal and Dorsoventral Thoracic Radiographs through Machine Learning,''
-\textit{Veterinary Radiology \& Ultrasound}, 2024.
+P. Tahghighi, R. B. Appleby, N. Norena, E. Ukwatta, and A. Komeili,
+``Classification of the Quality of Canine and Feline Ventrodorsal and Dorsoventral Thoracic Radiographs through Machine Learning,''
+\textit{Veterinary Radiology \& Ultrasound}, vol. 65, no. 4, pp. 417--428, 2024,
+doi: 10.1111/vru.13373.
 
 \bibitem{vet_symmetry_2023}
-Authors, ``Automatic Classification of Symmetry of Hemithoraces in Canine and Feline Radiographs,''
+P. Tahghighi, N. Norena, E. Ukwatta, R. B. Appleby, and A. Komeili,
+``Automatic Classification of Symmetry of Hemithoraces in Canine and Feline Radiographs,''
 arXiv:2302.12923, 2023.
 
 \bibitem{mendeley_vhs_dataset}
