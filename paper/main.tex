@@ -201,7 +201,9 @@ AUC, with mitigation & \multicolumn{2}{c}{1.000 (unchanged)} \\
 \section{Synthetic Radiograph Generation}
 \label{sec:synthesis}
 
-We synthesize radiographs from three generator families, chosen to span the practical range of what an attacker could plausibly use: (i) DCGAN \cite{dcgan_radford2015}, already trained as a low-data baseline; (ii) StyleGAN2-ADA \cite{stylegan2ada_2020}, NVIDIA's adaptive-discriminator-augmentation method designed specifically for GAN training in the low-to-moderate data regime our combined dataset occupies; (iii) a diffusion model \cite{ddpm_2020,ldm_2022} fine-tuned via low-rank adaptation on the same real image pool. Training for (ii) and (iii) uses Kaggle Notebooks' free GPU tier (NVIDIA P100 or T4$\times$2, reset weekly), with paid cloud compute as a fallback if the free quota is insufficient. \pending{resultados de entrenamiento de StyleGAN2-ADA y del modelo de difusion: FID/KID vs. real, ejemplos generados}
+We synthesize radiographs from three generator families, chosen to span the practical range of what an attacker could plausibly use: (i) DCGAN \cite{dcgan_radford2015}, already trained as a low-data baseline; (ii) StyleGAN2-ADA \cite{stylegan2ada_2020}, NVIDIA's adaptive-discriminator-augmentation method designed specifically for GAN training in the low-to-moderate data regime our combined dataset occupies; (iii) a denoising diffusion probabilistic model \cite{ddpm_2020} trained from scratch on the same 122-image \texttt{real\_gen\_pool}, rather than fine-tuned from a pretrained Stable Diffusion checkpoint \cite{ldm_2022} — a generic latent-diffusion prior encodes natural-image statistics, not radiographic anatomy, so starting from it does not help in this domain and adds unnecessary complexity. Training for (ii) and (iii) uses Kaggle Notebooks' free GPU tier (NVIDIA P100 or T4$\times$2, reset weekly), with paid cloud compute as a fallback if the free quota is insufficient.
+
+For (iii), we train a \texttt{UNet2DModel} (HuggingFace \texttt{diffusers}, 1-channel, $128\times128$, channel widths [64,128,128,256], attention at the second down/up block) with a standard DDPM scheduler and cosine learning-rate warmup, for 200 epochs on the 122 \texttt{real\_gen\_pool} images. Training loss falls from 1.027 at epoch 0 to a stable 0.02--0.04 range from epoch 20 onward (0.0217 at epoch 120, 0.0156 at epoch 199), with no divergence or mode collapse observed in the loss curve. We generated 300 samples from the trained model; visual inspection of samples drawn across the generation order (indices 0, 50, 150, 299) shows plausible thoracic silhouettes with internal texture, not uniform noise or a single repeated mode, though we defer a quantitative judgment of realism to a dedicated FID/KID/SSIM/LPIPS comparison against real images, not yet run. \pending{resultados de entrenamiento de StyleGAN2-ADA: curva de entrenamiento, ejemplos generados; FID/KID/SSIM/LPIPS de ambos generadores nuevos vs. real}
 
 % =========================================================
 \section{Proposed Architecture: VetRad-ForensicsNet}
@@ -285,7 +287,41 @@ Spatial+FFT+DCT+Wavelet & 0.989 & 0.967 & 0.992 & 1.000 & 0.983 \\
 \section{Robustness and Anti-Forensics}
 \label{sec:robustness}
 
-An attacker is unlikely to submit a generator's raw output unmodified. We evaluate detector performance after JPEG compression (quality 10--95), resizing, cropping, Gaussian blur, Gaussian noise, contrast/brightness/gamma adjustment, sharpening, and repeated recompression, reporting performance-vs-severity curves for the most damaging transformations. \pending{curvas de robustez: accuracy/AUC vs. calidad JPEG, resize, blur, ruido}
+An attacker is unlikely to submit a generator's raw output unmodified. We evaluate detector performance after JPEG compression (quality 10--95), resizing (64--256 px, bicubic, back to 128), central cropping (90\%/75\%/60\% of area, then resized to 128), Gaussian blur ($\sigma \in \{0.5,1,2,3\}$), Gaussian noise ($\sigma \in \{0.01,0.05,0.1\}$ on $[0,1]$), contrast/brightness/gamma adjustment, sharpening (1$\times$ and 3$\times$), and five-pass JPEG recompression at quality 70, applied to both real and synthetic test images before feature extraction, without retraining the detector for any condition.
+
+We report a pilot verification run: DCGAN only (the only generator family available at the time of writing), the reused checkpoint from Table~\ref{tab:protocol_comparison} (holdout protocol, no fine-tuning per attack), and the fixed test set ($n=89$: 30 real holdout, 59 synthetic). Table~\ref{tab:robustness_pilot} summarizes the most informative conditions; Figure~\ref{fig:robustness} plots accuracy and ROC-AUC against severity for the four families with an ordinal severity axis (JPEG, resize, blur, noise).
+
+\begin{table}[t]
+\centering
+\caption{Robustness pilot under post-processing (DCGAN only, $n=89$)}
+\label{tab:robustness_pilot}
+\begin{tabular}{lccc}
+\toprule
+Condition & Acc. & ROC-AUC & Bal.\ Acc. \\
+\midrule
+Clean (no attack) & 0.955 & 1.000 & 0.966 \\
+JPEG Q10 & 0.787 & 0.987 & 0.683 \\
+JPEG Q30 & 1.000 & 1.000 & 1.000 \\
+JPEG Q70, 5 passes & 0.955 & 1.000 & 0.966 \\
+Resize (all 4 sizes) & 0.955 & 1.000 & 0.966 \\
+Center crop, 60\% area & 0.910 & 0.999 & 0.932 \\
+Gaussian blur $\sigma=3$ & 0.404 & 0.894 & 0.551 \\
+Gaussian noise $\sigma=0.01$ & 1.000 & 1.000 & 1.000 \\
+Gaussian noise $\sigma=0.1$ & 0.663 & 0.798 & 0.500 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/exp09_robustness.png}
+  \caption{Accuracy and ROC-AUC vs.\ severity for the four post-processing families, pilot run (DCGAN only, $n=89$). Dotted lines mark the clean-input reference. Resize's x-axis (intermediate size before resampling back to 128 px) is not an ordinal degradation scale: it mixes downsampling and upsampling and is included for completeness, not as a monotone stressor.}
+  \label{fig:robustness}
+\end{figure}
+
+Blur and noise degrade both metrics monotonically with severity, as expected of true degradation scales: blur $\sigma=3$ still classifies all 30 real holdout images correctly but detects only 6 of 59 synthetic images (balanced accuracy 0.551); noise $\sigma=0.1$ classifies every test image as synthetic, so accuracy collapses to the 59/89 class prevalence and balanced accuracy to exactly 0.500. JPEG behaves non-monotonically at the accuracy level: quality 10 introduces 19 false positives among the 30 real images (accuracy 0.787), yet quality 30 and Gaussian noise $\sigma=0.01$ both \emph{raise} accuracy to a perfect 1.000. We traced this arithmetically rather than attributing it to an unmeasured visual cause: both conditions push the same four originally-misclassified synthetic images (\texttt{fake\_0157.png}, \texttt{fake\_0129.png}, \texttt{fake\_0110.png}, \texttt{fake\_0113.png}, all with clean-input $P(\text{fake}) \in [0.345, 0.419]$) just past the 0.5 decision threshold (e.g., \texttt{fake\_0157.png} moves from $P(\text{fake})=0.395$ to $0.635$ under JPEG Q30 and to $0.566$ under noise $\sigma=0.01$) without introducing new errors; ROC-AUC was already 1.000 and remains 1.000, so this is a threshold effect, not a change in the underlying ranking. Sharpening 3$\times$ similarly corrects the same four false negatives while introducing one new false positive (88/89 correct). Resize and the contrast/brightness/gamma conditions are, by construction, not monotone degradation scales (they mix downsampling with upsampling, and factors below and above 1.0), so we report them for completeness without a directional claim. With a test set of only 30 real $\times$ 59 synthetic images (1{,}770 pairs for ROC-AUC), small AUC differences between adjacent severities (e.g., 0.9989 at 75\% crop vs.\ 0.9994 at 60\% crop) are not guaranteed to be statistically meaningful; Section~\ref{sec:statistics} addresses this with bootstrap confidence intervals once the full multi-generator protocol is complete.
+
+\pending{repetir EXP-09 con StyleGAN2-ADA y difusion incluidos (mezclados con maximo global 3:1, mismo protocolo de EXP-06/07/08) una vez esten disponibles esos generadores}
 
 % =========================================================
 \section{Generator Attribution}
@@ -297,7 +333,27 @@ Beyond binary real/fake detection, we evaluate a multiclass task (real vs. each 
 \section{Explainability}
 \label{sec:explainability}
 
-We apply Grad-CAM \cite{gradcam_2017} to the spatial stream and a frequency-domain saliency map to the frequency stream, to visualize whether the detector attends to anatomically plausible regions, edges, radiographic markers, or background/artifact regions — direct evidence for or against the shortcut-learning failure mode documented in Section~\ref{sec:threats}. \pending{galeria de mapas Grad-CAM y de frecuencia por generador}
+We apply Grad-CAM \cite{gradcam_2017} to the spatial stream (final convolutional block of the ResNet-18 backbone, a $4\times4$ feature map upsampled to $128\times128$) and a gradient-based frequency-domain saliency map to the frequency stream (mean absolute gradient of the fake-class logit with respect to each of the 32 radial FFT bins, computed over the full test set rather than a handful of examples), to visualize whether the detector attends to anatomically plausible regions, edges, radiographic markers, or background/artifact regions — direct evidence for or against the shortcut-learning failure mode documented in Section~\ref{sec:threats}. We report a pilot run: the same reused DCGAN checkpoint and holdout test set as Section~\ref{sec:robustness}, since StyleGAN2-ADA and diffusion outputs were not yet available.
+
+Figure~\ref{fig:gradcam} shows Grad-CAM overlays for two real and two synthetic examples. All four heatmaps are non-constant (per-image standard deviation of the raw $4\times4$ map ranges 0.035--0.104), ruling out the degenerate all-zero or all-saturated map that would indicate a hook or normalization bug. The two real examples concentrate intensity over broad interior-thorax regions (upper-central in \texttt{real\_0006.png}, central-left in \texttt{real\_0009.png}); the two synthetic examples show a similarly central but somewhat more diffuse pattern, extending toward the right half and upper border in \texttt{fake\_0224.png}. In all four cases the dark background above the thorax receives comparatively low intensity, and we observe no case where the map concentrates \emph{exclusively} on background. We report only what the maps show and stop there: the native map is a coarse $4\times4$ grid, so its upsampled, smoothed appearance does not by itself demonstrate anatomical recognition; overlap with visible anatomy and texture does not identify which specific structures, edges, or generation artifacts drive the decision; and we did not measure causal attribution via ablation or occlusion, so we do not conclude which stream (spatial vs.\ frequency) dominates any individual decision.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/exp12_gradcam_examples.png}
+  \caption{Grad-CAM overlays on the spatial stream (ResNet-18, final convolutional block) for two real and two DCGAN-synthetic holdout examples, pilot run. Left: original image; center: detector input after the protocol's resize; right: Grad-CAM heatmap for the predicted class, with $P(\text{fake})$ from the reused checkpoint.}
+  \label{fig:gradcam}
+\end{figure}
+
+Figure~\ref{fig:freq_saliency} shows the frequency-domain saliency profile across all 32 radial bins, averaged over the entire test set rather than a handful of examples. The most locally sensitive bins are 19, 17, 16, 25, and 1 (zero-indexed), mixing mid-to-high radial frequencies with one low-frequency bin; this does not support a simple ``the detector only uses high frequencies'' narrative. We emphasize, following the spec's explicit constraint against over-interpretation, that this is a local sensitivity measure (the gradient of the logit with respect to each bin at the observed input), not a causal importance score or a percentage contribution, and it should be read as one diagnostic signal alongside Section~\ref{sec:frequency_forensics}'s ablation rather than as a standalone explanation of the detector's decision process.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/exp12_frequency_saliency.png}
+  \caption{Mean absolute gradient of the fake-class logit with respect to each of the 32 radial FFT bins, averaged over the full test set ($n=89$), pilot run (DCGAN only).}
+  \label{fig:freq_saliency}
+\end{figure}
+
+As with Section~\ref{sec:robustness}, the resolution-history confound documented in Sections~\ref{sec:threats}--\ref{sec:frequency_forensics} remains unresolved (Section~\ref{sec:threats} reports the shared-resize mitigation did not neutralize it even at AUC 1.000); these qualitative explainability results do not demonstrate that the detector has learned forensic evidence rather than a residual resolution artifact, and should be read as a description of attention patterns, not proof of shortcut-free reasoning. \pending{repetir EXP-12 con StyleGAN2-ADA y difusion incluidos una vez disponibles, para comparar patrones de atencion entre familias de generadores}
 
 % =========================================================
 \section{Failure Analysis}

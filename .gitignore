@@ -4,8 +4,13 @@ __pycache__/
 data/raw/
 data/real/*.png
 data/fake/*.png
+data/fake_dcgan/*.png
+data/fake_stylegan2ada/*.png
+data/fake_diffusion/*.png
 data/splits/*.npy
 *.pth
+*.safetensors
+training/checkpoints/
 *.zip
 .DS_Store
 kaggle/*.zip
