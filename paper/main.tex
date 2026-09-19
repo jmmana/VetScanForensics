@@ -346,7 +346,18 @@ Blur and noise degrade both metrics monotonically with severity, as expected of 
 \section{Generator Attribution}
 \label{sec:attribution}
 
-Beyond binary real/fake detection, we evaluate a multiclass task (real vs. each individual generator family) to test whether generator-specific fingerprints are identifiable, and whether they survive the robustness transformations of Section~\ref{sec:robustness}. \pending{resultados de atribucion multiclase y su degradacion bajo post-procesamiento}
+Beyond binary real/fake detection, we evaluate a multiclass task (real vs. each individual generator family) to test whether generator-specific fingerprints are identifiable, and whether they survive the robustness transformations of Section~\ref{sec:robustness}. We reuse the dual-stream architecture of Section~\ref{sec:architecture} (ResNet-18 + 32-bin radial FFT), replacing only the final linear layer with a 3-way softmax head trained with cross-entropy; all other protocol details (holdout split, seed 42, 25 epochs, Adam) match Section~\ref{sec:protocol}.
+
+We report a two-generator pilot: real vs.\ DCGAN vs.\ diffusion (StyleGAN2-ADA not yet available, so this is explicitly a partial attribution result, not the full 3-generator answer). Clean-input multiclass accuracy is 1.000 ($n=148$: 30 real, 59 DCGAN, 59 diffusion), with a perfectly diagonal $3\times3$ confusion matrix (Figure~\ref{fig:attribution_confusion}) and per-class F1 of 1.0. Applying the same 11 representative post-processing conditions from Section~\ref{sec:robustness} (reusing that experiment's transformation code rather than reimplementing it) degrades attribution accuracy to between 0.723 (Gaussian noise $\sigma=0.1$) and 1.000, without collapsing to a single predicted class under any condition: at 60\% center crop, 22 of 59 DCGAN images are misattributed to diffusion; at noise $\sigma=0.1$, the 30 real images split between DCGAN (8) and diffusion (22) misattributions, with 11 further confusions between the two synthetic classes. We report this pattern as non-degenerate evidence that the classifier is not defaulting to a single label under stress, not as evidence of which specific visual cue drives each attribution.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/exp19_attribution_confusion.png}
+  \caption{Multiclass attribution confusion matrix, clean-input pilot (real vs.\ DCGAN vs.\ diffusion, $n=148$). Rows are true class, columns predicted; annotated with counts and row-normalized fractions.}
+  \label{fig:attribution_confusion}
+\end{figure}
+
+We flag the same caveat as Section~\ref{sec:threats}: Section~\ref{sec:threats} found that the shared-resize mitigation did not neutralize the resolution-history confound (ROC-AUC remained 1.000 with and without it), so a perfect attribution score on this pilot does not establish that generator fingerprints are independent of that confound, and the conclusion for the full three-generator setting remains open pending StyleGAN2-ADA. \pending{repetir EXP-19 con StyleGAN2-ADA incluido para la atribucion multiclase completa de 4 clases (real + 3 generadores)}
 
 % =========================================================
 \section{Explainability}
