@@ -173,11 +173,14 @@ This is a living research project, not a finished paper. Honest status as of the
 | EXP-02: corrected-protocol detector | ✅ Done — 95.5% accuracy (was 100%) |
 | EXP-13: shortcut mitigation audit | ⚠️ Done, negative result — mitigation did not neutralize the confound |
 | EXP-03: StyleGAN2-ADA training | 🔄 In progress (Kaggle GPU) |
-| EXP-04: diffusion training | 🔄 In progress (Kaggle GPU) |
-| EXP-06: cross-generator matrix | 🟡 Pipeline verified (1×1, DCGAN only); 3×3 pending EXP-03/04 |
+| EXP-04: diffusion training | ✅ Done — DDPM from scratch, 200 epochs, loss 1.027→0.016, 300 samples generated, no mode collapse observed |
+| EXP-06: cross-generator matrix | 🟡 Pipeline verified (1×1, DCGAN only); 3×3 pending EXP-03 |
 | EXP-07: architecture baselines | 🟡 ResNet-18 pilot done (97.8% acc, 2-epoch verification); 4 more backbones implemented, not yet trained |
 | EXP-08: frequency ablation | 🟡 Pilot complete for all 5 variants (DCGAN, 2 epochs); full 25-epoch/3-generator run pending |
-| EXP-09–EXP-23 (robustness, open-set, explainability, attribution, statistics, failure analysis) | ⬜ Not started — implemented as clearly marked pending sections in the paper, no fabricated numbers |
+| EXP-09: robustness/anti-forensics | 🟡 Pilot complete (DCGAN only): JPEG/resize/crop/blur/noise/contrast/sharpen/recompression curves; full multi-generator run pending EXP-03 |
+| EXP-12: explainability (Grad-CAM + frequency saliency) | 🟡 Pilot complete (DCGAN only); non-constant, non-degenerate maps confirmed visually; multi-generator comparison pending EXP-03 |
+| EXP-17: image-quality metrics (FID/KID) | 🟡 Done for DCGAN and diffusion vs. real gen_pool (FID 326.4 / 336.4); StyleGAN2-ADA row pending; SSIM/PSNR/LPIPS not computed (unpaired dataset, documented as a limitation rather than a fabricated pairing) |
+| EXP-05, EXP-10, EXP-11, EXP-14, EXP-16, EXP-19–EXP-23 (per-generator in-distribution, manipulation localization, open-set, statistics, latent-space visualization, attribution, reproducibility packaging, failure analysis) | ⬜ Not started — implemented as clearly marked pending sections in the paper, no fabricated numbers |
 | EXP-18: human Visual Turing Test | ⬜ Designed only, deliberately **not executed** (requires IRB/ethics approval and informed consent we have not pursued) |
 
 No number in the paper is invented. Sections that depend on experiments not yet run are marked `[EXPERIMENT REQUIRED]` in the LaTeX source rather than filled with placeholder or estimated values.
