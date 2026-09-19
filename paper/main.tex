@@ -203,7 +203,26 @@ AUC, with mitigation & \multicolumn{2}{c}{1.000 (unchanged)} \\
 
 We synthesize radiographs from three generator families, chosen to span the practical range of what an attacker could plausibly use: (i) DCGAN \cite{dcgan_radford2015}, already trained as a low-data baseline; (ii) StyleGAN2-ADA \cite{stylegan2ada_2020}, NVIDIA's adaptive-discriminator-augmentation method designed specifically for GAN training in the low-to-moderate data regime our combined dataset occupies; (iii) a denoising diffusion probabilistic model \cite{ddpm_2020} trained from scratch on the same 122-image \texttt{real\_gen\_pool}, rather than fine-tuned from a pretrained Stable Diffusion checkpoint \cite{ldm_2022} — a generic latent-diffusion prior encodes natural-image statistics, not radiographic anatomy, so starting from it does not help in this domain and adds unnecessary complexity. Training for (ii) and (iii) uses Kaggle Notebooks' free GPU tier (NVIDIA P100 or T4$\times$2, reset weekly), with paid cloud compute as a fallback if the free quota is insufficient.
 
-For (iii), we train a \texttt{UNet2DModel} (HuggingFace \texttt{diffusers}, 1-channel, $128\times128$, channel widths [64,128,128,256], attention at the second down/up block) with a standard DDPM scheduler and cosine learning-rate warmup, for 200 epochs on the 122 \texttt{real\_gen\_pool} images. Training loss falls from 1.027 at epoch 0 to a stable 0.02--0.04 range from epoch 20 onward (0.0217 at epoch 120, 0.0156 at epoch 199), with no divergence or mode collapse observed in the loss curve. We generated 300 samples from the trained model; visual inspection of samples drawn across the generation order (indices 0, 50, 150, 299) shows plausible thoracic silhouettes with internal texture, not uniform noise or a single repeated mode, though we defer a quantitative judgment of realism to a dedicated FID/KID/SSIM/LPIPS comparison against real images, not yet run. \pending{resultados de entrenamiento de StyleGAN2-ADA: curva de entrenamiento, ejemplos generados; FID/KID/SSIM/LPIPS de ambos generadores nuevos vs. real}
+For (iii), we train a \texttt{UNet2DModel} (HuggingFace \texttt{diffusers}, 1-channel, $128\times128$, channel widths [64,128,128,256], attention at the second down/up block) with a standard DDPM scheduler and cosine learning-rate warmup, for 200 epochs on the 122 \texttt{real\_gen\_pool} images. Training loss falls from 1.027 at epoch 0 to a stable 0.02--0.04 range from epoch 20 onward (0.0217 at epoch 120, 0.0156 at epoch 199), with no divergence or mode collapse observed in the loss curve. We generated 300 samples from the trained model; visual inspection of samples drawn across the generation order (indices 0, 50, 150, 299) shows plausible thoracic silhouettes with internal texture, not uniform noise or a single repeated mode.
+
+\textbf{Image-quality metrics (EXP-17).} Table~\ref{tab:image_quality} reports FID \cite{fid_2017} and KID \cite{kid_2018} for DCGAN and the diffusion model against the 122 real \texttt{gen\_pool} images (StyleGAN2-ADA not yet available), using torch-fidelity's Inception-v3 feature extractor (official TensorFlow-converted weights, no antialiasing) and TorchMetrics' FID/KID implementations rather than a hand-rolled computation; grayscale images are channel-repeated to RGB to satisfy Inception's input format. We report this with several explicit caveats rather than as a clean leaderboard: with only 122 real and 300 synthetic images per generator, both metrics are far below the $\gtrsim$2{,}000-sample regime where FID is considered stable, and Inception was trained on natural ImageNet photographs, not radiographs, so these are relative signals under one fixed protocol, not values comparable to natural-image benchmarks. SSIM \cite{ssim_2004}, PSNR, and LPIPS \cite{lpips_2018} require corresponding real/synthetic pairs, which this unpaired comparison does not have; rather than invent a pairing (by index, random assignment, or nearest neighbor), we report them as not computed. The 100-replicate FID bootstrap interval is exploratory, not a bias-corrected confidence interval, and does not by itself establish that DCGAN and the diffusion model differ meaningfully in image quality. As with all metrics in this paper, a lower or higher FID/KID does not by itself indicate a generator is easier or harder to detect forensically; that question is answered by the detector experiments (Sections~\ref{sec:in_distribution}--\ref{sec:cross_generator}), not by this section.
+
+\begin{table}[t]
+\centering
+\caption{Image-quality metrics vs.\ real \texttt{gen\_pool} (122 images)}
+\label{tab:image_quality}
+\begin{tabular}{lccc}
+\toprule
+Generator & $n_{\text{fake}}$ & FID & KID (mean $\pm$ std) \\
+\midrule
+DCGAN & 300 & 326.38 & 0.3589 $\pm$ 0.0060 \\
+Diffusion & 300 & 336.40 & 0.4034 $\pm$ 0.0087 \\
+StyleGAN2-ADA & --- & \multicolumn{2}{c}{not yet available} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\pending{resultados de entrenamiento de StyleGAN2-ADA: curva de entrenamiento, ejemplos generados; fila de StyleGAN2-ADA en la Tabla de calidad de imagen}
 
 % =========================================================
 \section{Proposed Architecture: VetRad-ForensicsNet}
