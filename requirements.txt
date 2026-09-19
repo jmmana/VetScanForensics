@@ -3,6 +3,7 @@ torchvision>=0.17
 numpy
 pillow
 scikit-learn
+umap-learn==0.5.12
 matplotlib
 tqdm
 kaggle
