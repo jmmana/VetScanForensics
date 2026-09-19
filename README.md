@@ -202,7 +202,7 @@ All use a validated, colorblind-safe categorical palette (blue for real, orange 
 
 ## Honest limitations
 
-- With ~10,000 combined real images (Mendeley + VetXRay) this is far larger than the original 152-image proof of concept, but still modest relative to human-imaging forensics benchmarks like MedForensics.
+- All generator training and detector experiments to date use only the 152-image Mendeley collection (122 `gen_pool` / 30 holdout). VetXRay (9,882 images, CC BY 4.0) was identified and legally verified early in this project, but **integrating it into the actual training pool is still in progress** — it is not yet combined with Mendeley in any experiment reported here. Every number in this repository and the paper reflects the 152-image pool only, until stated otherwise.
 - The resolution-history confound (see above) is **not confirmed neutralized**. Every DCGAN-only number in this repository should be read with that caveat until cross-generator results are in.
 - The real datasets cover thoracic radiographs only (canine + feline). Other views (orthopedic, abdominal) and modalities (ultrasound) are out of scope for now.
 - This is a research contribution and an openly available dataset to seed further study, **not** a deployed fraud-detection product. See the paper's Threat Model and Insurance-Fraud Deployment Scenario sections for the intended (human-in-the-loop, triage-only) use.
