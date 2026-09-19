@@ -1,0 +1,25 @@
+test_holdout_and_per_generator_partitions (test_exp19.AttributionTests.test_holdout_and_per_generator_partitions) ... ok
+test_missing_generator_cli_without_traceback (test_exp19.AttributionTests.test_missing_generator_cli_without_traceback) ... ok
+test_output_shape_and_only_final_layer_changes (test_exp19.AttributionTests.test_output_shape_and_only_final_layer_changes) ... ok
+test_saved_metrics_and_robustness (test_exp19.AttributionTests.test_saved_metrics_and_robustness) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.479s
+
+OK
+train: 91 reales + 180 falsas
+val: 31 reales + 61 falsas
+test: 30 reales + 59 falsas
+Usando 152 reales + 300 falsas de 300 disponibles
+train: 91 reales + 180 falsas
+val: 31 reales + 61 falsas
+test: 30 reales + 59 falsas
+Usando 152 reales + 300 falsas de 300 disponibles
+train: 91 reales + 180 falsas
+val: 31 reales + 61 falsas
+test: 30 reales + 59 falsas
+Usando 152 reales + 300 falsas de 300 disponibles
+train: 91 reales + 180 falsas
+val: 31 reales + 61 falsas
+test: 30 reales + 59 falsas
+Usando 152 reales + 300 falsas de 300 disponibles

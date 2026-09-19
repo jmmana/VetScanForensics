@@ -1,0 +1,68 @@
+Generadores: ['dcgan', 'diffusion']; ausentes: ['stylegan2ada']
+train: 91 reales + 180 falsas
+val: 31 reales + 61 falsas
+test: 30 reales + 59 falsas
+Usando 152 reales + 300 falsas de 300 disponibles
+train: 91 reales + 180 falsas
+val: 31 reales + 61 falsas
+test: 30 reales + 59 falsas
+Usando 152 reales + 300 falsas de 300 disponibles
+Dispositivo: cpu
+{'epoch': 1, 'train_loss': 0.6297010410981803, 'val_loss': 0.44480009250391545, 'val_accuracy': 0.954248366013072}
+{'epoch': 2, 'train_loss': 0.21888694414113155, 'val_loss': 0.13832423928516363, 'val_accuracy': 0.9803921568627451}
+{'epoch': 3, 'train_loss': 0.14997338938491703, 'val_loss': 0.07187126255502888, 'val_accuracy': 0.9869281045751634}
+{'epoch': 4, 'train_loss': 0.09726714635238944, 'val_loss': 0.07032155538939573, 'val_accuracy': 0.9803921568627451}
+{'epoch': 5, 'train_loss': 0.08825318742452598, 'val_loss': 0.12170695820275475, 'val_accuracy': 0.9477124183006536}
+{'epoch': 6, 'train_loss': 0.11087364067391652, 'val_loss': 0.15761232205660514, 'val_accuracy': 0.9411764705882353}
+{'epoch': 7, 'train_loss': 0.08415426619499591, 'val_loss': 0.062089375128933026, 'val_accuracy': 0.9738562091503268}
+{'epoch': 8, 'train_loss': 0.16679712464235838, 'val_loss': 0.09292398020625114, 'val_accuracy': 0.9673202614379085}
+{'epoch': 9, 'train_loss': 0.06663699985839047, 'val_loss': 0.07340965987323156, 'val_accuracy': 0.9673202614379085}
+{'epoch': 10, 'train_loss': 0.08645795103980274, 'val_loss': 0.05561736605915369, 'val_accuracy': 0.9738562091503268}
+{'epoch': 11, 'train_loss': 0.1464477523463363, 'val_loss': 0.08856395614984768, 'val_accuracy': 0.9607843137254902}
+{'epoch': 12, 'train_loss': 0.07747701881763147, 'val_loss': 0.0442592376855269, 'val_accuracy': 0.9803921568627451}
+{'epoch': 13, 'train_loss': 0.04594322622747485, 'val_loss': 0.026471929189450797, 'val_accuracy': 0.9869281045751634}
+{'epoch': 14, 'train_loss': 0.038577402964597794, 'val_loss': 0.026204190210871448, 'val_accuracy': 0.9869281045751634}
+{'epoch': 15, 'train_loss': 0.023423339750828373, 'val_loss': 0.03384991387647936, 'val_accuracy': 0.9869281045751634}
+{'epoch': 16, 'train_loss': 0.08112355500063188, 'val_loss': 0.1178886723138538, 'val_accuracy': 0.9411764705882353}
+{'epoch': 17, 'train_loss': 0.0670438490058409, 'val_loss': 0.07776085222809533, 'val_accuracy': 0.9738562091503268}
+{'epoch': 18, 'train_loss': 0.05973461275288377, 'val_loss': 0.04892137636631435, 'val_accuracy': 0.9738562091503268}
+{'epoch': 19, 'train_loss': 0.04897084341543477, 'val_loss': 0.025722850499114668, 'val_accuracy': 0.9869281045751634}
+{'epoch': 20, 'train_loss': 0.08267060263591412, 'val_loss': 0.05383823896009548, 'val_accuracy': 0.9738562091503268}
+{'epoch': 21, 'train_loss': 0.04060010041188688, 'val_loss': 0.0638536388568848, 'val_accuracy': 0.9803921568627451}
+{'epoch': 22, 'train_loss': 0.034560433156559135, 'val_loss': 0.032800286207835073, 'val_accuracy': 0.9869281045751634}
+{'epoch': 23, 'train_loss': 0.018702667565838726, 'val_loss': 0.02797262695788412, 'val_accuracy': 0.9869281045751634}
+{'epoch': 24, 'train_loss': 0.01914470817092517, 'val_loss': 0.04707287645345597, 'val_accuracy': 0.9869281045751634}
+{'epoch': 25, 'train_loss': 0.026049475100907413, 'val_loss': 0.022620726369163083, 'val_accuracy': 0.9869281045751634}
+clean 0: accuracy=1.000000
+jpeg 10: accuracy=0.932432
+jpeg 30: accuracy=0.979730
+jpeg 50: accuracy=0.993243
+jpeg 70: accuracy=0.993243
+jpeg 90: accuracy=1.000000
+jpeg 95: accuracy=1.000000
+resize 64: accuracy=0.993243
+resize 96: accuracy=1.000000
+resize 160: accuracy=1.000000
+resize 256: accuracy=1.000000
+crop 0.9: accuracy=1.000000
+crop 0.75: accuracy=0.959459
+crop 0.6: accuracy=0.831081
+blur 0.5: accuracy=1.000000
+blur 1.0: accuracy=1.000000
+blur 2.0: accuracy=0.986486
+blur 3.0: accuracy=0.952703
+noise 0.01: accuracy=0.945946
+noise 0.05: accuracy=0.770270
+noise 0.1: accuracy=0.722973
+contrast 0.7: accuracy=0.952703
+contrast 1.3: accuracy=0.905405
+brightness 0.7: accuracy=0.993243
+brightness 1.3: accuracy=1.000000
+gamma 0.7: accuracy=1.000000
+gamma 1.5: accuracy=0.972973
+sharpen 1: accuracy=1.000000
+sharpen 3: accuracy=0.986486
+jpeg_multiple 5: accuracy=0.993243
+/Users/juancastillo/.matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /var/folders/sc/jrv5pplj3_7gls231fl_8fk40000gn/T/matplotlib-k7rb1ucz because there was an issue with the default path (/Users/juancastillo/.matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+Matplotlib is building the font cache; this may take a moment.
