@@ -357,7 +357,25 @@ We report a two-generator pilot: real vs.\ DCGAN vs.\ diffusion (StyleGAN2-ADA n
   \label{fig:attribution_confusion}
 \end{figure}
 
-We flag the same caveat as Section~\ref{sec:threats}: Section~\ref{sec:threats} found that the shared-resize mitigation did not neutralize the resolution-history confound (ROC-AUC remained 1.000 with and without it), so a perfect attribution score on this pilot does not establish that generator fingerprints are independent of that confound, and the conclusion for the full three-generator setting remains open pending StyleGAN2-ADA. \pending{repetir EXP-19 con StyleGAN2-ADA incluido para la atribucion multiclase completa de 4 clases (real + 3 generadores)}
+We flag the same caveat as Section~\ref{sec:threats}: Section~\ref{sec:threats} found that the shared-resize mitigation did not neutralize the resolution-history confound (ROC-AUC remained 1.000 with and without it), so a perfect attribution score on this pilot does not establish that generator fingerprints are independent of that confound, and the conclusion for the full three-generator setting remains open pending StyleGAN2-ADA.
+
+\textbf{Latent-space visualization (EXP-16).} As a qualitative complement to the quantitative attribution result above, we extract the 64-dimensional fused embedding (the layer feeding the final classification head) for all 752 available images (152 real: 122 \texttt{gen\_pool} + 30 holdout; 300 DCGAN; 300 diffusion) from the reused EXP-19 checkpoint, without retraining, and project it to two dimensions with UMAP \cite{umap_2018} and t-SNE \cite{tsne_2008} (Figure~\ref{fig:latent_umap}, Figure~\ref{fig:latent_tsne}; seed 42, full parameters logged). Both projections show three largely separated groupings corresponding to real, DCGAN, and diffusion images, with one exception we report rather than omit: a single real image appears adjacent to the DCGAN cluster in both projections. We treat this as a qualitative, not quantitative, observation: UMAP and t-SNE distort global distances and cluster shape is method-dependent, so this figure does not substitute for EXP-19's test-set accuracy, and separated clusters do not by themselves demonstrate that the embedding encodes forensically meaningful signal rather than the same unresolved resolution-history confound.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/exp16_umap.png}
+  \caption{UMAP projection of the 64-dimensional fused embedding, colored by class ($n=752$).}
+  \label{fig:latent_umap}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/exp16_tsne.png}
+  \caption{t-SNE projection of the same embedding as Figure~\ref{fig:latent_umap}.}
+  \label{fig:latent_tsne}
+\end{figure}
+
+\pending{repetir EXP-19 y EXP-16 con StyleGAN2-ADA incluido para la atribucion multiclase completa de 4 clases (real + 3 generadores) y su visualizacion}
 
 % =========================================================
 \section{Explainability}
@@ -596,6 +614,40 @@ R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, and D. Batra,
 in \textit{Proc. IEEE International Conference on Computer Vision (ICCV)}, 2017;
 \textit{International Journal of Computer Vision}, 2019,
 doi: 10.1007/s11263-019-01228-7.
+
+\bibitem{fid_2017}
+M. Heusel, H. Ramsauer, T. Unterthiner, B. Nessler, and S. Hochreiter,
+``GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 30, 2017.
+arXiv:1706.08500.
+
+\bibitem{kid_2018}
+M. Bi\'nkowski, D. J. Sutherland, M. Arbel, and A. Gretton,
+``Demystifying MMD GANs,''
+in \textit{International Conference on Learning Representations (ICLR)}, 2018.
+arXiv:1801.01401.
+
+\bibitem{ssim_2004}
+Z. Wang, A. C. Bovik, H. R. Sheikh, and E. P. Simoncelli,
+``Image Quality Assessment: From Error Visibility to Structural Similarity,''
+\textit{IEEE Transactions on Image Processing}, vol. 13, no. 4, pp. 600--612, 2004,
+doi: 10.1109/TIP.2003.819861.
+
+\bibitem{lpips_2018}
+R. Zhang, P. Isola, A. A. Efros, E. Shechtman, and O. Wang,
+``The Unreasonable Effectiveness of Deep Features as a Perceptual Metric,''
+in \textit{Proc. IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 2018.
+arXiv:1801.03924.
+
+\bibitem{umap_2018}
+L. McInnes, J. Healy, and J. Melville,
+``UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction,''
+arXiv:1802.03426, 2018.
+
+\bibitem{tsne_2008}
+L. van der Maaten and G. Hinton,
+``Visualizing Data using t-SNE,''
+\textit{Journal of Machine Learning Research}, vol. 9, pp. 2579--2605, 2008.
 
 \bibitem{dct_traces_2024}
 O. Pontorno, L. Guarnera, and S. Battiato,
